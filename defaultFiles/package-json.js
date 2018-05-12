@@ -3,7 +3,10 @@ module.exports = projectName => ({
   version: '1.0.0',
   description: '',
   scripts: {
-    test: 'echo "Error: no test specified" && exit 1',
+    build: 'webpack --progress',
+    watch: 'webpack --progress --watch',
+    prettier: 'prettier --write webpack.config.js "src/**/*.js"',
+    'eslint-check': 'eslint --print-config .eslintrc.js | eslint-config-prettier-check',
   },
   keywords: [],
   author: '',
