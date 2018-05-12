@@ -2,7 +2,7 @@
 'use strict'
 
 const { createOptionValues } = require('./lib/goqoo')
-const { goqooNew } = require('./lib/goqooNew')
+const { goqooNew } = require('./lib/goqoo-new')
 
 const main = async () => {
   const opts = await createOptionValues()
