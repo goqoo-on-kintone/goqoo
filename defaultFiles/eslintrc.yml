@@ -1,0 +1,20 @@
+env:
+  browser: true
+extends:
+  - standard
+  - prettier
+  - prettier/standard
+globals:
+  kintone: true
+parser: 'babel-eslint'
+rules:
+  # 戻り値を受け取らないnew() は認める
+  no-new: off
+  # console.log を残さない console.warn/error はOK
+  no-console:
+    - error
+    - allow:
+      - warn
+      - error
+  # 原則letよりconstを使う
+  prefer-const: error
