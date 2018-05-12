@@ -1,0 +1,2 @@
+# goqoo
+Goqoo on kintone
