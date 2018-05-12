@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 'use strict'
 
-const { createOptionValues, goqooNew } = require('./lib/goqoo')
+const { createOptionValues } = require('./lib/goqoo')
+const { goqooNew } = require('./lib/goqooNew')
 
 const main = async () => {
   const opts = await createOptionValues()
