@@ -15,5 +15,19 @@
   "bugs": {
     "url": "https://github.com/TailsGarden/goqoo/issues"
   },
-  "homepage": "https://github.com/TailsGarden/goqoo#readme"
+  "homepage": "https://github.com/TailsGarden/goqoo#readme",
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-mocha": "^5.0.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "intelli-espower-loader": "^1.0.1",
+    "mocha": "^5.0.4",
+    "power-assert": "^1.4.4",
+    "prettier": "^1.11.1"
+  },
+  "dependencies": {}
 }
