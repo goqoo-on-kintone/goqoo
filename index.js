@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict'
 
-const { createOptionValues } = require('./lib/goqoo')
+const { createOptionValues, usageExit } = require('./lib/goqoo')
 const { goqooNew } = require('./lib/goqoo-new')
 
 const main = async () => {
@@ -11,6 +11,8 @@ const main = async () => {
       case 'new':
         await goqooNew(opts)
         break
+      default:
+        usageExit(1)
     }
   } catch (error) {
     console.error(error)
