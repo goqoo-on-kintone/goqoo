@@ -2,11 +2,11 @@ require('./helper.js')
 
 it('trimで先頭・末尾の改行が正しく削られる', () => {
   const newlineIncludedStr = `
-usage: ginue
+usage: goqoo
 <options>
 `
-  const newlineTrimmedStr = `usage: ginue
+  const newlineTrimmedStr = `usage: goqoo
 <options>`
-  assert.notEqual(ginue.trim(newlineIncludedStr), newlineIncludedStr)
-  assert.equal(ginue.trim(newlineIncludedStr), newlineTrimmedStr)
+  assert.notEqual(goqoo.trim(newlineIncludedStr), newlineIncludedStr)
+  assert.equal(goqoo.trim(newlineIncludedStr), newlineTrimmedStr)
 })
