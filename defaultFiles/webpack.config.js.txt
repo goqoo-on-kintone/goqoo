@@ -1,5 +1,5 @@
 const path = require('path')
-const os = require('os')
+// const os = require('os')
 
 module.exports = {
   context: `${__dirname}/src`,
@@ -8,8 +8,6 @@ module.exports = {
   },
   output: {
     // path: path.join(os.homedir(), 'Dropbox/kintone/projectName'),
-    path: path.join(__dirname, 'dst'),
-    filename: '[name].js',
   },
   devtool: 'inline-source-map',
   module: {
