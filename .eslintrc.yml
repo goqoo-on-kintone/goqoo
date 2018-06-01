@@ -7,7 +7,7 @@ env:
 # テスト用のグローバル変数 # TODO: 自動的にglobalを認識させたい
 globals:
   assert: true
-  ginue: true
+  goqoo: true
 rules:
   comma-dangle:
     - error
