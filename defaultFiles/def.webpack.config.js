@@ -2,7 +2,7 @@
 const path = require('path')
 const rcfile = require('rc-config-loader')
 require('dotenv').config({ path: path.resolve('config/.env') })
-const DropboxKintone = require('./bin/dropbox')
+const DropboxKintone = require('./.goqoo/dropbox')
 
 const { npm_package_name: projectName } = process.env
 const { apps, useDropbox } = rcfile('goqoo', { configFileName: `${__dirname}/config/goqoo.config` }).config
