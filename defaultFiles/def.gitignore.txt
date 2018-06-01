@@ -1,3 +1,6 @@
+# Goqoo
+dist/
+
 # Logs
 logs
 *.log
