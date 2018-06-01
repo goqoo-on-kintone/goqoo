@@ -2,19 +2,31 @@ env:
   browser: true
 extends:
   - standard
+  - plugin:import/errors
+  - vue
+  - plugin:vue/base
   - prettier
   - prettier/standard
 globals:
   kintone: true
-parser: 'babel-eslint'
+parserOptions:
+  ecmaVersion: 2018
 rules:
-  # 戻り値を受け取らないnew() は認める
-  no-new: off
   # console.log を残さない console.warn/error はOK
   no-console:
     - error
     - allow:
       - warn
       - error
+  # デバッガ有効 # TODO: エディタではautofixせず、コミットはNGにしたいが可能だろうか？
+  no-debugger: off
+  # 全角スペースはエラー（テンプレート文字列では認める）
+  no-irregular-whitespace:
+    - error
+    - skipTemplates: true
+  # 戻り値を受け取らないnew()は認める
+  no-new: off
+  # varで変数宣言は禁止
+  no-var: error
   # 原則letよりconstを使う
   prefer-const: error
