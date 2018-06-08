@@ -14,7 +14,7 @@ module.exports = class DropboxKintone {
       const { url } = await this.dbx.sharingCreateSharedLink({ path: filePath })
       return {
         localPath: path.join(this.localRootDir, filePath),
-        dropboxUrl: url.replace('dl=0', 'raw=1'),
+        dropboxUrl: url.replace('www.dropbox.com', 'dl.dropboxusercontent.com').replace('?dl=0', ''),
       }
     } catch (e) {
       if (e.error && e.error.error_summary && e.error.error_summary.includes('path/not_found')) {
