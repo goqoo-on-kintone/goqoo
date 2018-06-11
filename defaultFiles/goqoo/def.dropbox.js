@@ -2,6 +2,9 @@ require('isomorphic-fetch')
 const { Dropbox } = require('dropbox')
 const path = require('path')
 
+// TODO: 設定ファイルで変更できるようにしたい
+const RETRY_LIMIT = 60
+
 const sleep = milliSec => new Promise(resolve => setTimeout(resolve, milliSec))
 module.exports = class DropboxKintone {
   constructor ({ accessToken, localRootDir }) {
@@ -9,7 +12,7 @@ module.exports = class DropboxKintone {
     this.localRootDir = localRootDir
   }
 
-  async fetchSharedLink (filePath) {
+  async fetchSharedLink (filePath, retryCount = 0) {
     try {
       const { url } = await this.dbx.sharingCreateSharedLink({ path: filePath })
       return {
@@ -18,9 +21,13 @@ module.exports = class DropboxKintone {
       }
     } catch (e) {
       if (e.error && e.error.error_summary && e.error.error_summary.includes('path/not_found')) {
-        console.error(`${filePath}: Not synced yet. Retrying...`)
-        await sleep(1000)
-        return this.fetchSharedLink(filePath)
+        if (retryCount <= RETRY_LIMIT) {
+          console.error(`${filePath}: Not synced yet. Retrying...`)
+          await sleep(1000)
+          return this.fetchSharedLink(filePath, retryCount + 1)
+        } else {
+          console.error(`Over retry limit: ${RETRY_LIMIT}`)
+        }
       }
       console.error(e)
       Promise.reject(e)
