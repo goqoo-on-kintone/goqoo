@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "Goqoo on kintone",
   "main": "index.js",
+  "bin": {
+    "goqoo": "./index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
