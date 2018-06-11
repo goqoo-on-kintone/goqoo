@@ -28,10 +28,6 @@ module.exports = class DropboxKintone {
   }
 
   async fetchSharedLinks (filePaths) {
-    const promises = []
-    for (const filePath of filePaths) {
-      promises.push(this.fetchSharedLink(filePath))
-    }
-    return Promise.all(promises)
+    return Promise.all(filePaths.map(filePath => this.fetchSharedLink(filePath)))
   }
 }
