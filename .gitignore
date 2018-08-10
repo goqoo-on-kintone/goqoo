@@ -1,3 +1,6 @@
+# yarnを使うのでpackage-lock.jsonは作られても無視
+package-lock.json
+
 # Logs
 logs
 *.log
