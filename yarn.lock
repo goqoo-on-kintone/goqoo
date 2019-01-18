@@ -805,6 +805,10 @@ dot-prop@^4.1.0, dot-prop@^4.1.1:
   dependencies:
     is-obj "^1.0.0"
 
+dotenv@^6.1.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-6.2.0.tgz#941c0410535d942c8becf28d3f357dbd9d476064"
+
 downgrade-root@^1.0.0:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/downgrade-root/-/downgrade-root-1.2.2.tgz#531319715b0e81ffcc22eb28478ba27643e12c6c"
@@ -1509,12 +1513,14 @@ gauge@~1.2.5:
     lodash.padend "^4.1.0"
     lodash.padstart "^4.1.0"
 
-generator-goqoo@^0.0.1-b:
-  version "0.0.1-b"
-  resolved "https://registry.yarnpkg.com/generator-goqoo/-/generator-goqoo-0.0.1-b.tgz#9bfc7f41dac9c93e7f41a99b725e11b5f7b39b87"
+generator-goqoo@>=0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/generator-goqoo/-/generator-goqoo-0.1.0.tgz#5185dddfa1129c7335d2390de57aff4d70c4b904"
   dependencies:
     chalk "^2.1.0"
+    dotenv "^6.1.0"
     js-yaml "^3.12.0"
+    kintone "^0.1.5"
     underscore.string "^3.3.5"
     yeoman-environment "^2.3.3"
     yeoman-generator "^3.1.1"
@@ -2316,6 +2322,12 @@ kind-of@^5.0.0:
 kind-of@^6.0.0, kind-of@^6.0.2:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
+
+kintone@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/kintone/-/kintone-0.1.5.tgz#f2a69a4f8d5c27d2c19d2a0370d8a5e1fbca93a8"
+  dependencies:
+    request "^2.72.0"
 
 latest-version@^3.0.0, latest-version@^3.1.0:
   version "3.1.0"
@@ -3321,7 +3333,7 @@ replace-ext@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/replace-ext/-/replace-ext-1.0.0.tgz#de63128373fcbf7c3ccfa4de5a480c45a67958eb"
 
-request@^2.74.0:
+request@^2.72.0, request@^2.74.0:
   version "2.88.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.88.0.tgz#9c2fca4f7d35b592efe57c7f0a55e81052124fef"
   dependencies:
