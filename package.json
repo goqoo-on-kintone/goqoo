@@ -1,6 +1,6 @@
 {
   "name": "goqoo",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Goqoo on kintone",
   "main": "index.js",
   "bin": {
