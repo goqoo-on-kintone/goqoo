@@ -39,6 +39,12 @@ switch (argv.subCommand) {
   default:
     usageExit(1)
 }
-
-const yeoman = spawnSync('yo', [`goqoo:${subGenerator}`, ...rawArgv], { stdio: 'inherit', cwd })
+const yeoman = spawnSync(
+  'node',
+  [require.resolve('./node_modules/yo/lib/cli.js'), `goqoo:${subGenerator}`, ...rawArgv],
+  {
+    stdio: 'inherit',
+    cwd,
+  }
+)
 process.exit(yeoman.status)
