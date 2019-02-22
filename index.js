@@ -39,12 +39,8 @@ switch (argv.subCommand) {
   default:
     usageExit(1)
 }
-const yeoman = spawnSync(
-  'node',
-  [require.resolve('./node_modules/yo/lib/cli.js'), `goqoo:${subGenerator}`, ...rawArgv],
-  {
-    stdio: 'inherit',
-    cwd,
-  }
-)
-process.exit(yeoman.status)
+// yo が参照するプロセスの引数とカレントディレクトリを調整
+process.argv = ['', '', `goqoo:${subGenerator}`, ...rawArgv]
+if (cwd) process.chdir(cwd)
+// ローカルインストールされた yo を呼び出す
+require('./node_modules/yo/lib/cli.js')
