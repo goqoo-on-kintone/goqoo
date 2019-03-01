@@ -42,4 +42,4 @@ switch (argv.subCommand) {
 process.argv = [...process.argv.slice(0, 2), `goqoo:${subGenerator}`, ...rawArgv]
 if (cwd) process.chdir(cwd)
 // ローカルインストールされた yo を呼び出す
-require('./node_modules/yo/lib/cli.js')
+require('yo/lib/cli.js')
