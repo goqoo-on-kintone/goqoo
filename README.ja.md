@@ -1,5 +1,7 @@
 # Goqoo on kintone
 
+[English](/README.md) | [日本語](/README.ja.md)
+
 Goqoo は [kintone](https://kintone.cybozu.co.jp/) の [Javascript/CSS カスタマイズ開発](https://developer.cybozu.io/hc/ja/articles/200730174-JavaScript%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%9Fkintone%E3%81%AE%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA)を支援する CLI ツールです。Node.js 環境下で動作します。
 
 Webpack や Babel による ES6 スクリプトのトランスパイルや JS/CSS ファイルのバンドル、Webpack 開発サーバによるカスタマイズのプレビュー、S3/Dropbox によるカスタマイズファイルの配備、簡易的な Vue テンプレートなどの機能を含みます。

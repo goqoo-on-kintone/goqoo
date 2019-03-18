@@ -1,5 +1,7 @@
 # Goqoo on kintone
 
+[English](/README.md) | [日本語](/README.ja.md)
+
 Goqoo is a CLI [kintone](https://www.kintone.com/) [Javascript/CSS customization development](https://developer.kintone.io/hc/en-us/articles/115003211808) tool for Node.js.
 
 Supports ES6 transpiling, bundling with Babel/Webpack, local preview with Webpack DevServer, deployment using S3/Dropbox, simple Vue templates, etc.
@@ -25,6 +27,7 @@ $ yarn global add goqoo
 $ goqoo new project1
 ```
 Goqoo creates `project1` directory in the current directory, installs required libraries and files.
+
 
 ```sh
 $ cd project1
