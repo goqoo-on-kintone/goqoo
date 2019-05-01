@@ -56,8 +56,9 @@ Goqoo は `apps` ディレクトリ内の JavaScript ファイルをビルド、
 
 ```js
   swal({
-    text: 'Hello,  Goqoo on kintone!',
-    confirmButtonText: 'OK',
+    text: 'Hello, Goqoo on kintone!',
+    icon: img,
+  })
     ...
 ```
 16行目の `'Hello, Goqoo on kintone'` を適当に書き換えてみましょう。ファイルを保存すると、自動的にビルドが再実行されます。Web ブラウザをリロードし、表示されるメッセージの文言が変更されていることを確認してください。

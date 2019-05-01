@@ -57,8 +57,9 @@ Then, you can edit the customization file. Open `'./apps/app1/customize.js'` wit
 
 ```js
   swal({
-    text: 'Hello,  Goqoo on kintone!',
-    confirmButtonText: 'OK',
+    text: 'Hello, Goqoo on kintone!',
+    icon: img,
+  })
     ...
 ```
 Edit `'Hello, Goqoo on kintone'` on line 16 as you like. Save the file and you'll see that Goqoo automatically rebuilds JS files. Reload the web browser and you can find the message has been changed successfully!
