@@ -62,7 +62,7 @@ Then, you can edit the customization file. Open `'./apps/app1/customize.js'` wit
   })
     ...
 ```
-Edit `'Hello, Goqoo on kintone'` on line 16 as you like. Save the file and you'll see that Goqoo automatically rebuilds JS files. Reload the web browser and you can find the message has been changed successfully!
+Edit `'Hello, Goqoo on kintone'` as you like. Save the file and you'll see that Goqoo automatically rebuilds JS files. Reload the web browser and you can find the message has been changed successfully!
 
 ## Commands
 
