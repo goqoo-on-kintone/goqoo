@@ -2,7 +2,7 @@
 
 [English](/README.md) | [日本語](/README.ja.md)
 
-Goqooは [kintone](https://kintone.cybozu.co.jp/) の [JavaScript/CSSカスタマイズ](https://developer.cybozu.io/hc/ja/articles/210064823)を支援するフレームワークです。Node.js環境下で動作します。
+Goqooは[kintone](https://kintone.cybozu.co.jp/)の[JavaScript/CSSカスタマイズ](https://developer.cybozu.io/hc/ja/articles/210064823)を支援するフレームワークです。Node.js環境下で動作します。
 
 webpackやBabelによるES6スクリプトのトランスパイルやJS/CSSファイルのバンドル、webpack-dev-serverによるカスタマイズのプレビュー、S3/Dropboxによるカスタマイズファイルの配備、簡易的なVue.jsテンプレートなどの機能を含みます。
 
