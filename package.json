@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/TailsGarden/goqoo.git"
+    "url": "https://github.com/goqoo-on-kintone/goqoo.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/TailsGarden/goqoo/issues"
+    "url": "https://github.com/goqoo-on-kintone/goqoo/issues"
   },
-  "homepage": "https://github.com/TailsGarden/goqoo#readme",
+  "homepage": "https://github.com/goqoo-on-kintone/goqoo#readme",
   "devDependencies": {
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
