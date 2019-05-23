@@ -2,9 +2,9 @@
 
 [English](/README.md) | [日本語](/README.ja.md)
 
-Goqoo is a framework for [kintone](https://www.kintone.com/) [Javascript/CSS customization development](https://developer.kintone.io/hc/en-us/articles/115003211808) on Node.js.
+Goqoo is a framework for [kintone](https://www.kintone.com/) [JavaScript/CSS customization](https://developer.kintone.io/hc/en-us/articles/115003211808). It works on Node.js.
 
-Supports ES6 transpiling, bundling with Babel/Webpack, local preview with Webpack DevServer, deployment using S3/Dropbox, simple Vue templates, etc.
+Supports ES6 transpiling, bundling with Babel/webpack, local preview with webpack DevServer, deployment using S3/Dropbox, simple Vue templates, etc.
 
 ## Install requried libraries
 
