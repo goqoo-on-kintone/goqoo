@@ -4,6 +4,7 @@
 const { parseArgumentOptions, showVersion, usageExit } = require('./goqoo')
 const path = require('path')
 const fs = require('fs-extra')
+const { spawnSync } = require('child_process')
 
 const argv = parseArgumentOptions()
 if (!argv.subCommand) {
@@ -42,8 +43,5 @@ switch (argv.subCommand) {
     usageExit(1)
   }
 }
-// yo が参照するプロセスの引数とカレントディレクトリを調整
-process.argv = [...process.argv.slice(0, 2), `goqoo:${subGenerator}`, ...rawArgv]
-if (cwd) process.chdir(cwd)
-// ローカルインストールされた yo を呼び出す
-require('yo/lib/cli.js')
+
+spawnSync('npx', ['yo', `goqoo:${subGenerator}`, ...rawArgv], { cwd, stdio: 'inherit' })
