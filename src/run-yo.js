@@ -2,7 +2,7 @@
 
 const path = require('path')
 const fs = require('fs-extra')
-const { usageExit } = require('./goqoo')
+const { usageExit } = require('./util')
 
 module.exports = (argv) => {
   const rawArgv = process.argv.slice(3)

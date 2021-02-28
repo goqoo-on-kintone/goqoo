@@ -1,7 +1,7 @@
 'use strict'
 
 const { spawnSync } = require('child_process')
-const { usageExit } = require('./goqoo')
+const { usageExit } = require('./util')
 
 module.exports = (argv) => {
   switch (argv.subCommand) {

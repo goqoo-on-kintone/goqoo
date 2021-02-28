@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict'
 
-const { parseArgumentOptions, showVersion, usageExit } = require('./goqoo')
+const { parseArgumentOptions, showVersion, usageExit } = require('./util')
 const yo = require('./run-yo')
 const spawn = require('./run-spawn')
 
