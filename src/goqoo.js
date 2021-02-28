@@ -8,9 +8,9 @@ const minimist = require('minimist')
 const { default: netrc } = require('netrc-parser')
 const rcfile = require('rc-config-loader')
 
-const pretty = obj => JSON.stringify(obj, null, '  ')
-const prettyln = obj => pretty(obj) + '\n'
-const trim = str => str.replace(/^\n|\n$/g, '')
+const pretty = (obj) => JSON.stringify(obj, null, '  ')
+const prettyln = (obj) => pretty(obj) + '\n'
+const trim = (str) => str.replace(/^\n|\n$/g, '')
 
 const showVersion = () => {
   const { version } = require('../package.json')
@@ -24,6 +24,8 @@ usage: goqoo [-v, --version] [-h, --help]
               init
               new <project name>
               generate <GENERATOR> <app name>
+              build
+              serve
 `)
   console.error(message)
   process.exit(returnCode)

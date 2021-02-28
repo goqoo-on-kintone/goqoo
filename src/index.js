@@ -3,6 +3,7 @@
 
 const { parseArgumentOptions, showVersion, usageExit } = require('./goqoo')
 const yo = require('./run-yo')
+const spawn = require('./run-spawn')
 
 const argv = parseArgumentOptions()
 if (!argv.subCommand) {
@@ -19,4 +20,6 @@ if (!argv.subCommand) {
 
 if (['init', 'new', 'generate', 'g'].includes(argv.subCommand)) {
   yo(argv)
+} else {
+  spawn(argv)
 }
