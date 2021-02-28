@@ -22,21 +22,25 @@ let cwd = null
 
 // TODO: --helpの扱いをうまくやる
 switch (argv.subCommand) {
-  case 'init':
+  case 'init': {
     subGenerator = 'app'
     break
-  case 'new':
+  }
+  case 'new': {
     subGenerator = 'app'
     const projectDir = rawArgv.shift()
     cwd = path.resolve(projectDir)
     fs.mkdirpSync(cwd)
     break
+  }
   case 'generate':
-  case 'g':
+  case 'g': {
     subGenerator = `g-${rawArgv.shift()}`
     break
-  default:
+  }
+  default: {
     usageExit(1)
+  }
 }
 // yo が参照するプロセスの引数とカレントディレクトリを調整
 process.argv = [...process.argv.slice(0, 2), `goqoo:${subGenerator}`, ...rawArgv]
