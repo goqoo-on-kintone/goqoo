@@ -6,6 +6,7 @@ const { promisify } = require('util')
 const minimist = require('minimist')
 const { default: netrc } = require('netrc-parser')
 const rcfile = require('rc-config-loader')
+const caller = require('caller')
 
 const pretty = (obj) => JSON.stringify(obj, null, '  ')
 const prettyln = (obj) => pretty(obj) + '\n'
@@ -93,6 +94,13 @@ const createOptionValues = async () => {
   return opts
 }
 
+const projectPath = (...args) => path.resolve(...args)
+
+const currentPath = (...args) => {
+  const dir = path.dirname(caller())
+  return path.resolve(dir, ...args)
+}
+
 module.exports = {
   pretty,
   prettyln,
@@ -104,4 +112,6 @@ module.exports = {
   parseArgumentOptions,
   createOptionValues,
   readFilePromise,
+  projectPath,
+  currentPath,
 }

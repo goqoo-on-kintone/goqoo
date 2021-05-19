@@ -1,17 +1,8 @@
 'use strict'
 
-const path = require('path')
-const caller = require('caller')
 const { execSync } = require('child_process')
 const { existsSync } = require('fs')
-const { usageExit } = require('./util')
-
-const projectPath = (...args) => path.resolve(...args)
-
-const currentPath = (...args) => {
-  const dir = path.dirname(caller())
-  return path.resolve(dir, ...args)
-}
+const { usageExit, currentPath, projectPath } = require('./util')
 
 const execPath = currentPath('../node_modules/.bin/webpack')
 const customConfigPath = projectPath('./webpack.config.js')
