@@ -86,12 +86,10 @@ const config = {
         configFile: projectPath('tsconfig.json'),
       },
     }),
-    // new webpack.HotModuleReplacementPlugin()
   ],
   devServer: {
     contentBase: path.resolve('dist'),
     inline: true,
-    // hot: true,
     https: true,
     port: 59000,
     headers: { 'Access-Control-Allow-Origin': '*' },
