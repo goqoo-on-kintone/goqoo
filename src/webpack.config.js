@@ -5,6 +5,7 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const S3Plugin = require('webpack-s3-plugin')
 const merge = require('webpack-merge')
 const { projectPath } = require('./util')
+const { babelOptions, babelOptionsTs } = require('./babel-options')
 require('dotenv').config()
 
 const basePath = path.resolve('src')
@@ -19,22 +20,6 @@ const entry = fs
     }),
     {}
   )
-
-const babelOptions = {
-  presets: [
-    [
-      require.resolve('@babel/preset-env'),
-      {
-        useBuiltIns: 'usage',
-        corejs: 3,
-        targets: { browsers: ['last 2 versions'] },
-        modules: false,
-      },
-    ],
-  ],
-}
-const babelOptionsTs = JSON.parse(JSON.stringify(babelOptions))
-babelOptionsTs.presets.push(require.resolve('@babel/preset-typescript'))
 
 const config = {
   entry,

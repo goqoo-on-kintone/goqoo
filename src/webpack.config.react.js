@@ -1,22 +1,10 @@
 const config = require('./webpack.config')
 const { merge } = require('webpack-merge')
+const { babelOptions, babelOptionsTs } = require('./babel-options')
 
-const babelOptions = {
-  presets: [
-    [
-      require.resolve('@babel/preset-env'),
-      {
-        useBuiltIns: 'usage',
-        corejs: 3,
-        targets: { browsers: ['last 2 versions'] },
-        modules: false,
-      },
-    ],
-    require.resolve('@babel/preset-react'),
-  ],
-}
-const babelOptionsTs = JSON.parse(JSON.stringify(babelOptions))
-babelOptionsTs.presets.push(require.resolve('@babel/preset-typescript'))
+const presetReact = require.resolve('@babel/preset-react')
+babelOptions.presets.push(presetReact)
+babelOptionsTs.presets.push(presetReact)
 
 console.log('foo')
 module.exports = merge(config, {
