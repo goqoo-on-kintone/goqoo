@@ -2,6 +2,8 @@
 // const webpack = require('webpack')
 const path = require('path')
 const fs = require('fs')
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
+const { projectPath } = require('./util')
 require('dotenv').config()
 // const S3Plugin = require('webpack-s3-plugin')
 
@@ -79,6 +81,11 @@ const config = {
     // },
   },
   plugins: [
+    new ForkTsCheckerWebpackPlugin({
+      typescript: {
+        configFile: projectPath('tsconfig.json'),
+      },
+    }),
     // new webpack.HotModuleReplacementPlugin()
   ],
   devServer: {
