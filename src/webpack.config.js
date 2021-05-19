@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-// const webpack = require('webpack')
 const path = require('path')
 const fs = require('fs')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
