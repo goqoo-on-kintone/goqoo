@@ -76,9 +76,7 @@ const config = {
     ],
   },
   resolve: {
-    // alias: {
-    //   vue$: 'vue/dist/vue.esm.js',
-    // },
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
   plugins: [
     new ForkTsCheckerWebpackPlugin({
