@@ -11,7 +11,7 @@ const configPath = existsSync(customConfigPath) ? customConfigPath : currentPath
 module.exports = (argv) => {
   switch (argv._subCommand) {
     case 'build': {
-      const command = `'${execPath}' ${argv._options.join(' ')} --config '${configPath}'`
+      const command = `'${execPath}' ${argv._options.join(' ')} --mode development --config '${configPath}'`
       execSync(command, { stdio: 'inherit' })
       break
     }
@@ -19,7 +19,7 @@ module.exports = (argv) => {
     case 'dev':
     case 'serve':
     case 's': {
-      const command = `'${execPath}' serve ${argv._options.join(' ')} --config '${configPath}'`
+      const command = `'${execPath}' serve ${argv._options.join(' ')} --mode development --config '${configPath}'`
       execSync(command, { stdio: 'inherit' })
       break
     }
