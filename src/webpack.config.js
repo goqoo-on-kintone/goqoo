@@ -55,10 +55,6 @@ const config = {
         options: babelOptionsTs,
       },
       {
-        test: /\.html$/,
-        loader: require.resolve('html-loader'),
-      },
-      {
         test: /\.css$/,
         use: [{ loader: require.resolve('style-loader') }, { loader: require.resolve('css-loader') }],
       },
