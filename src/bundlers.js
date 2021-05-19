@@ -24,6 +24,14 @@ module.exports = (argv) => {
       break
     }
 
+    case 'react': {
+      const command = `'${execPath}' serve ${argv._options.join(' ')} --mode development --config '${currentPath(
+        './webpack.config.react.js'
+      )}'`
+      execSync(command, { stdio: 'inherit' })
+      break
+    }
+
     default: {
       usageExit(1)
     }
