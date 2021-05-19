@@ -2,9 +2,10 @@
 const path = require('path')
 const fs = require('fs')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
+const S3Plugin = require('webpack-s3-plugin')
+const merge = require('webpack-merge')
 const { projectPath } = require('./util')
 require('dotenv').config()
-// const S3Plugin = require('webpack-s3-plugin')
 
 const basePath = path.resolve('src')
 const appsPath = path.join(basePath, 'apps')
@@ -97,35 +98,36 @@ const config = {
   },
 }
 
-// if (process.env.S3) {
-// const { npm_package_name: projectName } = process.env
-//   config.entry = Object.entries(config.entry).reduce((obj, [key, value]) => {
-//     obj[`${key}-${process.env.AWS_RANDOM_SUFFIX}`] = value
-//     return obj
-//   }, {})
-//   ;['AWS_ACCESS_KEY_ID', 'AWS_SECRET_ACCESS_KEY', 'AWS_S3_REGION', 'AWS_S3_BUCKET'].forEach((variable) => {
-//     if (!process.env[variable]) {
-//       console.error(`${variable}: environment variable not found!`)
-//       process.exit(1)
-//     }
-//   })
+if (process.env.S3) {
+  ;['AWS_ACCESS_KEY_ID', 'AWS_SECRET_ACCESS_KEY', 'AWS_S3_REGION', 'AWS_S3_BUCKET'].forEach((variable) => {
+    if (!process.env[variable]) {
+      console.error(`${variable}: environment variable not found!`)
+      process.exit(1)
+    }
+  })
 
-//   config.plugins.push(
-//     new S3Plugin({
-//       // Exclude uploading of html
-//       exclude: /.*\.html$/,
-//       // s3Options are required
-//       s3Options: {
-//         accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-//         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-//         region: process.env.AWS_S3_REGION,
-//       },
-//       s3UploadOptions: {
-//         Bucket: process.env.AWS_S3_BUCKET,
-//       },
-//       basePath: process.env.AWS_S3_BASEPATH || projectName,
-//     })
-//   )
-// }
-
-module.exports = config
+  module.exports = merge(config, {
+    entry: Object.entries(config.entry).reduce((obj, [key, value]) => {
+      obj[`${key}-${process.env.AWS_RANDOM_SUFFIX}`] = value
+      return obj
+    }, {}),
+    plugins: [
+      new S3Plugin({
+        // Exclude uploading of html
+        exclude: /.*\.html$/,
+        // s3Options are required
+        s3Options: {
+          accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+          secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+          region: process.env.AWS_S3_REGION,
+        },
+        s3UploadOptions: {
+          Bucket: process.env.AWS_S3_BUCKET,
+        },
+        basePath: process.env.AWS_S3_BASEPATH || process.env.npm_package_name,
+      }),
+    ],
+  })
+} else {
+  module.exports = config
+}
