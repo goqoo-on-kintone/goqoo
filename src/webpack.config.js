@@ -7,14 +7,15 @@ const { projectPath } = require('./util')
 require('dotenv').config()
 // const S3Plugin = require('webpack-s3-plugin')
 
-const basePath = path.resolve('src', 'apps')
+const basePath = path.resolve('src')
+const appsPath = path.join(basePath, 'apps')
 const entry = fs
-  .readdirSync(basePath)
+  .readdirSync(appsPath)
   .filter((file) => !/^\./.test(file)) // Exclude dotfiles
   .reduce(
     (prev, file) => ({
       ...prev,
-      [path.parse(file).name]: path.resolve(basePath, file),
+      [path.parse(file).name]: path.resolve(appsPath, file),
     }),
     {}
   )
@@ -76,6 +77,7 @@ const config = {
     ],
   },
   resolve: {
+    modules: [basePath, 'node_modules'],
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
   plugins: [
