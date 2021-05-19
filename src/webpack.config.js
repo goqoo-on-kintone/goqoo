@@ -8,7 +8,7 @@ require('dotenv').config()
 const { apps } = rcFile('goqoo', { configFileName: path.resolve('config', 'goqoo.config') }).config
 
 const entry = apps.reduce((obj, appName) => {
-  obj[appName] = ['babel-polyfill', path.resolve('apps', appName)]
+  obj[appName] = ['babel-polyfill', path.resolve('src', 'apps', appName)]
   return obj
 }, {})
 
