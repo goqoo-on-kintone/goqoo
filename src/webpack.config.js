@@ -17,6 +17,22 @@ const entry = fs
     {}
   )
 
+const babelOptions = {
+  presets: [
+    [
+      require.resolve('@babel/preset-env'),
+      {
+        useBuiltIns: 'usage',
+        corejs: 3,
+        targets: { browsers: ['last 2 versions'] },
+        modules: false,
+      },
+    ],
+  ],
+}
+const babelOptionsTs = JSON.parse(JSON.stringify(babelOptions))
+babelOptionsTs.presets.push(require.resolve('@babel/preset-typescript'))
+
 const config = {
   entry,
   output: { path: path.resolve('dist') },
@@ -25,36 +41,35 @@ const config = {
     rules: [
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        loader: require.resolve('babel-loader'),
         exclude: /node_modules/,
-        options: {
-          presets: [
-            [
-              '@babel/preset-env',
-              {
-                targets: { browsers: ['last 2 versions'] },
-                modules: false,
-              },
-            ],
-          ],
-          plugins: [['@babel/proposal-class-properties', { loose: false }]],
-        },
+        options: babelOptions,
+      },
+      {
+        test: /\.ts$/,
+        loader: require.resolve('babel-loader'),
+        exclude: /node_modules/,
+        options: babelOptionsTs,
       },
       {
         test: /\.html$/,
-        loader: 'html-loader',
+        loader: require.resolve('html-loader'),
       },
       {
         test: /\.css$/,
-        use: [{ loader: 'style-loader' }, { loader: 'css-loader' }],
+        use: [{ loader: require.resolve('style-loader') }, { loader: require.resolve('css-loader') }],
       },
       {
         test: /\.(scss)$/,
-        use: [{ loader: 'style-loader' }, { loader: 'css-loader' }, { loader: 'sass-loader' }],
+        use: [
+          { loader: require.resolve('style-loader') },
+          { loader: require.resolve('css-loader') },
+          { loader: require.resolve('sass-loader') },
+        ],
       },
       {
         test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
-        loader: 'url-loader',
+        loader: require.resolve('url-loader'),
       },
     ],
   },
