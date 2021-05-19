@@ -1,16 +1,21 @@
 /* eslint-disable no-console */
 // const webpack = require('webpack')
 const path = require('path')
-const { rcFile } = require('rc-config-loader')
+const fs = require('fs')
 require('dotenv').config()
 // const S3Plugin = require('webpack-s3-plugin')
 
-const { apps } = rcFile('goqoo', { configFileName: path.resolve('config', 'goqoo.config') }).config
-
-const entry = apps.reduce((obj, appName) => {
-  obj[appName] = ['babel-polyfill', path.resolve('src', 'apps', appName)]
-  return obj
-}, {})
+const basePath = path.resolve('src', 'apps')
+const entry = fs
+  .readdirSync(basePath)
+  .filter((file) => !/^\./.test(file)) // Exclude dotfiles
+  .reduce(
+    (prev, file) => ({
+      ...prev,
+      [path.parse(file).name]: path.resolve(basePath, file),
+    }),
+    {}
+  )
 
 const config = {
   entry,
