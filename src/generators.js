@@ -9,7 +9,7 @@ module.exports = (argv) => {
   let subGenerator
   let cwd = null
 
-  switch (argv.subCommand) {
+  switch (argv._subCommand) {
     case 'init': {
       subGenerator = 'app'
       break

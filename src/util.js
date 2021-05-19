@@ -61,7 +61,8 @@ const parseArgumentOptions = () => {
     },
   })
   if (argv._[0]) {
-    argv.subCommand = argv._[0]
+    argv._subCommand = argv._[0]
+    argv._options = argv._.slice(1)
   }
 
   return argv

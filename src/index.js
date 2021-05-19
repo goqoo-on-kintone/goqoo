@@ -6,7 +6,7 @@ const generators = require('./generators')
 const bundlers = require('./bundlers')
 
 const argv = parseArgumentOptions()
-if (!argv.subCommand) {
+if (!argv._subCommand) {
   if (argv.version) {
     showVersion()
   } else if (argv.help) {
@@ -18,7 +18,7 @@ if (!argv.subCommand) {
 
 // TODO: --helpの扱いをうまくやる
 
-if (['init', 'new', 'generate', 'g'].includes(argv.subCommand)) {
+if (['init', 'new', 'generate', 'g'].includes(argv._subCommand)) {
   generators(argv)
 } else {
   bundlers(argv)

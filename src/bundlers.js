@@ -1,20 +1,38 @@
 'use strict'
 
-const { spawnSync } = require('child_process')
+const path = require('path')
+const caller = require('caller')
+const { execSync } = require('child_process')
+const { existsSync } = require('fs')
 const { usageExit } = require('./util')
 
+const projectPath = (...args) => path.resolve(...args)
+
+const currentPath = (...args) => {
+  const dir = path.dirname(caller())
+  return path.resolve(dir, ...args)
+}
+
+const execPath = currentPath('../node_modules/.bin/webpack')
+const customConfigPath = projectPath('./webpack.config.js')
+const configPath = existsSync(customConfigPath) ? customConfigPath : currentPath('./webpack.config.js')
+
 module.exports = (argv) => {
-  switch (argv.subCommand) {
+  switch (argv._subCommand) {
     case 'build': {
-      spawnSync('echo', ['run webpack build'], { stdio: 'inherit' })
+      const command = `'${execPath}' ${argv._options.join(' ')} --config '${configPath}'`
+      execSync(command, { stdio: 'inherit' })
       break
     }
+
     case 'dev':
     case 'serve':
     case 's': {
-      spawnSync('echo', ['run webpack serve'], { stdio: 'inherit' })
+      const command = `'${execPath}' serve ${argv._options.join(' ')} --config '${configPath}'`
+      execSync(command, { stdio: 'inherit' })
       break
     }
+
     default: {
       usageExit(1)
     }
