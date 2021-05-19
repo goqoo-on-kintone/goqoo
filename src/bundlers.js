@@ -9,6 +9,7 @@ module.exports = (argv) => {
       spawnSync('echo', ['run webpack build'], { stdio: 'inherit' })
       break
     }
+    case 'dev':
     case 'serve':
     case 's': {
       spawnSync('echo', ['run webpack serve'], { stdio: 'inherit' })

@@ -24,6 +24,7 @@ usage: goqoo [-v, --version] [-h, --help]
               new <project name>
               generate <GENERATOR> <app name>
               build
+              dev
               serve
 `)
   console.error(message)
