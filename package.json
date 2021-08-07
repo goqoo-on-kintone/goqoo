@@ -44,7 +44,6 @@
     "css-loader": "^5.2.4",
     "fork-ts-checker-webpack-plugin": "^6.2.10",
     "fs-extra": "^9.1.0",
-    "generator-goqoo": ">=0.3.1",
     "js-yaml": "^4.0.0",
     "minimist": "^1.2.5",
     "netrc-parser": "^3.1.6",
@@ -60,7 +59,6 @@
     "webpack-cli": "^4.7.0",
     "webpack-dev-server": "^3.11.2",
     "webpack-merge": "^5.7.3",
-    "webpack-s3-plugin": "^1.2.0-rc.0",
-    "yo": "^3.1.1"
+    "webpack-s3-plugin": "^1.2.0-rc.0"
   }
 }
