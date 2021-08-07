@@ -6,7 +6,6 @@ const fs = require('fs')
 const { usageExit, projectPath } = require('../util')
 
 const templateDirRoot = join(dirname(require.resolve('@goqoo/templates/package.json')), 'templates')
-const npmClient = 'yarn' // 'yarn' | 'npm' | 'pnpm'
 
 const existsDirectory = (directory) => {
   if (!fs.existsSync(directory) || !fs.statSync(directory).isDirectory()) {
@@ -17,6 +16,9 @@ const existsDirectory = (directory) => {
 
 module.exports = (argv) => {
   const rawArgv = process.argv.slice(3)
+
+  // TODO: オプションで指定可能にする
+  const npmClient = undefined // 'yarn' | 'npm' | 'pnpm'
 
   switch (argv._subCommand) {
     case 'init': {
@@ -65,7 +67,6 @@ module.exports = (argv) => {
       const sao = new SAO({
         generator: resolve(__dirname, './subGenerator'),
         outDir: join(appsDir, name),
-        npmClient,
         answers: { name, templateDir },
       })
       sao.run().catch(handleError)
