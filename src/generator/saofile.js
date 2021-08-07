@@ -1,7 +1,7 @@
 // @ts-check
 const { dirname } = require('path')
 
-const templateDir = dirname(require.resolve('goqoo-template/templates/_new/package.json'))
+const templateDir = dirname(require.resolve('@goqoo/templates/templates/_new/package.json'))
 
 /**
  * @type { import('sao').GeneratorConfig['prompts'] }
