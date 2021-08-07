@@ -58,7 +58,7 @@ module.exports = (argv) => {
       }
 
       // TODO: templateDirをユーザーが指定可能に
-      const templateDir = join(templateDirRoot, 'app')
+      const templateDir = join(templateDirRoot, generatorName)
       if (!existsDirectory(templateDir)) {
         console.error(`Template not found: ${templateDir}`)
         process.exit(1)
