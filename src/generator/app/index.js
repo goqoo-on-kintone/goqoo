@@ -5,7 +5,7 @@ const { SAO, handleError } = require('sao')
 const { resolve, join } = require('path')
 const { existsDirectory, projectPath } = require('../../util')
 
-module.exports = ({ templateDirRoot, generatorName, name }) => {
+module.exports = ({ templateDirRoot, generatorName, appName }) => {
   const appsDir = projectPath('./src/apps')
   if (!existsDirectory(appsDir)) {
     console.error(`Not a directory: ${appsDir}`)
@@ -21,8 +21,8 @@ module.exports = ({ templateDirRoot, generatorName, name }) => {
 
   const sao = new SAO({
     generator: resolve(__dirname, './'),
-    outDir: join(appsDir, name),
-    answers: { name, templateDir },
+    outDir: join(appsDir, appName),
+    answers: { name: appName, templateDir },
   })
   sao.run().catch(handleError)
 }

@@ -22,7 +22,7 @@ module.exports = (argv) => {
   }
 
   if (generatorName === 'app') {
-    return require('./app')({ templateDirRoot, generatorName, name })
+    return require('./app')({ templateDirRoot, generatorName, appName: name })
   }
 
   if (generatorName === 'dts') {
