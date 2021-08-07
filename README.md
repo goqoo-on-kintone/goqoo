@@ -73,20 +73,10 @@ $ goqoo new <project_name>
 ```
 Creates new `<project_name>` directory in the current directory, sets the project name to `<project_name>` and installs required library and files. 
 
-### Initialize project
-
 ```sh
-$ goqoo init
+$ goqoo new
 ```
 Sets the project name to current directory name, installs required library and files.
-
-```sh
-$ goqoo new <project_name>
-# above command equals to the commands below
-$ mkdir <project_name>
-$ cd <project_name>
-$ goqoo init
-```
 
 ### Generate new app entry (with entry point file only)
 

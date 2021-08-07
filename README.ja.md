@@ -72,20 +72,10 @@ $ goqoo new <project_name>
 ```
 カレントディレクトリにディレクトリ `<project_name>` を作成し、プロジェクト名を `<project_name>` に設定して、Goqooの実行に必要なライブラリやファイルをインストールします。
 
-### プロジェクトの初期化
-
 ```sh
-$ goqoo init
+$ goqoo new
 ```
 カレントディレクトリ名をプロジェクト名として設定し、Goqooの実行に必要なライブラリやファイルをインストールします。
-
-```sh
-$ goqoo new <project_name>
-# 上記のコマンドは下記のコマンドと等価です。
-$ mkdir <project_name>
-$ cd <project_name>
-$ goqoo init
-```
 
 ### アプリエントリの新規作成（エントリポイントファイルのみ作成）
 

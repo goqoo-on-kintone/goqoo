@@ -18,7 +18,7 @@ if (!argv._subCommand) {
 
 // TODO: --helpの扱いをうまくやる
 
-if (['init', 'new', 'generate', 'g'].includes(argv._subCommand)) {
+if (['new', 'generate', 'g'].includes(argv._subCommand)) {
   generator(argv)
 } else {
   bundlers(argv)

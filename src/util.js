@@ -21,7 +21,6 @@ const showVersion = () => {
 const usageExit = (returnCode = 0) => {
   const message = trim(`
 usage: goqoo [-v, --version] [-h, --help]
-              init
               new <project name>
               generate <GENERATOR> <app name>
               build
