@@ -16,7 +16,7 @@ switch (goqooConfig.bundlerType) {
   case 'vue':
     webpackDefaultConfigPath = currentPath('./webpack.config.vue.js')
     break
-  case 'basic':
+  case 'standard':
   default:
     webpackDefaultConfigPath = currentPath('./webpack.config.js')
 }
