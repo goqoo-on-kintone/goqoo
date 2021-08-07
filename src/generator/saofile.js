@@ -1,7 +1,4 @@
 // @ts-check
-const { dirname } = require('path')
-
-const templateDir = dirname(require.resolve('@goqoo/templates/templates/_new/package.json'))
 
 /**
  * @type { import('sao').GeneratorConfig['prompts'] }
@@ -30,7 +27,8 @@ const actions = function () {
     {
       type: 'add',
       files: '**',
-      templateDir,
+      // @ts-expect-error
+      templateDir: this.opts.answers.templateDir,
     },
     {
       type: 'modify',
