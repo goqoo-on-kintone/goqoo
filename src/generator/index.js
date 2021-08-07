@@ -2,7 +2,7 @@
 
 const { SAO, handleError } = require('sao')
 const path = require('path')
-const { usageExit } = require('../util')
+const { usageExit, projectPath } = require('../util')
 
 const npmClient = 'yarn' // 'yarn' | 'npm' | 'pnpm'
 
@@ -15,7 +15,7 @@ module.exports = (argv) => {
       process.exit()
     }
     case 'new': {
-      const projectDir = rawArgv.shift()
+      const projectDir = rawArgv[0]
       const sao = new SAO({
         generator: path.resolve(__dirname, './'),
         outDir: projectDir,
@@ -26,9 +26,23 @@ module.exports = (argv) => {
     }
     case 'generate':
     case 'g': {
-      // const subGenerator = `g-${rawArgv.shift()}`
-      console.log('Under implementation...')
-      process.exit()
+      const projectDir = projectPath('./src/apps')
+      const name = rawArgv[0]
+      if (!name) {
+        // TODO: ちゃんと関数化などする
+        console.error(`usage: goqoo generate <generator> <name>`)
+        process.exit(1)
+      }
+
+      const outDir = path.join(projectDir, name || '')
+      const sao = new SAO({
+        generator: path.resolve(__dirname, './app'),
+        outDir,
+        npmClient,
+        answers: { name },
+      })
+      sao.run().catch(handleError)
+      break
     }
     default: {
       usageExit(1)
