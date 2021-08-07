@@ -2,7 +2,7 @@
 'use strict'
 
 const { parseArgumentOptions, showVersion, usageExit } = require('./util')
-const generators = require('./generators')
+const generator = require('./generator')
 const bundlers = require('./bundlers')
 
 const argv = parseArgumentOptions()
@@ -19,7 +19,7 @@ if (!argv._subCommand) {
 // TODO: --helpの扱いをうまくやる
 
 if (['init', 'new', 'generate', 'g'].includes(argv._subCommand)) {
-  generators(argv)
+  generator(argv)
 } else {
   bundlers(argv)
 }
