@@ -100,6 +100,13 @@ const currentPath = (...args) => {
   return path.resolve(dir, ...args)
 }
 
+const existsDirectory = (directory) => {
+  if (!fs.existsSync(directory) || !fs.statSync(directory).isDirectory()) {
+    return false
+  }
+  return true
+}
+
 module.exports = {
   pretty,
   prettyln,
@@ -113,4 +120,5 @@ module.exports = {
   readFilePromise,
   projectPath,
   currentPath,
+  existsDirectory,
 }
