@@ -27,6 +27,9 @@ const actions = function () {
     {
       type: 'add',
       files: '**',
+      filters: {
+        'src/apps/**': false,
+      },
       // @ts-expect-error
       templateDir: this.opts.answers.templateDir,
     },

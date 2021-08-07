@@ -5,7 +5,7 @@ const { dirname, join, resolve } = require('path')
 const fs = require('fs')
 const { usageExit, projectPath } = require('../util')
 
-const templateDirRoot = join(dirname(require.resolve('@goqoo/templates/package.json')), 'templates')
+const templateDirRoot = join(dirname(require.resolve('@goqoo/templates/package.json')), 'templates', '_new')
 
 const existsDirectory = (directory) => {
   if (!fs.existsSync(directory) || !fs.statSync(directory).isDirectory()) {
@@ -23,7 +23,7 @@ module.exports = (argv) => {
   switch (argv._subCommand) {
     case 'new': {
       // TODO: templateDirをユーザーが指定可能に
-      const templateDir = join(templateDirRoot, '_new')
+      const templateDir = templateDirRoot
       if (!existsDirectory(templateDir)) {
         console.error(`Template not found: ${templateDir}`)
         process.exit(1)
@@ -55,7 +55,7 @@ module.exports = (argv) => {
       }
 
       // TODO: templateDirをユーザーが指定可能に
-      const templateDir = join(templateDirRoot, generatorName)
+      const templateDir = join(templateDirRoot, 'src/apps', generatorName)
       if (!existsDirectory(templateDir)) {
         console.error(`Template not found: ${templateDir}`)
         process.exit(1)
