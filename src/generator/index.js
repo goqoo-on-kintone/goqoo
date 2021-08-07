@@ -3,9 +3,6 @@
 
 const { dirname, join } = require('path')
 const { usageExit } = require('../util')
-const _new = require('./new')
-const app = require('./app')
-const dts = require('./dts')
 
 const templateDirRoot = join(dirname(require.resolve('@goqoo/templates/package.json')), 'templates', '_new')
 
@@ -14,7 +11,7 @@ module.exports = (argv) => {
 
   if (argv._subCommand === 'new') {
     const [projectDir] = rawArgv
-    return _new({ templateDirRoot, projectDir })
+    return require('./new')({ templateDirRoot, projectDir })
   }
 
   const [generatorName, name] = rawArgv
@@ -25,12 +22,12 @@ module.exports = (argv) => {
   }
 
   if (generatorName === 'app') {
-    return app({ templateDirRoot, generatorName, name })
+    return require('./app')({ templateDirRoot, generatorName, name })
   }
 
   if (generatorName === 'dts') {
     // TODO: @kintone/dts-genのラッパーを実装
-    return dts({})
+    return require('./dts')({})
   }
 
   usageExit(1)
