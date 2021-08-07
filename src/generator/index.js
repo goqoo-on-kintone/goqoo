@@ -22,8 +22,21 @@ module.exports = (argv) => {
 
   switch (argv._subCommand) {
     case 'init': {
-      console.log('Under implementation...')
-      process.exit()
+      // TODO: templateDirをユーザーが指定可能に
+      const templateDir = join(templateDirRoot, '_new')
+      if (!existsDirectory(templateDir)) {
+        console.error(`Template not found: ${templateDir}`)
+        process.exit(1)
+      }
+
+      const sao = new SAO({
+        generator: resolve(__dirname, './'),
+        outDir: undefined,
+        npmClient,
+        answers: { templateDir },
+      })
+      sao.run().catch(handleError)
+      break
     }
     case 'new': {
       // TODO: templateDirをユーザーが指定可能に
