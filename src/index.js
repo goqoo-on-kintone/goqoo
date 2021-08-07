@@ -3,7 +3,7 @@
 
 const { parseArgumentOptions, showVersion, usageExit } = require('./util')
 const generator = require('./generator')
-const bundlers = require('./bundlers')
+const bundler = require('./bundler')
 
 const argv = parseArgumentOptions()
 if (!argv._subCommand) {
@@ -21,5 +21,5 @@ if (!argv._subCommand) {
 if (['new', 'generate', 'g'].includes(argv._subCommand)) {
   generator(argv)
 } else {
-  bundlers(argv)
+  bundler(argv)
 }
