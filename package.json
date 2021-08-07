@@ -43,6 +43,7 @@
     "caller": "^1.0.1",
     "chalk": "^4.1.0",
     "css-loader": "^5.2.4",
+    "dotenv": "^10.0.0",
     "fork-ts-checker-webpack-plugin": "^6.2.10",
     "fs-extra": "^9.1.0",
     "js-yaml": "^4.0.0",
