@@ -14,14 +14,9 @@ const trim = (str) => str.replace(/^\n|\n$/g, '')
 
 const showVersion = () => {
   const { version } = require('../package.json')
+  const { version: templateVersion } = require('@goqoo/templates/package.json')
   console.error(`Goqoo    version: ${version}`)
-
-  const templatePackageJson = projectPath('./node_modules/@goqoo/templates/package.json')
-  if (fs.existsSync(templatePackageJson)) {
-    const { version: templateVersion } = require(templatePackageJson)
-    console.error(`Template version: ${templateVersion}`)
-  }
-
+  console.error(`Template version: ${templateVersion}`)
   process.exit(0)
 }
 
