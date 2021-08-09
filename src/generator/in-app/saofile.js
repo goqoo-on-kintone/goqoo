@@ -58,7 +58,7 @@ const actions = function () {
     },
     {
       type: 'modify',
-      files: '**/[_name_].ts',
+      files: ['**/[_name_].ts', '**/[_name_].tsx'],
       handler: (before) => {
         const after1 = Mustache.render(
           before,
