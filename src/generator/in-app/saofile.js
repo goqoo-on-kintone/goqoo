@@ -1,5 +1,7 @@
 // @ts-check
 
+const Mustache = require('mustache')
+
 /**
  * @type { import('sao').GeneratorConfig['prompts'] }
  */
@@ -18,6 +20,11 @@ const prompts = function prompts() {
       name: 'appName',
       message: 'App name',
     },
+    {
+      type: 'list',
+      name: 'fieldCodes',
+      message: 'Field codes (comma-separated)',
+    },
   ]
 }
 
@@ -25,6 +32,23 @@ const prompts = function prompts() {
  * @type { import('sao').GeneratorConfig['actions'] }
  */
 const actions = function () {
+  const extensions = [
+    'ts',
+    'js',
+    'tsx',
+    'jsx',
+    'html',
+    'css',
+    'scss',
+    'png',
+    'jpg',
+    'gif',
+    'svg',
+    'eot',
+    'ttf',
+    'woff',
+    'woff2',
+  ]
   return [
     {
       type: 'add',
@@ -33,30 +57,31 @@ const actions = function () {
       templateDir: this.opts.answers.templateDir,
     },
     {
+      type: 'modify',
+      files: '**/[_name_].ts',
+      handler: (before) => {
+        const after1 = Mustache.render(
+          before,
+          {
+            name: this.answers.name,
+          },
+          {},
+          ['[_', '_]']
+        )
+        const after2 = Mustache.render(
+          after1,
+          {
+            fieldCodes: JSON.stringify(this.answers.fieldCodes),
+          },
+          {},
+          ['/*%', '%*/']
+        )
+        return after2
+      },
+    },
+    {
       type: 'move',
-      patterns: Object.fromEntries(
-        [
-          'ts',
-          'js',
-          'tsx',
-          'jsx',
-          'html',
-          'css',
-          'scss',
-          'png',
-          'jpg',
-          'gif',
-          'svg',
-          'eot',
-          'ttf',
-          'woff',
-          'woff2',
-        ].map((ext) => [
-          // @ts-expect-error
-          `${this.opts.answers.generatorName}.${ext}`,
-          `${this.answers.name}.${ext}`,
-        ])
-      ),
+      patterns: Object.fromEntries(extensions.map((ext) => [`[_name_].${ext}`, `${this.answers.name}.${ext}`])),
     },
     {
       type: 'modify',
