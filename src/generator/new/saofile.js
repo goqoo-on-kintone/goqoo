@@ -37,6 +37,7 @@ const actions = function () {
       files: '**',
       filters: {
         'src/apps/**': false,
+        'src/in-app/**': false,
       },
       templateDir: join(
         // @ts-expect-error
