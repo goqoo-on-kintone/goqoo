@@ -2,7 +2,8 @@
 'use strict'
 
 const { dirname, join } = require('path')
-const { usageExit } = require('../util')
+const { existsSync } = require('fs')
+const { projectPath } = require('../util')
 
 module.exports = (argv) => {
   const rawArgv = process.argv.slice(3)
@@ -13,21 +14,32 @@ module.exports = (argv) => {
     return require('./new')({ templateDirRoot, projectDir })
   }
 
-  const [generatorName, name] = rawArgv
-  if (!generatorName || !name) {
+  const [generatorName, appName] = rawArgv
+  if (!generatorName || !appName) {
     // TODO: ちゃんと関数化などする
-    console.error(`usage: goqoo generate <generator> <name>`)
+    console.error(`usage: goqoo generate GENERATOR APP`)
     process.exit(1)
   }
 
-  if (generatorName === 'app') {
-    return require('./app')({ templateDirRoot, generatorName, appName: name })
-  }
+  const goqooConfigPath = projectPath('./goqoo.config.js')
+  const goqooConfig = existsSync(goqooConfigPath) ? require(goqooConfigPath) : {}
 
-  if (generatorName === 'dts') {
-    // TODO: @kintone/dts-genのラッパーを実装
-    return require('./dts')({})
-  }
+  switch (generatorName) {
+    case 'dts':
+      // TODO: @kintone/dts-genのラッパーを実装
+      return require('./dts')({})
 
-  usageExit(1)
+    case 'scaffold':
+      // TODO: appとin-appの組み合わせ全部入り
+      return require('./scaffold')({})
+
+    case 'app':
+    case 'space':
+    case 'portal':
+      return require('./app')({ templateDirRoot, goqooConfig, generatorName, appName })
+
+    default:
+      // event, customize-viewなど、既存アプリ内にgenerateするもの
+      return require('./in-app')({ templateDirRoot, goqooConfig, generatorName, appName })
+  }
 }
