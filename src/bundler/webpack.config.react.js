@@ -6,7 +6,6 @@ const presetReact = require.resolve('@babel/preset-react')
 babelOptions.presets.push(presetReact)
 babelOptionsTs.presets.push(presetReact)
 
-console.log('foo')
 module.exports = merge(config, {
   module: {
     rules: [
