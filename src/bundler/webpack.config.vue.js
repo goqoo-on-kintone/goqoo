@@ -1,5 +1,3 @@
-// TODO: Vueに対応
-
 /* eslint-disable no-console */
 const path = require('path')
 const fs = require('fs')
