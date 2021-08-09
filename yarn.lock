@@ -977,10 +977,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@goqoo/templates@^1.0.0-beta1":
-  version "1.0.0-beta1"
-  resolved "https://registry.npmjs.org/@goqoo/templates/-/templates-1.0.0-beta1.tgz#b1bd9b8baf0ff4b408f28ab6da6e15d8407a656a"
-  integrity sha512-UDoJ+avz+k/Rfa02XPoVAvrFd2dBmUTGhP9vlawfPH38YyIlmyNXdY4lxyL3tc1l63FuTNnaUbU3sJO/jw8CQA==
+"@goqoo/templates@^1.0.0-beta2":
+  version "1.0.0-beta2"
+  resolved "https://registry.npmjs.org/@goqoo/templates/-/templates-1.0.0-beta2.tgz#b781a44c1947c53e7ed20fa41a74bd3f363b3c1a"
+  integrity sha512-TbaEsctnkGz3SGHF31yiTRQ0xcQQ4bczAdhbXc09/QOY+jkrcMvt+GPjvvokNgAcHPfAq5xV7Fo+T4Jc6CHRyg==
 
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
