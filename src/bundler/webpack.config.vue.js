@@ -42,6 +42,10 @@ const config = {
         options: babelOptionsTs,
       },
       {
+        test: /\.html$/,
+        loader: require.resolve('html-loader'),
+      },
+      {
         test: /\.css$/,
         use: [{ loader: require.resolve('style-loader') }, { loader: require.resolve('css-loader') }],
       },
@@ -50,6 +54,17 @@ const config = {
         use: [
           { loader: require.resolve('style-loader') },
           { loader: require.resolve('css-loader') },
+          {
+            // for Bootstrap 5.0
+            loader: require.resolve('postcss-loader'),
+            options: {
+              postcssOptions: {
+                plugins: function () {
+                  return [require.resolve('autoprefixer')]
+                },
+              },
+            },
+          },
           { loader: require.resolve('sass-loader') },
         ],
       },
@@ -62,6 +77,9 @@ const config = {
   resolve: {
     modules: [basePath, 'node_modules'],
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    alias: {
+      vue$: 'vue/dist/vue.esm.js',
+    },
   },
   plugins: [
     new ForkTsCheckerWebpackPlugin({
