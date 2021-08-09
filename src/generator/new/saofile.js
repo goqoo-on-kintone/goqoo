@@ -1,5 +1,7 @@
 // @ts-check
 
+const { join } = require('path')
+
 /**
  * @type { import('sao').GeneratorConfig['prompts'] }
  */
@@ -16,6 +18,12 @@ const prompts = function prompts() {
       name: 'description',
       message: 'Project description',
     },
+    {
+      type: 'select',
+      name: 'frontendFramework',
+      message: 'Frontend Framework',
+      choices: ['(None)', 'React', 'Vue'],
+    },
   ]
 }
 
@@ -30,8 +38,11 @@ const actions = function () {
       filters: {
         'src/apps/**': false,
       },
-      // @ts-expect-error
-      templateDir: this.opts.answers.templateDir,
+      templateDir: join(
+        // @ts-expect-error
+        this.opts.answers.templateDir,
+        this.answers.frontendFramework === '(None)' ? 'standard' : this.answers.frontendFramework.toLowerCase()
+      ),
     },
     {
       type: 'modify',

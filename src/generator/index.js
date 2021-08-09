@@ -4,10 +4,9 @@
 const { dirname, join } = require('path')
 const { usageExit } = require('../util')
 
-const templateDirRoot = join(dirname(require.resolve('@goqoo/templates/package.json')), 'templates', '_new')
-
 module.exports = (argv) => {
   const rawArgv = process.argv.slice(3)
+  const templateDirRoot = join(dirname(require.resolve('@goqoo/templates/package.json')), 'templates')
 
   if (argv._subCommand === 'new') {
     const [projectDir] = rawArgv
