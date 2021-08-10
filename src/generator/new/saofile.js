@@ -38,6 +38,8 @@ const actions = function () {
       filters: {
         'src/apps/**': false,
         'src/in-app/**': false,
+        'dist/**': false,
+        'node_modules/**': false,
       },
       templateDir: join(
         // @ts-expect-error
