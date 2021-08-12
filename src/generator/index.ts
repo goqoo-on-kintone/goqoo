@@ -10,19 +10,20 @@ const main = async (argv: any): Promise<void> => {
     return import('./new').then(({ run }) => run({ templateDirRoot, projectDir }))
   }
 
+  const goqooConfig = await loadGoqooConfig()
   const [generatorName, appName] = rawArgv
+
+  if (generatorName === 'dts') {
+    return import('./dts').then(({ run }) => run(goqooConfig))
+  }
+
   if (!generatorName || !appName) {
     // TODO: ちゃんと関数化などする
     console.error(`usage: goqoo generate GENERATOR APP`)
     process.exit(1)
   }
 
-  const goqooConfig = await loadGoqooConfig()
   switch (generatorName) {
-    case 'dts':
-      // @ts-expect-error
-      return import('./dts').then(({ run }) => run({}))
-
     case 'scaffold':
       // TODO: appとin-appの組み合わせ全部入り
       return import('./scaffold').then(({ run }) => run({}))
