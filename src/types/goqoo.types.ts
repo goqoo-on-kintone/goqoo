@@ -1,5 +1,3 @@
-// TODO: goqoo本体に持っていく
-
 export type AppId = Record<string, number>
 export type ApiToken = Record<string, string>
 
