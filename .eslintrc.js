@@ -1,17 +1,17 @@
 module.exports = {
-  extends: ['standard', 'prettier'],
-  plugins: ['node', 'mocha'],
-  env: { mocha: true },
-  globals: {
-    // テスト用のグローバル変数 TODO: 自動的にglobalを認識させたい
-    assert: true,
-    goqoo: true,
+  env: {
+    'node': true,
+    'jest/globals': true,
   },
+  root: true,
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint', 'jest'],
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:jest/recommended'],
+  parserOptions: { ecmaVersion: 2021 },
   rules: {
-    'comma-dangle': ['error', 'only-multiline'],
-    'no-debugger': 'off',
-    'no-var': 'error',
-    'prefer-const': 'error',
-    'node/no-missing-require': 'error',
+    'no-console': ['error', { allow: ['info', 'warn', 'error'] }],
+    'no-irregular-whitespace': ['error', { skipTemplates: true }],
+    '@typescript-eslint/ban-ts-comment': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
   },
 }
