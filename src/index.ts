@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { parseArgumentOptions, showVersion, usageExit } from './utils'
+import { parseArgumentOptions, showVersion, usageExit } from 'utils'
 import generator from './generator'
 import bundler from './bundler'
 

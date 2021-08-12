@@ -6,7 +6,7 @@ module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'jest'],
-  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:jest/recommended'],
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:jest/recommended', 'prettier'],
   parserOptions: { ecmaVersion: 2021 },
   rules: {
     'no-console': ['error', { allow: ['info', 'warn', 'error'] }],

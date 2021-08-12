@@ -1,6 +1,6 @@
 const { execSync } = require('child_process')
 const { existsSync } = require('fs')
-const { usageExit, currentPath, projectPath } = require('../util')
+const { usageExit, currentPath, projectPath } = require('utils')
 
 const goqooConfigPath = projectPath('./goqoo.config.js')
 const goqooConfig = existsSync(goqooConfigPath) ? require(goqooConfigPath) : {}

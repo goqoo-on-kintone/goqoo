@@ -1,6 +1,6 @@
 import { SAO, handleError } from 'sao'
 import { resolve, join } from 'path'
-import { existsDirectory, projectPath } from '../../utils'
+import { existsDirectory, projectPath } from 'utils'
 import type { ConfigBase } from 'types/goqoo.types'
 
 type Runner = (props: {
