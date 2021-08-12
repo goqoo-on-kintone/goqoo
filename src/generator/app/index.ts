@@ -1,11 +1,16 @@
-// @ts-check
-'use strict'
+import { SAO, handleError } from 'sao'
+import { resolve, join } from 'path'
+import { existsDirectory, projectPath } from '../../utils'
+import type { ConfigBase } from 'types/goqoo.types'
 
-const { SAO, handleError } = require('sao')
-const { resolve, join } = require('path')
-const { existsDirectory, projectPath } = require('../../util')
+type Runner = (props: {
+  templateDirRoot: string
+  goqooConfig: ConfigBase
+  generatorName: string
+  appName: string
+}) => void
 
-module.exports = ({ templateDirRoot, goqooConfig, generatorName, appName }) => {
+export const run: Runner = ({ templateDirRoot, goqooConfig, generatorName, appName }) => {
   const appsDir = projectPath('./src/apps')
   if (!existsDirectory(appsDir)) {
     console.error(`Not a directory: ${appsDir}`)

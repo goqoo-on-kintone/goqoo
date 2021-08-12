@@ -1,5 +1,3 @@
-'use strict'
-
 const { execSync } = require('child_process')
 const { existsSync } = require('fs')
 const { usageExit, currentPath, projectPath } = require('../util')
@@ -23,7 +21,7 @@ switch (goqooConfig.bundlerType) {
 const webpackCustomConfigPath = projectPath('./webpack.config.js')
 const webpackConfigPath = existsSync(webpackCustomConfigPath) ? webpackCustomConfigPath : webpackDefaultConfigPath
 
-module.exports = (argv) => {
+export default (argv: any): void => {
   switch (argv._subCommand) {
     case 'build': {
       const command = `'${webpackBinPath}' ${argv._options.join(

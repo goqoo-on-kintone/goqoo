@@ -2,10 +2,12 @@ import { spawn } from 'child_process'
 import { mkdirSync } from 'fs'
 import { paramCase as kebabCase, pascalCase } from 'change-case'
 // @ts-ignore
-import { projectPath } from '../../util'
+import { projectPath } from '../../utils'
 import type { ConfigBase } from '../../types/goqoo.types'
 
-export const dts = (config: ConfigBase) => {
+type Runner = (config: ConfigBase) => void
+
+export const run: Runner = (config) => {
   const { dtsGen } = config
   const context = config.environments.find((c) => c.env === dtsGen?.env)
   if (!context) {

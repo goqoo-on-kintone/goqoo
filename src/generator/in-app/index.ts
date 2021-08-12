@@ -1,11 +1,16 @@
-// @ts-check
-'use strict'
+import { SAO, handleError } from 'sao'
+import { resolve, join } from 'path'
+import { existsDirectory, projectPath } from 'utils'
+import type { ConfigBase } from 'types/goqoo.types'
 
-const { SAO, handleError } = require('sao')
-const { resolve, join } = require('path')
-const { existsDirectory, projectPath } = require('../../util')
+type Runner = (props: {
+  templateDirRoot: string
+  goqooConfig: ConfigBase
+  generatorName: string
+  appName: string
+}) => void
 
-module.exports = ({ templateDirRoot, goqooConfig, generatorName, appName }) => {
+export const run: Runner = ({ templateDirRoot, goqooConfig, generatorName, appName }) => {
   const appDir = projectPath(`./src/apps/${appName}`)
   if (!existsDirectory(appDir)) {
     console.error(`Not a directory: ${appDir}`)
@@ -13,7 +18,6 @@ module.exports = ({ templateDirRoot, goqooConfig, generatorName, appName }) => {
   }
 
   // TODO: templateDirをユーザーが指定可能に
-  console.log(goqooConfig)
   const bundlerType = goqooConfig.bundlerType || 'standard'
   const templateDir = join(templateDirRoot, bundlerType, 'src/in-app', generatorName)
   if (!existsDirectory(templateDir)) {

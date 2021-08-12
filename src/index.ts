@@ -1,9 +1,8 @@
 #!/usr/bin/env node
-'use strict'
 
-const { parseArgumentOptions, showVersion, usageExit } = require('./util')
-const generator = require('./generator')
-const bundler = require('./bundler')
+import { parseArgumentOptions, showVersion, usageExit } from './utils'
+import generator from './generator'
+import bundler from './bundler'
 
 const argv = parseArgumentOptions()
 if (!argv._subCommand) {

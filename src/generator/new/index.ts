@@ -1,11 +1,10 @@
-// @ts-check
-'use strict'
+import { SAO, handleError } from 'sao'
+import { resolve } from 'path'
+import { existsDirectory } from 'utils'
 
-const { SAO, handleError } = require('sao')
-const { resolve } = require('path')
-const { existsDirectory } = require('../../util')
+type Runner = (props: { templateDirRoot: string; projectDir: string }) => void
 
-module.exports = ({ templateDirRoot, projectDir }) => {
+export const run: Runner = ({ templateDirRoot, projectDir }) => {
   // TODO: templateDirをユーザーが指定可能に
   const templateDir = templateDirRoot
   if (!existsDirectory(templateDir)) {
