@@ -50,7 +50,7 @@ export const dts = (config: ConfigBase) => {
       if (code !== 0) {
         console.error(`kintone-dts-gen process exited with code ${code}`)
       }
-      console.log(`dts-gen: ${args.output}`)
+      console.info(`dts-gen: ${args.output}`)
     })
   })
 }
