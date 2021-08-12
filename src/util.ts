@@ -7,7 +7,7 @@ import { cosmiconfigSync } from 'cosmiconfig'
 import TypeScriptLoader from '@endemolshinegroup/cosmiconfig-typescript-loader'
 import type { ConfigBase } from './types/goqoo.types'
 
-const trim = (text: string) => text.replace(/^\n|\n$/g, '')
+export const trim = (text: string) => text.replace(/^\n|\n$/g, '')
 
 export const showVersion = (): void => {
   const { version } = require('../package.json')
