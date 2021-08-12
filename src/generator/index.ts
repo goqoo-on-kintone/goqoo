@@ -1,7 +1,5 @@
 import { dirname, join } from 'path'
-import { cosmiconfigSync } from 'cosmiconfig'
-import TypeScriptLoader from '@endemolshinegroup/cosmiconfig-typescript-loader'
-import type { ConfigBase } from '../types/goqoo.types'
+import { loadGoqooConfig } from '../util'
 
 const main = async (argv: any): Promise<void> => {
   const rawArgv = process.argv.slice(3)
@@ -9,7 +7,7 @@ const main = async (argv: any): Promise<void> => {
 
   if (argv._subCommand === 'new') {
     const [projectDir] = rawArgv
-    import('./new').then(({ run }) => run({ templateDirRoot, projectDir }))
+    return import('./new').then(({ run }) => run({ templateDirRoot, projectDir }))
   }
 
   const [generatorName, appName] = rawArgv
@@ -19,18 +17,7 @@ const main = async (argv: any): Promise<void> => {
     process.exit(1)
   }
 
-  const moduleName = 'goqoo'
-  const explorer = cosmiconfigSync(moduleName, {
-    searchPlaces: [`${moduleName}.config.ts`],
-    loaders: {
-      '.ts': TypeScriptLoader,
-    },
-  })
-  const goqooConfig: ConfigBase | undefined = await explorer.search()?.config
-  if (!goqooConfig) {
-    throw new Error('goqoo.config.ts not found')
-  }
-
+  const goqooConfig = await loadGoqooConfig()
   switch (generatorName) {
     case 'dts':
       // @ts-expect-error
