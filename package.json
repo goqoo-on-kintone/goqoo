@@ -7,7 +7,8 @@
     "goqoo": "./src/index.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "preinstall": "typesync || true"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,21 @@
   },
   "homepage": "https://github.com/goqoo-on-kintone/goqoo#readme",
   "devDependencies": {
+    "@types/babel__core": "^7.1.15",
+    "@types/babel__preset-env": "^7.9.2",
+    "@types/caller": "^1.0.0",
+    "@types/eslint": "^7.28.0",
+    "@types/fs-extra": "^9.0.12",
+    "@types/js-yaml": "^4.0.2",
+    "@types/minimist": "^1.2.2",
+    "@types/mocha": "^9.0.0",
     "@types/mustache": "^4.1.2",
+    "@types/node-sass": "^4.11.2",
+    "@types/power-assert": "^1.5.4",
+    "@types/prettier": "^2.3.2",
+    "@types/request": "^2.48.7",
+    "@types/source-map-support": "^0.5.4",
+    "@types/webpack-dev-server": "^3.11.5",
     "eslint": "^7.21.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-config-standard": "^16.0.2",
