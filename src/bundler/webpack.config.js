@@ -4,7 +4,7 @@ const fs = require('fs')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const S3Plugin = require('webpack-s3-plugin')
 const merge = require('webpack-merge')
-const { projectPath } = require('../utils')
+const { projectPath } = require('../util')
 const { babelOptions, babelOptionsTs } = require('./babel-options')
 require('dotenv').config()
 

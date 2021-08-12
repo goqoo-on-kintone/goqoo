@@ -1,6 +1,6 @@
 import { SAO, handleError } from 'sao'
 import { resolve } from 'path'
-import { existsDirectory } from 'utils'
+import { existsDirectory } from '../../util'
 
 type Runner = (props: { templateDirRoot: string; projectDir: string }) => void
 

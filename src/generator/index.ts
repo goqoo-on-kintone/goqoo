@@ -1,7 +1,7 @@
 import { dirname, join } from 'path'
 import { cosmiconfigSync } from 'cosmiconfig'
 import TypeScriptLoader from '@endemolshinegroup/cosmiconfig-typescript-loader'
-import type { ConfigBase } from 'types/goqoo.types'
+import type { ConfigBase } from '../types/goqoo.types'
 
 const main = async (argv: any): Promise<void> => {
   const rawArgv = process.argv.slice(3)

@@ -2,7 +2,7 @@ import { spawn } from 'child_process'
 import { mkdirSync } from 'fs'
 import { paramCase as kebabCase, pascalCase } from 'change-case'
 // @ts-ignore
-import { projectPath } from 'utils'
+import { projectPath } from '../../util'
 import type { ConfigBase } from '../../types/goqoo.types'
 
 type Runner = (config: ConfigBase) => void
