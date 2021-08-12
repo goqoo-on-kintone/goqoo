@@ -21,11 +21,11 @@ export interface Context<TEnv extends string, TAppId extends AppId, TApiToken ex
 
 export interface ConfigBase {
   bundlerType?: 'standard' | 'vue' | 'react'
-  dtsGen?: { env: string; skip?: string }
+  dtsGen?: { env: string; skip?: string[] }
   environments: ContextBase[]
 }
 
 export interface Config<TEnv extends string, TAppId extends AppId, TApiToken extends ApiToken> extends ConfigBase {
-  dtsGen?: { env: TEnv; skip?: string }
+  dtsGen?: { env: TEnv; skip?: string[] }
   environments: Context<TEnv, TAppId, TApiToken>[]
 }
