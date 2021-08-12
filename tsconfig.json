@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "ESNEXT",
     "module": "commonjs",
+    "outDir": "./dist",
     "jsx": "react",
     "strict": true,
     "baseUrl": "src",
