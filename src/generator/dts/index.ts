@@ -12,8 +12,8 @@ export const dts = (config: ConfigBase) => {
     throw new Error('dts-gen context not found!')
   }
 
-  const dist = 'src/types'
-  mkdirSync(dist, { recursive: true })
+  const distDir = 'dts'
+  mkdirSync(distDir, { recursive: true })
 
   const connection = {
     'base-url': `https://${context.domain}`,
@@ -22,12 +22,17 @@ export const dts = (config: ConfigBase) => {
     'basic-auth-username': process.env.GOQOO_BASICAUTH_USERNAME,
     'basic-auth-password': process.env.GOQOO_BASICAUTH_PASSWORD,
   }
+  const skipApps = dtsGen?.skip || []
   Object.entries(context.appId).forEach(([appName, appId]) => {
+    if (skipApps.includes(appName)) {
+      return
+    }
+
     const args = {
       ...connection,
       'type-name': `${pascalCase(appName)}Fields`,
       'app-id': appId,
-      'output': `${dist}/${kebabCase(appName)}-fields.d.ts`,
+      'output': `${distDir}/${kebabCase(appName)}-fields.d.ts`,
     }
 
     const process = spawn(
