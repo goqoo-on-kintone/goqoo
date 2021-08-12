@@ -17,6 +17,7 @@ export const dts = (config: ConfigBase) => {
 
   const connection = {
     'base-url': `https://${context.domain}`,
+    // TODO: 別の入力方法にも対応
     'username': process.env.GOQOO_USERNAME,
     'password': process.env.GOQOO_PASSWORD,
     'basic-auth-username': process.env.GOQOO_BASICAUTH_USERNAME,
