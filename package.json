@@ -2,7 +2,7 @@
   "name": "goqoo",
   "version": "1.0.0-beta7",
   "description": "Goqoo on kintone",
-  "main": "./dist/main.js",
+  "main": "./dist/lib",
   "bin": {
     "goqoo": "./dist/cli.js"
   },

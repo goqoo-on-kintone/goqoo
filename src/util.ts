@@ -4,7 +4,7 @@ import minimist from 'minimist'
 import netrc from 'netrc-parser'
 import caller from 'caller'
 import { cosmiconfigSync } from 'cosmiconfig'
-import type { Config } from './types/goqoo.types'
+import type { Config } from './lib'
 
 export const trim = (text: string): string => text.replace(/^\n|\n$/g, '')
 
