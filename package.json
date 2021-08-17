@@ -2,12 +2,13 @@
   "name": "goqoo",
   "version": "1.0.0-beta4",
   "description": "Goqoo on kintone",
-  "main": "./src/index.js",
+  "main": "./dist/main.js",
   "bin": {
-    "goqoo": "./src/index.js"
+    "goqoo": "./dist/lib.js"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "yarn cleanup && tsc",
+    "cleanup": "rm -rf dist",
     "test": "jest",
     "preinstall": "typesync || true"
   },
