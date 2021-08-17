@@ -51,6 +51,7 @@ export const run: Runner = (config) => {
     // 終了時の処理
     process.on('close', (code) => {
       if (code !== 0) {
+        // TODO: kintoneへのリクエストに失敗してもdts-genは0を返すのでどうしたものか…
         console.error(`kintone-dts-gen process exited with code ${code}`)
       }
       console.info(`${chalk.cyan('info')} ${chalk.magenta('Created')} ${chalk.green(args.output)}`)
