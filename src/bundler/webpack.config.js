@@ -8,78 +8,85 @@ const { projectPath } = require('../util')
 const { babelOptions, babelOptionsTs } = require('./babel-options')
 require('dotenv').config()
 
-const basePath = path.resolve('src')
-const appsPath = path.join(basePath, 'apps')
-const entry = fs
-  .readdirSync(appsPath)
-  .filter((file) => !/^\./.test(file)) // Exclude dotfiles
-  .reduce(
-    (prev, file) => ({
-      ...prev,
-      [path.parse(file).name]: path.resolve(appsPath, file),
-    }),
-    {}
-  )
+module.exports = (env, argv) => {
+  console.log({ env, argv })
 
-const config = {
-  entry,
-  output: { path: path.resolve('dist') },
-  devtool: 'source-map',
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        loader: require.resolve('babel-loader'),
-        exclude: /node_modules/,
-        options: babelOptions,
-      },
-      {
-        test: /\.ts$/,
-        loader: require.resolve('babel-loader'),
-        exclude: /node_modules/,
-        options: babelOptionsTs,
-      },
-      {
-        test: /\.css$/,
-        use: [{ loader: require.resolve('style-loader') }, { loader: require.resolve('css-loader') }],
-      },
-      {
-        test: /\.(scss)$/,
-        use: [
-          { loader: require.resolve('style-loader') },
-          { loader: require.resolve('css-loader') },
-          { loader: require.resolve('sass-loader') },
-        ],
-      },
-      {
-        test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
-        loader: require.resolve('url-loader'),
-      },
+  const basePath = path.resolve('src')
+  const appsPath = path.join(basePath, 'apps')
+  const entry = fs
+    .readdirSync(appsPath)
+    .filter((file) => !/^\./.test(file)) // Exclude dotfiles
+    .reduce(
+      (prev, file) => ({
+        ...prev,
+        [path.parse(file).name]: path.resolve(appsPath, file),
+      }),
+      {}
+    )
+
+  const config = {
+    entry,
+    output: { path: path.resolve('dist') },
+    devtool: 'source-map',
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          loader: require.resolve('babel-loader'),
+          exclude: /node_modules/,
+          options: babelOptions,
+        },
+        {
+          test: /\.ts$/,
+          loader: require.resolve('babel-loader'),
+          exclude: /node_modules/,
+          options: babelOptionsTs,
+        },
+        {
+          test: /\.css$/,
+          use: [{ loader: require.resolve('style-loader') }, { loader: require.resolve('css-loader') }],
+        },
+        {
+          test: /\.(scss)$/,
+          use: [
+            { loader: require.resolve('style-loader') },
+            { loader: require.resolve('css-loader') },
+            { loader: require.resolve('sass-loader') },
+          ],
+        },
+        {
+          test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+          loader: require.resolve('url-loader'),
+        },
+      ],
+    },
+    resolve: {
+      modules: [basePath, 'node_modules'],
+      extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    },
+    plugins: [
+      new ForkTsCheckerWebpackPlugin({
+        typescript: {
+          configFile: projectPath('tsconfig.json'),
+        },
+      }),
     ],
-  },
-  resolve: {
-    modules: [basePath, 'node_modules'],
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
-  },
-  plugins: [
-    new ForkTsCheckerWebpackPlugin({
-      typescript: {
-        configFile: projectPath('tsconfig.json'),
-      },
-    }),
-  ],
-  devServer: {
-    contentBase: path.resolve('dist'),
-    inline: true,
-    https: true,
-    port: 59000,
-    headers: { 'Access-Control-Allow-Origin': '*' },
-    disableHostCheck: true,
-    progress: true,
-  },
-}
+    devServer: {
+      contentBase: path.resolve('dist'),
+      inline: true,
+      https: true,
+      port: 59000,
+      headers: { 'Access-Control-Allow-Origin': '*' },
+      disableHostCheck: true,
+      progress: true,
+    },
+  }
 
-if (process.env.S3) {
+  if (!env.S3) {
+    return config
+  }
+
+  console.info('Upload to S3')
   ;['AWS_ACCESS_KEY_ID', 'AWS_SECRET_ACCESS_KEY', 'AWS_S3_REGION', 'AWS_S3_BUCKET'].forEach((variable) => {
     if (!process.env[variable]) {
       console.error(`${variable}: environment variable not found!`)
@@ -87,7 +94,7 @@ if (process.env.S3) {
     }
   })
 
-  module.exports = merge(config, {
+  return merge(config, {
     entry: Object.entries(config.entry).reduce((obj, [key, value]) => {
       obj[`${key}-${process.env.AWS_RANDOM_SUFFIX}`] = value
       return obj
@@ -109,6 +116,4 @@ if (process.env.S3) {
       }),
     ],
   })
-} else {
-  module.exports = config
 }
