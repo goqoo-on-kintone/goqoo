@@ -6,7 +6,7 @@ import caller from 'caller'
 import { cosmiconfigSync } from 'cosmiconfig'
 import type { Config } from './types/goqoo.types'
 
-export const trim = (text: string) => text.replace(/^\n|\n$/g, '')
+export const trim = (text: string): string => text.replace(/^\n|\n$/g, '')
 
 export const showVersion = (): void => {
   const { version } = require('../package.json')
