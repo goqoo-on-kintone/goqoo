@@ -4,7 +4,7 @@
   "description": "Goqoo on kintone",
   "main": "./dist/main.js",
   "bin": {
-    "goqoo": "./dist/lib.js"
+    "goqoo": "./dist/cli.js"
   },
   "scripts": {
     "build": "yarn cleanup && tsc",
