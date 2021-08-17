@@ -1,6 +1,5 @@
 // @ts-check
 
-/* eslint-disable no-console */
 const path = require('path')
 const fs = require('fs')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
