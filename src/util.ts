@@ -4,7 +4,7 @@ import minimist from 'minimist'
 import netrc from 'netrc-parser'
 import caller from 'caller'
 import { cosmiconfigSync } from 'cosmiconfig'
-import type { ConfigBase } from './types/goqoo.types'
+import type { Config } from './types/goqoo.types'
 
 export const trim = (text: string) => text.replace(/^\n|\n$/g, '')
 
@@ -30,8 +30,8 @@ usage: goqoo [-v, --version] [-h, --help]
   process.exit(returnCode)
 }
 
-export const loadGoqooConfig = (): ConfigBase => {
-  const goqooConfig: ConfigBase | undefined = cosmiconfigSync('goqoo').search()?.config
+export const loadGoqooConfig = (): Config => {
+  const goqooConfig: Config | undefined = cosmiconfigSync('goqoo').search()?.config
   if (!goqooConfig) {
     throw new Error('goqoo config file not found')
   }

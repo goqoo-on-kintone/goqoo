@@ -1,15 +1,11 @@
 export type AppId = Record<string, number>
 export type ApiToken = Record<string, string>
 
-export interface ContextBase {
-  env: string
-  domain: string
-  appId: AppId
-  apiToken?: ApiToken
-  guest?: number
-}
-
-export interface Context<TEnv extends string, TAppId extends AppId, TApiToken extends ApiToken> extends ContextBase {
+export type Context<
+  TEnv extends string = string,
+  TAppId extends AppId = AppId,
+  TApiToken extends ApiToken = ApiToken
+> = {
   env: TEnv
   domain: string
   appId: TAppId
@@ -17,13 +13,12 @@ export interface Context<TEnv extends string, TAppId extends AppId, TApiToken ex
   guest?: number
 }
 
-export interface ConfigBase {
+export type Config<
+  TEnv extends string = string,
+  TAppId extends AppId = AppId,
+  TApiToken extends ApiToken = ApiToken
+> = {
   bundlerType?: 'default' | 'react' | 'vue'
-  dtsGen?: { env: string; skip?: string[] }
-  environments: ContextBase[]
-}
-
-export interface Config<TEnv extends string, TAppId extends AppId, TApiToken extends ApiToken> extends ConfigBase {
   dtsGen?: { env: TEnv; skip?: string[] }
   environments: Context<TEnv, TAppId, TApiToken>[]
 }

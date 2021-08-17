@@ -4,9 +4,9 @@ import chalk from 'chalk'
 import { paramCase as kebabCase, pascalCase } from 'change-case'
 // @ts-ignore
 import { projectPath } from '../../util'
-import type { ConfigBase } from '../../types/goqoo.types'
+import type { Config } from '../../types/goqoo.types'
 
-type Runner = (config: ConfigBase) => void
+type Runner = (config: Config) => void
 
 export const run: Runner = (config) => {
   const { dtsGen } = config

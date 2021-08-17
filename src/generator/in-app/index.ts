@@ -1,14 +1,9 @@
 import { SAO, handleError } from 'sao'
 import { resolve, join } from 'path'
 import { existsDirectory, projectPath } from '../../util'
-import type { ConfigBase } from '../../types/goqoo.types'
+import type { Config } from '../../types/goqoo.types'
 
-type Runner = (props: {
-  templateDirRoot: string
-  goqooConfig: ConfigBase
-  generatorName: string
-  appName: string
-}) => void
+type Runner = (props: { templateDirRoot: string; goqooConfig: Config; generatorName: string; appName: string }) => void
 
 export const run: Runner = ({ templateDirRoot, goqooConfig, generatorName, appName }) => {
   const appDir = projectPath(`./src/apps/${appName}`)
