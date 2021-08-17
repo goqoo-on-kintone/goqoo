@@ -1,5 +1,6 @@
 import { spawn } from 'child_process'
 import { mkdirSync } from 'fs'
+import chalk from 'chalk'
 import { paramCase as kebabCase, pascalCase } from 'change-case'
 // @ts-ignore
 import { projectPath } from '../../util'
@@ -52,7 +53,7 @@ export const run: Runner = (config) => {
       if (code !== 0) {
         console.error(`kintone-dts-gen process exited with code ${code}`)
       }
-      console.info(`dts-gen: ${args.output}`)
+      console.info(`${chalk.cyan('info')} ${chalk.magenta('Created')} ${chalk.green(args.output)}`)
     })
   })
 }
