@@ -15,7 +15,7 @@ const main = async (argv: any): Promise<void> => {
     case 'vue':
       webpackDefaultConfigPath = currentPath('./webpack.config.vue.js')
       break
-    case 'standard':
+    case 'default':
     default:
       webpackDefaultConfigPath = currentPath('./webpack.config.js')
   }

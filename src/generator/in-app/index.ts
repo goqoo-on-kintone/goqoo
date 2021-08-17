@@ -18,7 +18,7 @@ export const run: Runner = ({ templateDirRoot, goqooConfig, generatorName, appNa
   }
 
   // TODO: templateDirをユーザーが指定可能に
-  const bundlerType = goqooConfig.bundlerType || 'standard'
+  const bundlerType = goqooConfig.bundlerType || 'default'
   const templateDir = join(templateDirRoot, bundlerType, 'src/in-app', generatorName)
   if (!existsDirectory(templateDir)) {
     console.error(`Template not found: ${templateDir}`)

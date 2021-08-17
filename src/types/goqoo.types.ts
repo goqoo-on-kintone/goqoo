@@ -18,7 +18,7 @@ export interface Context<TEnv extends string, TAppId extends AppId, TApiToken ex
 }
 
 export interface ConfigBase {
-  bundlerType?: 'standard' | 'vue' | 'react'
+  bundlerType?: 'default' | 'vue' | 'react'
   dtsGen?: { env: string; skip?: string[] }
   environments: ContextBase[]
 }

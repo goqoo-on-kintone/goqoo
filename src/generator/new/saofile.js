@@ -44,7 +44,7 @@ const actions = function () {
       templateDir: join(
         // @ts-expect-error
         this.opts.answers.templateDir,
-        this.answers.frontendFramework === '(None)' ? 'standard' : this.answers.frontendFramework.toLowerCase()
+        this.answers.frontendFramework === '(None)' ? 'default' : this.answers.frontendFramework.toLowerCase()
       ),
     },
     {
