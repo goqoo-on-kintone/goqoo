@@ -42,7 +42,7 @@ const main = async (argv: any): Promise<void> => {
     }
     case 'start':
     case 's': {
-      exec(`'${webpackBinPath}' serve ${options} --config '${webpackConfigPath}' --mode development`)
+      exec(`'${webpackBinPath}' serve ${options} --progress --config '${webpackConfigPath}' --mode development`)
       break
     }
     default: {

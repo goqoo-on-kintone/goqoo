@@ -1,31 +1,45 @@
+// @ts-check
+
 /* eslint-disable no-console */
 const path = require('path')
 const fs = require('fs')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
+// @ts-expect-error
 const S3Plugin = require('webpack-s3-plugin')
-const { merge } = require('webpack-merge')
+const { mergeWithCustomize, customizeObject } = require('webpack-merge')
 const { projectPath } = require('../util')
 const { babelOptions, babelOptionsTs } = require('./babel-options')
 require('dotenv').config()
 
+/**
+ * @typedef {import('webpack').Configuration} Configuration
+ * @typedef {import('./types').ConfigurationFactory} ConfigurationFactory
+ */
+
+/**
+ * @type {ConfigurationFactory}
+ */
 module.exports = (env, argv) => {
-  console.log({ env, argv })
+  console.info({ env })
 
-  const basePath = path.resolve('src')
-  const appsPath = path.join(basePath, 'apps')
-  const entry = fs
-    .readdirSync(appsPath)
-    .filter((file) => !/^\./.test(file)) // Exclude dotfiles
-    .reduce(
-      (prev, file) => ({
-        ...prev,
-        [path.parse(file).name]: path.resolve(appsPath, file),
-      }),
-      {}
-    )
+  const srcPath = path.resolve('src')
+  const appsPath = path.join(srcPath, 'apps')
 
+  /**
+   * @type {import('webpack').EntryObject}
+   */
+  const entryObject = Object.fromEntries(
+    fs
+      .readdirSync(appsPath)
+      .filter((file) => !/^\./.test(file)) // Exclude dotfiles
+      .map((file) => [path.parse(file).name, path.resolve(appsPath, file)])
+  )
+
+  /**
+   * @type {Configuration}
+   */
   const config = {
-    entry,
+    entry: entryObject,
     output: { path: path.resolve('dist') },
     devtool: 'source-map',
     module: {
@@ -61,7 +75,7 @@ module.exports = (env, argv) => {
       ],
     },
     resolve: {
-      modules: [basePath, 'node_modules'],
+      modules: [srcPath, 'node_modules'],
       extensions: ['.ts', '.tsx', '.js', '.jsx'],
     },
     plugins: [
@@ -78,11 +92,10 @@ module.exports = (env, argv) => {
       port: 59000,
       headers: { 'Access-Control-Allow-Origin': '*' },
       disableHostCheck: true,
-      progress: true,
     },
   }
 
-  if (!env.S3) {
+  if (!env || !env.S3) {
     return config
   }
 
@@ -94,25 +107,39 @@ module.exports = (env, argv) => {
     }
   })
 
+  const accessKeyId = process.env.AWS_ACCESS_KEY_ID
+  const secretAccessKeyId = process.env.AWS_SECRET_ACCESS_KEY
+  const suffix = process.env.AWS_RANDOM_SUFFIX
+  const region = process.env.AWS_S3_REGION
+  const Bucket = process.env.AWS_S3_BUCKET
+  const basePath = process.env.AWS_S3_BASEPATH || process.env.npm_package_name
+
+  const entryObjectS3 = Object.fromEntries(
+    Object.entries(entryObject).map(([key, value]) => [`${key}-${suffix}`, value])
+  )
+  const urls = Object.fromEntries(
+    Object.keys(entryObject).map((key) => [
+      key,
+      `https://${Bucket}.s3.${region}.amazonaws.com/${basePath}/${key}-${suffix}.js`,
+    ])
+  )
+  console.info(urls)
+
+  const merge = mergeWithCustomize({
+    customizeObject: customizeObject({
+      // @ts-expect-error
+      entry: 'replace',
+    }),
+  })
+
   return merge(config, {
-    entry: Object.entries(config.entry).reduce((obj, [key, value]) => {
-      obj[`${key}-${process.env.AWS_RANDOM_SUFFIX}`] = value
-      return obj
-    }, {}),
+    entry: entryObjectS3,
     plugins: [
       new S3Plugin({
-        // Exclude uploading of html
         exclude: /.*\.html$/,
-        // s3Options are required
-        s3Options: {
-          accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-          secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-          region: process.env.AWS_S3_REGION,
-        },
-        s3UploadOptions: {
-          Bucket: process.env.AWS_S3_BUCKET,
-        },
-        basePath: process.env.AWS_S3_BASEPATH || process.env.npm_package_name,
+        s3Options: { accessKeyId, secretAccessKeyId, region },
+        s3UploadOptions: { Bucket, CacheControl: 'private' },
+        basePath,
       }),
     ],
   })
