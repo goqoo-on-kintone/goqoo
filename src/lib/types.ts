@@ -9,6 +9,7 @@ export type Context<
   env: TEnv
   domain: string
   appId: TAppId
+  currentAppName?: keyof TAppId
   apiToken?: TApiToken
   guest?: number
 }
