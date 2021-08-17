@@ -2,6 +2,7 @@
 
 const path = require('path')
 const fs = require('fs')
+const { EnvironmentPlugin } = require('webpack')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 // @ts-expect-error
 const S3Plugin = require('webpack-s3-plugin')
@@ -19,6 +20,13 @@ require('dotenv').config()
  * @type {ConfigurationFactory}
  */
 module.exports = (env, argv) => {
+  if (!env) {
+    env = {}
+  }
+  if (!env.target && argv.mode) {
+    env.target = argv.mode.toUpperCase()
+  }
+  console.info({ mode: argv.mode })
   console.info({ env })
 
   const srcPath = path.resolve('src')
@@ -78,6 +86,11 @@ module.exports = (env, argv) => {
       extensions: ['.ts', '.tsx', '.js', '.jsx'],
     },
     plugins: [
+      new EnvironmentPlugin({
+        TARGET: env.target,
+        COMMIT_HASH: require('child_process').execSync('git rev-parse --short HEAD').toString().trim(),
+        BUILT_AT: new Date(),
+      }),
       new ForkTsCheckerWebpackPlugin({
         typescript: {
           configFile: projectPath('tsconfig.json'),

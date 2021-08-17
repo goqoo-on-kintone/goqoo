@@ -1,3 +1,8 @@
 interface Window {
-  goqoo?: Record<string, boolean>
+  __goqoo__?: Record<string, boolean>
+  __devinfo__?: {
+    env?: string
+    commitHash?: string
+    builtAt?: string
+  }
 }
