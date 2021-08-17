@@ -1236,10 +1236,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@goqoo/templates@^1.0.0-beta2":
-  version "1.0.0-beta2"
-  resolved "https://registry.npmjs.org/@goqoo/templates/-/templates-1.0.0-beta2.tgz#b781a44c1947c53e7ed20fa41a74bd3f363b3c1a"
-  integrity sha512-TbaEsctnkGz3SGHF31yiTRQ0xcQQ4bczAdhbXc09/QOY+jkrcMvt+GPjvvokNgAcHPfAq5xV7Fo+T4Jc6CHRyg==
+"@goqoo/templates@^1.0.0-beta4":
+  version "1.0.0-beta4"
+  resolved "https://registry.npmjs.org/@goqoo/templates/-/templates-1.0.0-beta4.tgz#997e72b9589e480a81d444749d6071e91b7d2752"
+  integrity sha512-QrjtJTCBkI+f5uPndJPWm5jIDzYYFEA/XoHH/TLpdDfkgin9MZ0Jjt6p2OIrYNoSPHYspZH+IiF1V3uZ06CH7Q==
 
 "@humanwhocodes/config-array@^0.5.0":
   version "0.5.0"
