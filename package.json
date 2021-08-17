@@ -43,6 +43,7 @@
     "@types/prettier": "^2.3.2",
     "@types/request": "^2.48.7",
     "@types/source-map-support": "^0.5.4",
+    "@types/uuid": "^8.3.1",
     "@types/webpack-dev-server": "^3.11.5",
     "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.29.1",
@@ -53,7 +54,6 @@
     "prettier": "^2.2.1",
     "ts-jest": "^27.0.4",
     "ts-node": "^10.2.0",
-    "typescript": "^4.3.5",
     "typesync": "^0.8.0"
   },
   "dependencies": {
@@ -85,8 +85,9 @@
     "sass-loader": "^11.1.1",
     "source-map-support": "^0.5.19",
     "style-loader": "^2.0.0",
-    "tslib": "^2.1.0",
+    "typescript": "^4.3.5",
     "url-loader": "^4.1.1",
+    "uuid": "^8.3.2",
     "webpack": "^5.37.1",
     "webpack-cli": "^4.7.0",
     "webpack-dev-server": "^3.11.2",
