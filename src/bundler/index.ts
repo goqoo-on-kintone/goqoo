@@ -3,11 +3,12 @@ import { existsSync } from 'fs'
 import { usageExit, currentPath, projectPath, loadGoqooConfig } from '../util'
 
 const main = async (argv: any): Promise<void> => {
-  const goqooConfig = await loadGoqooConfig()
+  const { bundlerType } = loadGoqooConfig()
+  console.info({ bundlerType })
 
   const webpackBinPath = currentPath('../../node_modules/.bin/webpack')
   let webpackDefaultConfigPath
-  switch (goqooConfig.bundlerType) {
+  switch (bundlerType) {
     case 'react':
       webpackDefaultConfigPath = currentPath('./webpack.config.react.js')
       break

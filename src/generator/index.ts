@@ -10,7 +10,7 @@ const main = async (argv: any): Promise<void> => {
     return import('./new').then(({ run }) => run({ templateDirRoot, projectDir }))
   }
 
-  const goqooConfig = await loadGoqooConfig()
+  const goqooConfig = loadGoqooConfig()
   const [generatorName, appName] = rawArgv
 
   if (generatorName === 'dts') {

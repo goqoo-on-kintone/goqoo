@@ -4,7 +4,6 @@ import minimist from 'minimist'
 import netrc from 'netrc-parser'
 import caller from 'caller'
 import { cosmiconfigSync } from 'cosmiconfig'
-import TypeScriptLoader from '@endemolshinegroup/cosmiconfig-typescript-loader'
 import type { ConfigBase } from './types/goqoo.types'
 
 export const trim = (text: string) => text.replace(/^\n|\n$/g, '')
@@ -31,23 +30,12 @@ usage: goqoo [-v, --version] [-h, --help]
   process.exit(returnCode)
 }
 
-export const loadGoqooConfig = async (): Promise<ConfigBase> => {
-  const moduleName = 'goqoo'
-  const explorer = cosmiconfigSync(moduleName, {
-    searchPlaces: [`${moduleName}.config.ts`],
-    loaders: {
-      '.ts': TypeScriptLoader,
-    },
-  })
-  try {
-    const goqooConfig: ConfigBase | undefined = await explorer.search()?.config
-    if (!goqooConfig) {
-      throw new Error('goqoo.config.ts not found')
-    }
-    return goqooConfig
-  } catch (e) {
-    throw new Error(e.message)
+export const loadGoqooConfig = (): ConfigBase => {
+  const goqooConfig: ConfigBase | undefined = cosmiconfigSync('goqoo').search()?.config
+  if (!goqooConfig) {
+    throw new Error('goqoo config file not found')
   }
+  return goqooConfig
 }
 
 export const parseArgumentOptions = (): ReturnType<typeof minimist> => {
