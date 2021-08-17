@@ -21,25 +21,29 @@ const main = async (argv: any): Promise<void> => {
   const webpackCustomConfigPath = projectPath('./webpack.config.js')
   const webpackConfigPath = existsSync(webpackCustomConfigPath) ? webpackCustomConfigPath : webpackDefaultConfigPath
 
+  const options = argv._options.join(' ')
+  const webpackCommandBase = `'${webpackBinPath}' ${options} --progress --config '${webpackConfigPath}'`
+
+  const exec = (command: string) => execSync(command, { stdio: 'inherit' })
+
   switch (argv._subCommand) {
     case 'build': {
-      const command = `'${webpackBinPath}' ${argv._options.join(
-        ' '
-      )} --mode development --config '${webpackConfigPath}'`
-      execSync(command, { stdio: 'inherit' })
+      exec(`${webpackCommandBase} --mode development`)
       break
     }
-
-    case 'dev':
-    case 'serve':
+    case 'watch': {
+      exec(`${webpackCommandBase} --mode development --watch`)
+      break
+    }
+    case 'release': {
+      exec(`${webpackCommandBase} --mode production`)
+      break
+    }
+    case 'start':
     case 's': {
-      const command = `'${webpackBinPath}' serve ${argv._options.join(
-        ' '
-      )} --mode development --config '${webpackConfigPath}'`
-      execSync(command, { stdio: 'inherit' })
+      exec(`'${webpackBinPath}' serve ${options} --config '${webpackConfigPath}' --mode development`)
       break
     }
-
     default: {
       usageExit(1)
     }

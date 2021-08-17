@@ -22,9 +22,10 @@ export const usageExit = (returnCode = 0): void => {
 usage: goqoo [-v, --version] [-h, --help]
               new <project name>
               generate <GENERATOR> <app name>
+              start
               build
-              dev
-              serve
+              watch
+              release
 `)
   console.error(message)
   process.exit(returnCode)
