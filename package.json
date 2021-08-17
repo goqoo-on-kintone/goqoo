@@ -61,7 +61,6 @@
     "@babel/preset-env": "^7.14.2",
     "@babel/preset-react": "^7.13.13",
     "@babel/preset-typescript": "^7.13.0",
-    "@endemolshinegroup/cosmiconfig-typescript-loader": "^3.0.2",
     "@goqoo/templates": "^1.0.0-beta4",
     "@kintone/dts-gen": "^4.2.11",
     "autoprefixer": "^10.3.1",
