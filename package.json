@@ -18,6 +18,12 @@
   },
   "author": "",
   "license": "MIT",
+  "files": [
+    "dist",
+    "src",
+    "tsconfig.json",
+    "README.ja.md"
+  ],
   "bugs": {
     "url": "https://github.com/goqoo-on-kintone/goqoo/issues"
   },
