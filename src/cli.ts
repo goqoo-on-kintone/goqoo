@@ -3,6 +3,8 @@
 import { parseArgumentOptions, showVersion, usageExit } from './util'
 import generator from './generator'
 import bundler from './bundler'
+import { config } from 'dotenv'
+config()
 
 const argv = parseArgumentOptions()
 if (!argv._subCommand) {
