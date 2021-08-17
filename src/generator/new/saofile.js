@@ -1,6 +1,7 @@
 // @ts-check
 
 const { join } = require('path')
+const { v4: uuid } = require('uuid')
 
 /**
  * @type { import('sao').GeneratorConfig['prompts'] }
@@ -31,6 +32,8 @@ const prompts = function prompts() {
  * @type { import('sao').GeneratorConfig['actions'] }
  */
 const actions = function () {
+  // TODO: goqoo.configに書き込む
+  console.log(uuid())
   return [
     {
       type: 'add',
