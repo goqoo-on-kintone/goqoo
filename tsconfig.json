@@ -2,15 +2,16 @@
   "compilerOptions": {
     "target": "ESNEXT",
     "module": "commonjs",
-    "outDir": "./dist",
+    "allowJs": true,
     "jsx": "react",
+    "declaration": true,
+    "outDir": "./dist",
+
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "allowJs": true,
-    "declaration": true
+    "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "dts"],
   "exclude": ["dist", "test"]
 }
