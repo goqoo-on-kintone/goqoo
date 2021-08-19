@@ -51,6 +51,12 @@ const actions = function () {
       ),
     },
     {
+      type: 'move',
+      patterns: {
+        gitignore: '.gitignore',
+      },
+    },
+    {
       type: 'modify',
       files: 'package.json',
       handler: (data) => ({
