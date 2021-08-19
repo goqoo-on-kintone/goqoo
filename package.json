@@ -1,6 +1,6 @@
 {
   "name": "goqoo",
-  "version": "1.0.0-beta10",
+  "version": "1.0.0-beta11",
   "description": "Goqoo on kintone",
   "main": "./dist/lib",
   "bin": {
@@ -21,6 +21,8 @@
   "files": [
     "dist",
     "src",
+    "img",
+    "dts",
     "tsconfig.json",
     "README.ja.md"
   ],
