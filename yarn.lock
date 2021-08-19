@@ -1226,10 +1226,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@goqoo/templates@^1.0.0-beta8":
-  version "1.0.0-beta8"
-  resolved "https://registry.yarnpkg.com/@goqoo/templates/-/templates-1.0.0-beta8.tgz#97eb39788d8998c8b0c3d81504b2697c30d7059b"
-  integrity sha512-TsbzPvS8zoVMTweJyO6Qo1lC/sk9agtRD+LEjQXNrjxJZl8HQaZZ8cEY6GGNsTfYztB0LXsdUU2EV2MArg7TJA==
+"@goqoo/templates@^1.0.0-beta9":
+  version "1.0.0-beta9"
+  resolved "https://registry.yarnpkg.com/@goqoo/templates/-/templates-1.0.0-beta9.tgz#8e56849d5181a4da6476e218cfe4d61ac8096210"
+  integrity sha512-4EIvtpcKydsOOen3WeGI+hdAsgDc7MKCHYcNpZkr00FrV+yiZCaC7nDARrfmLwWHOmDDDL8MY3nyxPP+as+FMQ==
 
 "@humanwhocodes/config-array@^0.5.0":
   version "0.5.0"
