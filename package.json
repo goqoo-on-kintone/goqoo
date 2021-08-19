@@ -1,6 +1,6 @@
 {
   "name": "goqoo",
-  "version": "1.0.0-beta13",
+  "version": "1.0.0-beta9014",
   "description": "Goqoo on kintone",
   "main": "./dist/lib",
   "bin": {
