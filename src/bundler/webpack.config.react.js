@@ -66,7 +66,5 @@ module.exports = (env, argv) => {
       rules: { test: 'match', use: 'replace' },
     },
   })(baseConfig, reactConfig)
-  // @ts-expect-error
-  console.log(config.module.rules)
   return config
 }
