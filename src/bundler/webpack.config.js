@@ -53,15 +53,13 @@ module.exports = (env, argv) => {
       rules: [
         {
           test: /\.js$/,
-          loader: require.resolve('babel-loader'),
+          use: [{ loader: require.resolve('babel-loader'), options: babelOptions }],
           exclude: /node_modules/,
-          options: babelOptions,
         },
         {
           test: /\.ts$/,
-          loader: require.resolve('babel-loader'),
+          use: [{ loader: require.resolve('babel-loader'), options: babelOptionsTs }],
           exclude: /node_modules/,
-          options: babelOptionsTs,
         },
         {
           test: /\.css$/,
@@ -77,7 +75,7 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
-          loader: require.resolve('url-loader'),
+          use: [{ loader: require.resolve('url-loader') }],
         },
       ],
     },

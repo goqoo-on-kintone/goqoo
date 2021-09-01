@@ -29,13 +29,12 @@ module.exports = (env, argv) => {
       rules: [
         {
           test: /\.jsx?$/,
-          loader: require.resolve('babel-loader'),
+          use: [{ loader: require.resolve('babel-loader'), options: babelOptions }],
           exclude: /node_modules/,
-          options: babelOptions,
         },
         {
           test: /\.tsx?$/,
-          loader: require.resolve('babel-loader'),
+          use: [{ loader: require.resolve('babel-loader'), options: babelOptionsTs }],
           exclude: /node_modules/,
           options: babelOptionsTs,
         },
