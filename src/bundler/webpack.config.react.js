@@ -36,7 +36,6 @@ module.exports = (env, argv) => {
           test: /\.tsx?$/,
           use: [{ loader: require.resolve('babel-loader'), options: babelOptionsTs }],
           exclude: /node_modules/,
-          options: babelOptionsTs,
         },
         {
           test: /\.(scss)$/,
@@ -61,10 +60,13 @@ module.exports = (env, argv) => {
     },
   }
 
-  return mergeWithRules({
+  const config = mergeWithRules({
     module: {
       // @ts-expect-error
       rules: { test: 'match', use: 'replace' },
     },
   })(baseConfig, reactConfig)
+  // @ts-expect-error
+  console.log(config.module.rules)
+  return config
 }
