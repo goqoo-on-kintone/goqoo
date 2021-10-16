@@ -46,7 +46,6 @@ module.exports = (env, argv) => {
    * @type {Configuration}
    */
   const config = {
-    target: 'web',
     entry: entryObject,
     output: { path: path.resolve('dist') },
     devtool: 'source-map',
@@ -97,29 +96,13 @@ module.exports = (env, argv) => {
       }),
     ],
     devServer: {
-      static: {
-        directory: path.resolve('dist'),
-        publicPath: '/',
-        // watch: true,
-      },
+      contentBase: path.resolve('dist'),
+      inline: true,
       https: true,
       port: 59000,
-      // headers: { 'Access-Control-Allow-Origin': '*' },
-      // allowedHosts: 'all',
-      // client: { progress: true },
-      hot: false,
-      liveReload: true,
-      // host: 'local-ip',
+      headers: { 'Access-Control-Allow-Origin': '*' },
+      disableHostCheck: true,
     },
-    // optimization: {
-    //   // don't minimize so we can debug
-    //   minimize: false,
-    //   /*
-    //     The value 'single' instead creates a runtime file to be shared for all generated chunks.
-    //     https://github.com/webpack/webpack-dev-server/issues/2792
-    //   */
-    //   runtimeChunk: 'single',
-    // },
   }
 
   if (!env || !env.S3) {
@@ -154,6 +137,7 @@ module.exports = (env, argv) => {
 
   const merge = mergeWithCustomize({
     customizeObject: customizeObject({
+      // @ts-expect-error
       entry: 'replace',
     }),
   })

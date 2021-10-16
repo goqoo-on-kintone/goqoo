@@ -62,6 +62,7 @@ module.exports = (env, argv) => {
 
   const config = mergeWithRules({
     module: {
+      // @ts-expect-error
       rules: { test: 'match', use: 'replace' },
     },
   })(baseConfig, reactConfig)
