@@ -137,7 +137,6 @@ module.exports = (env, argv) => {
 
   const merge = mergeWithCustomize({
     customizeObject: customizeObject({
-      // @ts-expect-error
       entry: 'replace',
     }),
   })
