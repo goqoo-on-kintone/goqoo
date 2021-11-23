@@ -89,6 +89,7 @@
     "request": "^2.88.2",
     "sao": "^2.0.0-beta.1",
     "sass-loader": "^11.1.1",
+    "source-map-loader": "^3.0.0",
     "source-map-support": "^0.5.19",
     "style-loader": "^2.0.0",
     "sweetalert": "^2.1.2",
