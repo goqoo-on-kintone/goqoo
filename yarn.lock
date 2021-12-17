@@ -1022,7 +1022,7 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@goqoo/templates@^1.0.0-beta9":
+"@goqoo/templates@^1.0.0-beta9011":
   version "1.0.0-beta9011"
   resolved "https://registry.yarnpkg.com/@goqoo/templates/-/templates-1.0.0-beta9011.tgz#0f0bbc1f7acd84ef839b6629290bd998dbf5fec9"
   integrity sha512-351S3iPUZOo/VjN/QOfeTGSz37SCxl0rf8xnHPoy5bUhKVn0nxJq4wIHsURiAf9igxiRV+BqPpP8MfpIGz44ug==
