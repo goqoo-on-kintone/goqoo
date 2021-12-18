@@ -1,6 +1,6 @@
 {
   "name": "goqoo",
-  "version": "1.0.0-beta9017",
+  "version": "1.0.0-beta9019",
   "description": "Goqoo on kintone",
   "main": "./dist/lib",
   "bin": {
@@ -65,7 +65,7 @@
     "@babel/preset-env": "^7.14.2",
     "@babel/preset-react": "^7.13.13",
     "@babel/preset-typescript": "^7.13.0",
-    "@goqoo/templates": "^1.0.0-beta9",
+    "@goqoo/templates": "^1.0.0-beta9011",
     "@kintone/dts-gen": "^4.2.11",
     "autoprefixer": "^10.3.1",
     "babel-loader": "^8.2.2",
@@ -89,6 +89,7 @@
     "request": "^2.88.2",
     "sao": "^2.0.0-beta.1",
     "sass-loader": "^11.1.1",
+    "source-map-loader": "^3.0.0",
     "source-map-support": "^0.5.19",
     "style-loader": "^2.0.0",
     "sweetalert": "^2.1.2",
