@@ -1,28 +1,5 @@
-export type AppId = Record<string, number>
-export type ApiToken = Record<string, string>
-export type ViewId = Partial<Record<keyof AppId, Record<string, number>>>
-
-export type Context<
-  TEnv extends string = string,
-  TAppId extends AppId = AppId,
-  TViewId extends ViewId = ViewId,
-  TApiToken extends ApiToken = ApiToken
-> = {
-  env: TEnv
-  domain: string
-  appId: TAppId
-  viewId?: TViewId
-  apiToken?: TApiToken
-  guest?: number
-}
-
-export type Config<
-  TEnv extends string = string,
-  TAppId extends AppId = AppId,
-  TViewId extends ViewId = ViewId,
-  TApiToken extends ApiToken = ApiToken
-> = {
+export type Config<Env extends string = string, Context = any> = {
   bundlerType?: 'default' | 'react' | 'vue'
-  dtsGen?: { env: TEnv; skip?: string[] }
-  environments: Context<TEnv, TAppId, TViewId, TApiToken>[]
+  dtsGen?: { env: Env; skip?: string[] }
+  environments: Context[]
 }
