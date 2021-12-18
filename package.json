@@ -65,7 +65,7 @@
     "@babel/preset-env": "^7.14.2",
     "@babel/preset-react": "^7.13.13",
     "@babel/preset-typescript": "^7.13.0",
-    "@goqoo/templates": "^1.0.0-beta9013",
+    "@goqoo/templates": "^1.0.0",
     "@kintone/dts-gen": "^4.2.11",
     "autoprefixer": "^10.3.1",
     "babel-loader": "^8.2.2",
