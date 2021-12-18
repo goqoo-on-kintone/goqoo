@@ -83,15 +83,16 @@ const actions = function () {
       type: 'move',
       patterns: Object.fromEntries(extensions.map((ext) => [`[_name_].${ext}`, `${this.answers.name}.${ext}`])),
     },
-    {
-      type: 'modify',
-      files: ['index.ts', 'index.js'],
-      handler: (data) => {
-        return `${data}
-import './${this.answers.name}'
-`
-      },
-    },
+    // TODO: goqoo()関数のコールバック内にrequire()を入れられるように改良
+    // {
+    //   type: 'modify',
+    //   files: ['index.ts', 'index.js'],
+    //   handler: (data) => {
+    //     return `${data}
+    // require('./${this.answers.name}')
+    // `
+    //   },
+    // },
   ]
 }
 
