@@ -53,7 +53,11 @@ module.exports = (env, argv) => {
       rules: [
         {
           test: /\.js$/,
-          use: [{ loader: require.resolve('babel-loader'), options: babelOptions }],
+          enforce: 'pre',
+          use: [
+            { loader: require.resolve('babel-loader'), options: babelOptions },
+            require.resolve('source-map-loader'),
+          ],
           exclude: /node_modules/,
         },
         {
