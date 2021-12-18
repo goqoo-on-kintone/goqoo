@@ -7,7 +7,8 @@
     "goqoo": "./dist/cli.js"
   },
   "scripts": {
-    "build": "yarn cleanup && tsc",
+    "build:publish": "npm run build && npm publish",
+    "build": "npm run cleanup && tsc",
     "cleanup": "rm -rf dist",
     "test": "jest",
     "preinstall": "typesync || true"
