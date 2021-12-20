@@ -3,8 +3,11 @@ import { existsSync } from 'fs'
 import { usageExit, currentPath, projectPath, loadGoqooConfig } from '../util'
 
 const main = async (argv: any): Promise<void> => {
-  const { bundlerType } = loadGoqooConfig()
-  console.info({ bundlerType })
+  const { bundlerType, nodeEnv = 'development' } = loadGoqooConfig()
+  if (!process.env.NODE_ENV) {
+    process.env.NODE_ENV = nodeEnv
+  }
+  console.info({ bundlerType, nodeEnv: process.env.NODE_ENV })
 
   const webpackBinPath = currentPath('../../node_modules/.bin/webpack')
   let webpackDefaultConfigPath

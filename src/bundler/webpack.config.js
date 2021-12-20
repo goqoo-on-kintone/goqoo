@@ -3,6 +3,7 @@
 const path = require('path')
 const fs = require('fs')
 const { EnvironmentPlugin } = require('webpack')
+const Dotenv = require('dotenv-webpack')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 // @ts-expect-error
 const S3Plugin = require('webpack-s3-plugin')
@@ -92,6 +93,9 @@ module.exports = (env, argv) => {
         TARGET: env.target,
         COMMIT_HASH: require('child_process').execSync('git rev-parse --short HEAD').toString().trim(),
         BUILT_AT: new Date(),
+      }),
+      new Dotenv({
+        path: projectPath(`.env.${process.env.NODE_ENV}`),
       }),
       new ForkTsCheckerWebpackPlugin({
         typescript: {
