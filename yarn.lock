@@ -1022,10 +1022,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@goqoo/templates@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@goqoo/templates/-/templates-1.0.0.tgz#f27fc3b2e6e3ca944b411a7acf1a68cea4e2c4a4"
-  integrity sha512-aVGO7eM95sSqGTMLLfa3iijluQo3D0hNozfm5ApXyJY236zbtO0glIciqDg11WDSeDYVly3m8C4IbQAXJS8y6Q==
+"@goqoo/templates@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@goqoo/templates/-/templates-1.1.0.tgz#a8185cd16b66f6f673464d79b3c90e360397d78c"
+  integrity sha512-qdlKWaEExa8PTz9DuWpstMeMULP2dXveN4EF2v2eSZ4yMcRty7NJP37S5faEFTiK/cJmUJI07UlFY+xnr5byWw==
 
 "@humanwhocodes/config-array@^0.5.0":
   version "0.5.0"
