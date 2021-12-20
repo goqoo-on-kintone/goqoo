@@ -87,6 +87,7 @@ module.exports = (env, argv) => {
     },
     plugins: [
       new EnvironmentPlugin({
+        BUILT_NODE_ENV: process.env.NODE_ENV,
         COMMIT_HASH: require('child_process').execSync('git rev-parse --short HEAD').toString().trim(),
         BUILT_AT: new Date(),
       }),
