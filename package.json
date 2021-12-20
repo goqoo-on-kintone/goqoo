@@ -7,6 +7,7 @@
     "goqoo": "./dist/cli.js"
   },
   "scripts": {
+    "watch": "yarn build --watch",
     "build": "yarn cleanup && tsc",
     "cleanup": "rm -rf dist",
     "test": "jest",
