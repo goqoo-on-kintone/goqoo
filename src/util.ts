@@ -74,7 +74,6 @@ const createOptionValues = async () => {
   const opts: any = {}
   opts.help = argv.help
   opts.type = argv.type
-  opts.target = argv.target
   opts._ = argv._
 
   return opts

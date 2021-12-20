@@ -8,7 +8,7 @@ export const goqoo = (entryName: string, callback: () => void): void => {
   if (!window.__goqoo__[entryName]) {
     window.__goqoo__[entryName] = true
     window.__devinfo__ = {
-      env: process.env.TARGET,
+      env: process.env.NODE_ENV,
       commitHash: process.env.COMMIT_HASH,
       builtAt: DateTime.fromISO(process.env.BUILT_AT as string).toString(),
     }

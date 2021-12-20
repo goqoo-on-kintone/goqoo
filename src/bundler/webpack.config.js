@@ -24,9 +24,6 @@ module.exports = (env, argv) => {
   if (!env) {
     env = {}
   }
-  if (!env.target && argv.mode) {
-    env.target = argv.mode.toUpperCase()
-  }
   console.info({ mode: argv.mode })
   console.info({ env })
 
@@ -90,7 +87,6 @@ module.exports = (env, argv) => {
     },
     plugins: [
       new EnvironmentPlugin({
-        TARGET: env.target,
         COMMIT_HASH: require('child_process').execSync('git rev-parse --short HEAD').toString().trim(),
         BUILT_AT: new Date(),
       }),
