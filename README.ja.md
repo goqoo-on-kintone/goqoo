@@ -11,9 +11,6 @@ webpackやBabelによるTypeScriptのトランスパイルやJS/CSSファイル�
 ```sh
 $ npx goqoo new my-project
 # プロンプトの選択肢はすべてデフォルトのままでEnter
-Need to install the following packages:
-  goqoo@next
-Ok to proceed? (y) 
 ? Project name › my-project
 ? Project description › 
 ? Frontend Framework … 

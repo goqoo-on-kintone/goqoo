@@ -11,9 +11,6 @@ Supports TypeScript transpiling, bundling with Babel/webpack, local preview with
 ```sh
 $ npx goqoo new my-project
 # Leave all prompt choices at their defaults and Enter
-Need to install the following packages:
-  goqoo@next
-Ok to proceed? (y) 
 ? Project name › my-project
 ? Project description › 
 ? Frontend Framework … 
