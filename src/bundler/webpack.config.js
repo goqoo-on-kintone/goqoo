@@ -110,7 +110,14 @@ module.exports = (env, argv) => {
     },
   }
 
-  if (!env || !env.S3) {
+  if (env?.WEBPACK_SERVE) {
+    const urls = Object.fromEntries(
+      Object.keys(entryObject).map((key) => [key, `https://localhost:${config.devServer?.port}/${key}.js`])
+    )
+    console.info(urls)
+  }
+
+  if (!env?.S3) {
     return config
   }
 
