@@ -78,7 +78,7 @@ Generates new customize-view TS/CSS/HTML files in exists app entry `src/apps/<ex
 ```sh
 $ goqoo generate dts
 ```
-既存アプリエントリ `src/apps/<exists-app-name>` 内に、カスタマイズビューのTS/CSS/HTMLファイルを作成します。
+Create type definition files for kintone apps. Wrap [@kintone/dts-gen](https://github.com/kintone/js-sdk/tree/master/packages/dts-gen) to create type definition files for multiple apps at once.  
 You need to enumerate app ids in `goqoo.config.js` and set the kintone login information in `.env`.
 
 # Licence

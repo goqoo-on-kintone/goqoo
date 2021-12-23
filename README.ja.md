@@ -78,7 +78,7 @@ $ goqoo generate customize-view <exists-app-name> <customize-view-name>
 ```sh
 $ goqoo generate dts
 ```
-既存アプリエントリ `src/apps/<exists-app-name>` 内に、カスタマイズビューのTS/CSS/HTMLファイルを作成します。
+kintoneアプリの型定義ファイルを作成します。[@kintone/dts-gen](https://github.com/kintone/js-sdk/tree/master/packages/dts-gen)をラップして、複数アプリの型定義ファイルを一括作成します。  
 `goqoo.config.js`内にアプリIDを列挙して、`.env`にkintoneのログイン情報を設定しておく必要があります。
 
 ## ライセンス
