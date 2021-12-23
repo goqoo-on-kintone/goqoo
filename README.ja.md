@@ -45,7 +45,7 @@ Goqooは `src/apps` ディレクトリ内のJavaScriptファイルをビルド�
 コンソールに表示された`my-app`のURLを、kintoneアプリのJavaScriptカスタマイズURLとして設定します。
 「Hello, Goqoo on kintone!」とアラートが表示されれば、デプロイ成功です。
 
-![Hello Goqoo](/img/hello-goqoo.png "Hello Goqoo")
+<img src="/img/hello-goqoo.png" width="320px"></img>
 
 ## コマンド
 

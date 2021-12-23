@@ -45,7 +45,7 @@ Goqoo builds JavaScripts files under `src/apps` directory, starts up local dev s
 Set the URL of `my-app` displayed in the console as the JavaScript customization URL of your kintone app.
 If you see the alert "Hello, Goqoo on kintone!", the deployment is successful.
 
-![Hello Goqoo](/img/hello-goqoo.png "Hello Goqoo")
+<img src="/img/hello-goqoo.png" width="320px"></img>
 
 ## Commands
 
