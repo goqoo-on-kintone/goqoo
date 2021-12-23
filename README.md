@@ -4,95 +4,85 @@
 
 Goqoo is a framework for [kintone](https://www.kintone.com/) [JavaScript/CSS customization](https://developer.kintone.io/hc/en-us/articles/212495178). It works on Node.js.
 
-Supports ES6 transpiling, bundling with Babel/webpack, local preview with webpack DevServer, deployment using AWS S3, simple Vue templates, etc.
+Supports TypeScript transpiling, bundling with Babel/webpack, local preview with webpack DevServer, deployment using AWS S3, simple React/Vue.js templates, etc.
 
-## Install requried libraries
-
-Goqoo requires Node.js and Yarn. Install both according to the documents below.
-
-https://nodejs.org/  
-https://yarnpkg.com/lang/en/docs/install
-
-## Install Goqoo
+## Getting Started
 
 ```sh
-$ npm install -g goqoo
- or
-$ yarn global add goqoo
+$ npx goqoo new my-project
+# Leave all prompt choices at their defaults and Enter
+Need to install the following packages:
+  goqoo@next
+Ok to proceed? (y) 
+? Project name › my-project
+? Project description › 
+? Frontend Framework … 
+❯ (None)
+  React
+  Vue
 ```
+Goqoo creates `my-project` directory in the current directory, installs required libraries and files.
 
-## Mini-tutorial
+Moves to the new directory and make a git commit once.
+```sh
+$ cd my-project
+$ git add .
+$ git commit -m 'Initial commit'
+```
 
 ```sh
-$ goqoo new project1
+$ goqoo generate app my-app
 ```
-Goqoo creates `project1` directory in the current directory, installs required libraries and files.
-
+Goqoo creates `my-app` entry into the `src/apps` directory in the project, installs template files.
 
 ```sh
-$ cd project1
+$ npx goqoo start
+
+{ bundlerType: 'default', nodeEnv: 'development' }
+{ mode: 'development' }
+{ env: { WEBPACK_SERVE: true } }
+{ 'my-app': 'https://localhost:59000/my-app.js' }
 ```
-Moves to the new directory.
+Goqoo builds JavaScripts files under `src/apps` directory, starts up local dev server and hosts the bundle file.
 
-Write down the ID of the kintone app which you want to customize (i.g. 1).
+Set the URL of `my-app` displayed in the console as the JavaScript customization URL of your kintone app.
+If you see the alert "Hello, Goqoo on kintone!", the deployment is successful.
 
-```sh
-$ goqoo generate scaffold app1:1
-```
-Goqoo asks you for kintone login information, so you should answer these questions.
-
-```sh
-? Enter your kintone domain <subdomain.cybozu.com>
-? Enter your kintone username <username>
-? Enter your kintone password <password>
-```
-Goqoo creates `app1` entry into the `apps` directory in the project, installs template files, and login to kintone through REST API and sets customization info of the app which ID is 1.
-
-```sh
-$ yarn start
-```
-Goqoo builds JavaScripts files under `apps` directory, starts up local dev server and hosts the bundle file. You can open the kintone app on web browser and see the customized list view added by Goqoo.
-
-Then, you can edit the customization file. Open `'./apps/app1/customize.js'` with your text editor.
-
-```js
-  swal({
-    text: 'Hello, Goqoo on kintone!',
-    icon: img,
-  })
-    ...
-```
-Edit `'Hello, Goqoo on kintone'` as you like. Save the file and you'll see that Goqoo automatically rebuilds JS files. Reload the web browser and you can find the message has been changed successfully!
+![Hello Goqoo](/img/hello-goqoo.png "Hello Goqoo")
 
 ## Commands
 
 ### Create new project
 
 ```sh
-$ goqoo new <project_name>
+$ goqoo new <project-name>
 ```
-Creates new `<project_name>` directory in the current directory, sets the project name to `<project_name>` and installs required library and files. 
+Creates new `<project-name>` directory in the current directory, sets the project name to `<project-name>` and installs required library and files. 
+If `<project-name>` is omitted, the current directory is used as the project name.
 
-```sh
-$ goqoo new
-```
-Sets the project name to current directory name, installs required library and files.
-
-### Generate new app entry (with entry point file only)
+### Generate new app entry
 
 ```sh
 # run in the project root directory
-$ goqoo generate app <app_name>
+$ goqoo generate app <app-name>
 ```
-Creates new `<app_name>` app entry and installs entry point file for JavaScript customization.
+Generates new `<app-name>` app entry and installs entry point file for JavaScript customization.
 
-### Generate new app entry (with entry point and template files)
+### Generate new customize-view in exists app entry(when using React/Vue.js)
 
 ```sh
-# run in project directory
-$ goqoo generate scaffold <app_name>:<app_id>
+# run in the project root directory
+$ goqoo generate customize-view <exists-app-name> <customize-view-name>
 ```
-Creates new `<app_name>` app entry and installs entry point file and template files for JavaScript customization. Then asks you for kintone login information, login to kintone though REST API, and sets the kintone app's JavaScript customization URL to the hosting URL on local dev server.
+Generates new customize-view TS/CSS/HTML files in exists app entry `src/apps/<exists-app-name>`.
+
+### Generate kintone apps type definition files
+
+```sh
+$ goqoo generate dts
+```
+既存アプリエントリ `src/apps/<exists-app-name>` 内に、カスタマイズビューのTS/CSS/HTMLファイルを作成します。
+You need to enumerate app ids in `goqoo.config.js` and set the kintone login information in `.env`.
 
 # Licence
 
