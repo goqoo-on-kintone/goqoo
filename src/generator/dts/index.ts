@@ -19,7 +19,7 @@ export const run: Runner = (config) => {
   mkdirSync(distDir, { recursive: true })
 
   const connection = {
-    'base-url': `https://${context.domain}`,
+    'base-url': `https://${context.host}`,
     // TODO: 別の入力方法にも対応
     'username': process.env.GOQOO_USERNAME,
     'password': process.env.GOQOO_PASSWORD,
