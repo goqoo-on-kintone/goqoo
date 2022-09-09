@@ -85,6 +85,7 @@
     "dotenv-webpack": "^7.0.3",
     "fork-ts-checker-webpack-plugin": "^6.2.10",
     "fs-extra": "^9.1.0",
+    "gyuma": "^0.5.0",
     "html-loader": "^2.1.2",
     "js-yaml": "^4.0.0",
     "luxon": "^2.0.2",

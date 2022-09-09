@@ -4,11 +4,12 @@ import chalk from 'chalk'
 import { paramCase as kebabCase, pascalCase } from 'change-case'
 // @ts-ignore
 import { projectPath } from '../../util'
+import { getOauthToken } from '../../oauth'
 import type { Config } from '../../lib'
 
 type Runner = (config: Config) => void
 
-export const run: Runner = (config) => {
+export const run: Runner = async (config) => {
   const { dtsGen } = config
   const context = config.environments.find((c) => c.env === dtsGen?.env)
   if (!context) {
@@ -18,14 +19,22 @@ export const run: Runner = (config) => {
   const distDir = 'dts'
   mkdirSync(distDir, { recursive: true })
 
-  const connection = {
-    'base-url': `https://${context.host}`,
-    // TODO: 別の入力方法にも対応
-    'username': process.env.GOQOO_USERNAME,
-    'password': process.env.GOQOO_PASSWORD,
-    'basic-auth-username': process.env.GOQOO_BASICAUTH_USERNAME,
-    'basic-auth-password': process.env.GOQOO_BASICAUTH_PASSWORD,
+  let connection: Record<string, string | undefined> = { 'base-url': `https://${context.host}` }
+  if (context.oauth) {
+    connection = {
+      ...connection,
+      'oauth-token': await getOauthToken(context.host, {} /* context.agentOptions */),
+    }
+  } else {
+    connection = {
+      ...connection,
+      'username': process.env.GOQOO_USERNAME,
+      'password': process.env.GOQOO_PASSWORD,
+      'basic-auth-username': process.env.GOQOO_BASICAUTH_USERNAME,
+      'basic-auth-password': process.env.GOQOO_BASICAUTH_PASSWORD,
+    }
   }
+
   const skipApps = dtsGen?.skip || []
   Object.entries(context.appId).forEach(([appName, appId]) => {
     if (skipApps.includes(appName)) {
@@ -33,6 +42,7 @@ export const run: Runner = (config) => {
     }
 
     const args = {
+      // TODO: APIトークンにも対応（ここでconnectionを書き換え）
       ...connection,
       'type-name': `${pascalCase(appName)}Fields`,
       'app-id': appId,
