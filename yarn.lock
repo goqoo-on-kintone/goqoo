@@ -4687,10 +4687,10 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.2.0,
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.8.tgz#e412b8d33f5e006593cbd3cee6df9f2cebbe802a"
   integrity sha512-qkIilPUYcNhJpd33n0GBXTB1MMPp14TxEsEs0pTrsSVucApsYzW5V+Q8Qxhik6KU3evy+qkAAowTByymK0avdg==
 
-gyuma@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/gyuma/-/gyuma-0.5.0.tgz#af385a86c1309a11e4db3f95d02fed0ced8efb59"
-  integrity sha512-xGEpgm/0Mv9zhqZknnz4NHXiwsPbPzospZPIKAQa+g2J7+xtu1Q1a7z1s2tnlobgrxxu1+VsF5kZJ+Nr6lNEOQ==
+gyuma@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/gyuma/-/gyuma-0.6.0.tgz#361bc2b5b2eb44ec844a4b971a87a585e4547fa5"
+  integrity sha512-I13OijhQlPf7VE2FN+lmaeSbdiAes61GAcTEkPjukEthHHSaKM61RZwITeO+56neSAovhbOHI4zQZd8/BmQGfg==
   dependencies:
     date-fns "^2.29.2"
     del "6"
