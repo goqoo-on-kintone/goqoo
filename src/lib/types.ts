@@ -1,8 +1,12 @@
+import type { ProxyOption, PfxOption } from 'gyuma'
+
 type _Context<Env> = {
   env: Env
   host: string
   appId: Record<string, number>
-  oauth?: boolean
+  oauth?: boolean | { scope: string }
+  proxy?: ProxyOption
+  pfx?: PfxOption
 }
 
 export type Config<Env extends string = string, Context extends _Context<Env> = _Context<Env>> = {
