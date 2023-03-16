@@ -39,12 +39,29 @@ export const successDialog = async (text: string): Promise<SwalResult> => {
   return swal({ icon: 'success', text })
 }
 
-export const errorDialog = async (error: GoqooError | Error | string): Promise<SwalResult> => {
-  const text = error instanceof Error ? error.message : error || 'エラーが発生しました。'
-  const errorJson =
-    error instanceof Error
-      ? JSON.stringify({ ...error, stack: error.stack }, null, ' ')
-      : '（エラーの詳細情報はありません）'
+export const errorDialog = async (e: GoqooError | Error | string): Promise<SwalResult> => {
+  // NOTE: 型を無視してError以外のオブジェクトやstring以外のプリミティブ型が渡されても
+  // ダイアログは落ちずに正しく表示されるようにしておく
+  const error = e as unknown
+
+  let text: string
+  if (error instanceof Object && 'message' in error && typeof error.message === 'string') {
+    text = error.message
+  } else if (typeof error === 'string') {
+    text = error
+  } else {
+    text = 'エラーが発生しました。'
+  }
+
+  let errorDetail: string
+  if (error instanceof Object) {
+    const stack = 'stack' in error ? error.stack : undefined
+    errorDetail = JSON.stringify({ ...error, stack }, null, 2)
+  } else if (typeof error === 'string') {
+    errorDetail = '（エラーの詳細情報はありません）'
+  } else {
+    errorDetail = String(error)
+  }
 
   const div = document.createElement('div')
   if (error instanceof GoqooError) {
@@ -68,7 +85,7 @@ export const errorDialog = async (error: GoqooError | Error | string): Promise<S
     },
   })
   if (result === 'detail') {
-    const detail = text + '\n\n' + errorJson
+    const detail = text + '\n\n' + errorDetail
     const isCopy = await swal({
       content: {
         element: 'textarea',
