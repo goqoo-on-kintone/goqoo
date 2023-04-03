@@ -1,4 +1,4 @@
-import { spawn } from 'child_process'
+import { spawnSync } from 'child_process'
 import { mkdirSync } from 'fs'
 import chalk from 'chalk'
 import { paramCase as kebabCase, pascalCase } from 'change-case'
@@ -52,7 +52,7 @@ export const run: Runner = async (config) => {
       'output': `${distDir}/${kebabCase(appName)}-fields.d.ts`,
     }
 
-    const childProcess = spawn(
+    const { status } = spawnSync(
       'npx',
       ['kintone-dts-gen', ...Object.entries(args).map(([key, value]) => `--${key}=${value}`)],
       {
@@ -61,14 +61,11 @@ export const run: Runner = async (config) => {
       }
     )
 
-    // 終了時の処理
-    childProcess.on('close', (code) => {
-      if (code !== 0) {
-        // TODO: kintoneへのリクエストに失敗してもdts-genは0を返すのでどうしたものか…
-        console.error(`kintone-dts-gen process exited with code ${code}`)
-        return
-      }
+    if (status === 0) {
       console.info(`${chalk.cyan('info')} ${chalk.magenta('Created')} ${chalk.green(args.output)}`)
-    })
+    } else {
+      // TODO: kintoneへのリクエストに失敗してもdts-genは0を返すのでどうしたものか…
+      console.info(`${chalk.red('error')} Failed of generating ${chalk.yellow(args.output)}`)
+    }
   })
 }
