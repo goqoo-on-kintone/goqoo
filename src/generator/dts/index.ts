@@ -66,6 +66,7 @@ export const run: Runner = async (config) => {
       if (code !== 0) {
         // TODO: kintoneへのリクエストに失敗してもdts-genは0を返すのでどうしたものか…
         console.error(`kintone-dts-gen process exited with code ${code}`)
+        return
       }
       console.info(`${chalk.cyan('info')} ${chalk.magenta('Created')} ${chalk.green(args.output)}`)
     })
