@@ -23,8 +23,9 @@ export const run: Runner = async (config) => {
   const distDir = 'dts'
   mkdirSync(distDir, { recursive: true })
 
-  const { auth } = context
   const connection: Record<string, string | undefined> = { 'base-url': `https://${context.host}` }
+  const auth = context.auth ?? {}
+  auth.type ??= 'password'
   switch (auth.type) {
     case 'oauth': {
       connection['oauth-token'] = await getOauthToken({
@@ -72,7 +73,7 @@ export const run: Runner = async (config) => {
       console.info(`${chalk.cyan('info')} ${chalk.magenta('Created')} ${chalk.green(args.output)}`)
     } else {
       // TODO: kintoneへのリクエストに失敗してもdts-genは0を返すのでどうしたものか…
-      console.info(`${chalk.red('error')} Failed of generating ${chalk.yellow(args.output)}`)
+      console.info(`${chalk.red('error')} Failed of generating ${chalk.yellow(args.output)} (authType: ${auth.type})`)
     }
   })
 }
