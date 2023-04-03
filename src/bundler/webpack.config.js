@@ -104,7 +104,7 @@ module.exports = (env, argv) => {
       contentBase: path.resolve('dist'),
       inline: true,
       https: true,
-      port: 59000,
+      port: argv.port,
       headers: { 'Access-Control-Allow-Origin': '*' },
       disableHostCheck: true,
     },

@@ -51,6 +51,11 @@ export const parseArgumentOptions = (): ReturnType<typeof minimist> => {
         type: 'boolean',
         alias: 'h',
       },
+      port: {
+        type: 'number',
+        alias: 'p',
+        default: 59000,
+      },
     })
   )
   if (argv._[0]) {

@@ -8,6 +8,7 @@ type CliConfigOptions = {
   'configRegister'?: string | undefined
   'config-name'?: string | undefined
   'configName'?: string | undefined
+  'port': number
 }
 
 export type ConfigurationFactory = (

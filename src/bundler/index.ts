@@ -45,7 +45,10 @@ const main = async (argv: any): Promise<void> => {
     }
     case 'start':
     case 's': {
-      exec(`'${webpackBinPath}' serve ${options} --progress --config '${webpackConfigPath}' --mode development`)
+      const port = process.env.GOQOO_PORT ?? argv.port
+      exec(
+        `'${webpackBinPath}' serve ${options} --port ${port} --progress --config '${webpackConfigPath}' --mode development`
+      )
       break
     }
     default: {
