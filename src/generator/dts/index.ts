@@ -41,6 +41,7 @@ export const run: Runner = async (config) => {
     }
     case 'password':
     default: {
+      // TODO: netrcや標準入力に対応
       connection['username'] = process.env.GOQOO_USERNAME
       connection['password'] = process.env.GOQOO_PASSWORD
       connection['basic-auth-username'] = process.env.GOQOO_BASICAUTH_USERNAME
