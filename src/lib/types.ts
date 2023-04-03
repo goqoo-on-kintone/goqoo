@@ -1,12 +1,23 @@
 import type { ProxyOption, PfxOption } from 'gyuma'
 
+type PasswordAuth = {
+  type: 'password'
+}
+type OAuth = {
+  type: 'oauth'
+  scope?: string
+}
+type AuthOption = {
+  proxy?: ProxyOption
+  pfx?: PfxOption
+}
+type Auth = (PasswordAuth | OAuth) & AuthOption
+
 type _Context<Env> = {
   env: Env
   host: string
   appId: Record<string, number>
-  oauth?: boolean | { scope: string }
-  proxy?: ProxyOption
-  pfx?: PfxOption
+  auth: Auth
 }
 
 export type Config<Env extends string = string, Context extends _Context<Env> = _Context<Env>> = {

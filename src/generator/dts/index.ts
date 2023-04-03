@@ -23,19 +23,26 @@ export const run: Runner = async (config) => {
   const distDir = 'dts'
   mkdirSync(distDir, { recursive: true })
 
+  const { auth } = context
   const connection: Record<string, string | undefined> = { 'base-url': `https://${context.host}` }
-  if (context.oauth) {
-    connection['oauth-token'] = await getOauthToken({
-      domain: context.host,
-      scope: typeof context.oauth === 'object' ? context.oauth.scope : undefined,
-      proxy: context.proxy,
-      pfx: context.pfx,
-    })
-  } else {
-    connection['username'] = process.env.GOQOO_USERNAME
-    connection['password'] = process.env.GOQOO_PASSWORD
-    connection['basic-auth-username'] = process.env.GOQOO_BASICAUTH_USERNAME
-    connection['basic-auth-password'] = process.env.GOQOO_BASICAUTH_PASSWORD
+  switch (auth.type) {
+    case 'oauth': {
+      connection['oauth-token'] = await getOauthToken({
+        domain: context.host,
+        scope: auth.scope,
+        proxy: auth.proxy,
+        pfx: auth.pfx,
+      })
+      break
+    }
+    case 'password':
+    default: {
+      connection['username'] = process.env.GOQOO_USERNAME
+      connection['password'] = process.env.GOQOO_PASSWORD
+      connection['basic-auth-username'] = process.env.GOQOO_BASICAUTH_USERNAME
+      connection['basic-auth-password'] = process.env.GOQOO_BASICAUTH_PASSWORD
+      break
+    }
   }
 
   const skipApps = dtsGen?.skip || []
