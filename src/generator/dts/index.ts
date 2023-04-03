@@ -27,6 +27,9 @@ export const run: Runner = async (config) => {
   const auth = context.auth ?? {}
   auth.type ??= 'password'
   switch (auth.type) {
+    case 'apiToken': {
+      break
+    }
     case 'oauth': {
       connection['oauth-token'] = await getOauthToken({
         domain: context.host,
@@ -52,8 +55,11 @@ export const run: Runner = async (config) => {
       return
     }
 
+    if (auth.type === 'apiToken') {
+      connection['api-token'] = process.env[`GOQOO_API_TOKEN_${appName.toUpperCase()}`]
+    }
+
     const args = {
-      // TODO: APIトークンにも対応（ここでconnectionを書き換え）
       ...connection,
       'type-name': `${pascalCase(appName)}Fields`,
       'app-id': appId,

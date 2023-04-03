@@ -7,11 +7,14 @@ type OAuth = {
   type: 'oauth'
   scope?: string
 }
+type ApiTokenAuth = {
+  type: 'apiToken'
+}
 type AuthOption = {
   proxy?: ProxyOption
   pfx?: PfxOption
 }
-type Auth = (PasswordAuth | OAuth) & AuthOption
+type Auth = (PasswordAuth | OAuth | ApiTokenAuth) & AuthOption
 
 type _Context<Env> = {
   env: Env
