@@ -1523,6 +1523,13 @@
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.5.tgz#1001cc5e6a3704b83c236027e77f2f58ea010f40"
   integrity sha512-Klz949h02Gz2uZCMGwDUSDS1YBlTdDDgbWHi+81l29tQALUtvz4rAYi5uoVhE5Lagoq6DeqAUlbrHvW/mXDgdQ==
 
+"@types/minimist-options@^4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@types/minimist-options/-/minimist-options-4.0.1.tgz#2c3da82e60b77c5b557f05acc76c4098a8a5040f"
+  integrity sha512-FvjfzM3GVk+izwv2jhbpkH6bw9NZhrbqObFDqoNTEfHalG5i42Ff8nZ0inB0GyACQCShtytOEBDnfEG9RPX36w==
+  dependencies:
+    minimist-options "*"
+
 "@types/minimist@^1.2.0", "@types/minimist@^1.2.2":
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/@types/minimist/-/minimist-1.2.2.tgz#ee771e2ba4b3dc5b372935d549fd9617bf345b8c"
@@ -6505,7 +6512,7 @@ minimatch@3.0.4, minimatch@^3.0.2, minimatch@^3.0.4, minimatch@~3.0.2:
   dependencies:
     brace-expansion "^1.1.7"
 
-minimist-options@4.1.0, minimist-options@^4.1.0:
+minimist-options@*, minimist-options@4.1.0, minimist-options@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/minimist-options/-/minimist-options-4.1.0.tgz#c0655713c53a8a2ebd77ffa247d342c40f010619"
   integrity sha512-Q4r8ghd80yhO/0j1O3B2BjweX3fiHg9cdOwjJd2J76Q135c+NDxGCqdYKQ1SKBuFfgWbAUzBfvYjPUEeNgqN1A==

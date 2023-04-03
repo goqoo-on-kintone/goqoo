@@ -46,6 +46,7 @@
     "@types/js-yaml": "^4.0.2",
     "@types/luxon": "^2.0.0",
     "@types/minimist": "^1.2.2",
+    "@types/minimist-options": "^4.0.1",
     "@types/mustache": "^4.1.2",
     "@types/node": "^16.6.0",
     "@types/node-sass": "^4.11.2",
