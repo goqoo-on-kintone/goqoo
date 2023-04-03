@@ -2,19 +2,23 @@ import { spawn } from 'child_process'
 import { mkdirSync } from 'fs'
 import chalk from 'chalk'
 import { paramCase as kebabCase, pascalCase } from 'change-case'
+import dotenv from 'dotenv'
 // @ts-ignore
-import { projectPath } from '../../util'
-import { getOauthToken } from '../../oauth'
+import { projectPath } from '../../_common/util'
+import { getOauthToken } from '../../_common/oauth'
 import type { Config } from '../../lib'
 
 type Runner = (config: Config) => void
 
 export const run: Runner = async (config) => {
   const { dtsGen } = config
-  const context = config.environments.find((c) => c.env === dtsGen?.env)
+  const envName = dtsGen?.env
+  const context = config.environments.find((c) => c.env === envName)
   if (!context) {
     throw new Error('dts-gen context not found!')
   }
+
+  dotenv.config({ path: projectPath(`.env.${envName}`) })
 
   const distDir = 'dts'
   mkdirSync(distDir, { recursive: true })
