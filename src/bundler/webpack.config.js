@@ -8,7 +8,7 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 // @ts-expect-error
 const S3Plugin = require('webpack-s3-plugin')
 const { mergeWithCustomize, customizeObject } = require('webpack-merge')
-const { projectPath } = require('../util')
+const { projectPath } = require('../_common/util')
 const { babelOptions, babelOptionsTs } = require('./babel-options')
 require('dotenv').config()
 

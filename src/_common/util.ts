@@ -5,7 +5,7 @@ import buildOptions from 'minimist-options'
 import netrc from 'netrc-parser'
 import caller from 'caller'
 import { cosmiconfigSync } from 'cosmiconfig'
-import type { Config } from './lib'
+import type { Config } from '../lib'
 
 export const trim = (text: string): string => text.replace(/^\n|\n$/g, '')
 

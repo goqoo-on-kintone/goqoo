@@ -1,6 +1,6 @@
 import { execSync } from 'child_process'
 import { existsSync } from 'fs'
-import { usageExit, currentPath, projectPath, loadGoqooConfig } from '../util'
+import { usageExit, currentPath, projectPath, loadGoqooConfig } from '../_common/util'
 
 const main = async (argv: any): Promise<void> => {
   const { bundlerType, nodeEnv = 'development' } = loadGoqooConfig()
