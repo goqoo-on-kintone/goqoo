@@ -79,7 +79,6 @@ export const run: Runner = async (config) => {
     if (status === 0) {
       console.info(`${chalk.cyan('info')} ${chalk.magenta('Created')} ${chalk.green(args.output)}`)
     } else {
-      // TODO: kintoneへのリクエストに失敗してもdts-genは0を返すのでどうしたものか…
       console.info(`${chalk.red('error')} Failed of generating ${chalk.yellow(args.output)} (authType: ${auth.type})`)
     }
   })
