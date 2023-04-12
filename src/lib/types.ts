@@ -14,7 +14,7 @@ type AuthOption = {
   proxy?: ProxyOption
   pfx?: PfxOption
 }
-type Auth = (PasswordAuth | OAuth | ApiTokenAuth) & AuthOption
+export type Auth = (PasswordAuth | OAuth | ApiTokenAuth) & AuthOption
 
 type _Context<Env> = {
   env: Env
