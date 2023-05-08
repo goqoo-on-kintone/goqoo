@@ -4,7 +4,7 @@ import type { SwalParams as SP } from 'sweetalert/typings/core'
 import { GoqooError } from '.'
 // @ts-expect-error
 import logo from '../../img/logo.jpg'
-import { KintoneAllRecordsError } from './KintoneRestAPIError.types'
+import { KintoneAllRecordsError } from './KintoneRestAPIError'
 
 type SwalResult = null | any
 type SwalParams = SP[number]
