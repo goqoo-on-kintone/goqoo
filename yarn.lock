@@ -1294,18 +1294,18 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
-"@kintone/dts-gen@^6.1.27":
-  version "6.1.27"
-  resolved "https://registry.yarnpkg.com/@kintone/dts-gen/-/dts-gen-6.1.27.tgz#1168d08e7f12563d2a014b7119fb1c11786acb92"
-  integrity sha512-xCRTb4e2kgnRLbE3Bigtw9P5g4oBPZZIaAB2RvnNWb13INJpyDlXCQGUjW+KTV2Fj9GTnF8XUJhoV9ai9Q4HXA==
+"@kintone/dts-gen@^6.1.29":
+  version "6.1.29"
+  resolved "https://registry.yarnpkg.com/@kintone/dts-gen/-/dts-gen-6.1.29.tgz#a6cae53a5a8943216a618581727c3d5cf6564d34"
+  integrity sha512-mvC1DIGVJ0IZb8eIYmAuYxwIKgImiHbTuz93ICyGeXC9uE4LrDf7qbLiGkCsJjJztXMnwn75bRjBECiF1syVSA==
   dependencies:
     "@cybozu/eslint-config" "^18.0.3"
     axios "^0.27.2"
-    commander "^10.0.0"
+    commander "^10.0.1"
     eslint "^8.37.0"
     form-data "^4.0.0"
     lodash "^4.17.21"
-    prettier "^2.8.7"
+    prettier "^2.8.8"
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -3297,10 +3297,10 @@ combined-stream@^1.0.6, combined-stream@^1.0.8, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
-commander@^10.0.0:
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-10.0.0.tgz#71797971162cd3cf65f0b9d24eb28f8d303acdf1"
-  integrity sha512-zS5PnTI22FIRM6ylNW8G4Ap0IEOyk62fhLSD0+uHRT9McRCLGpkVNvao4bjimpK/GShynyQkFFxHhwMcETmduA==
+commander@^10.0.1:
+  version "10.0.1"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-10.0.1.tgz#881ee46b4f77d1c1dccc5823433aa39b022cbe06"
+  integrity sha512-y4Mg2tXshplEbSGzx7amzPwKKOCGuoSRP/CjEdwwk0FOGlUbq6lKuoyDZTNZkmxHdJtp54hdfY/JUrdL7Xfdug==
 
 commander@^2.20.0:
   version "2.20.3"
@@ -8330,10 +8330,10 @@ prettier-linter-helpers@^1.0.0:
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.5.1.tgz#fff75fa9d519c54cf0fce328c1017d94546bc56a"
   integrity sha512-vBZcPRUR5MZJwoyi3ZoyQlc1rXeEck8KgeC9AwwOn+exuxLxq5toTRDTSaVrXHxelDMHy9zlicw8u66yxoSUFg==
 
-prettier@^2.8.7:
-  version "2.8.7"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.8.7.tgz#bb79fc8729308549d28fe3a98fce73d2c0656450"
-  integrity sha512-yPngTo3aXUUmyuTjeTUT75txrf+aMh9FiD7q9ZE/i6r0bPb22g4FsE6Y338PQX1bmfy08i9QQCB7/rcUAVntfw==
+prettier@^2.8.8:
+  version "2.8.8"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.8.8.tgz#e8c5d7e98a4305ffe3de2e1fc4aca1a71c28b1da"
+  integrity sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==
 
 pretty-format@^27.0.0, pretty-format@^27.4.2:
   version "27.4.2"
