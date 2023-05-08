@@ -4,6 +4,7 @@ import type { SwalParams as SP } from 'sweetalert/typings/core'
 import { GoqooError } from '.'
 // @ts-expect-error
 import logo from '../../img/logo.jpg'
+import { KintoneAllRecordsError } from './KintoneRestAPIError.types'
 
 type SwalResult = null | any
 type SwalParams = SP[number]
@@ -39,13 +40,15 @@ export const successDialog = async (text: string): Promise<SwalResult> => {
   return swal({ icon: 'success', text })
 }
 
-export const errorDialog = async (e: GoqooError | Error | string): Promise<SwalResult> => {
+export const errorDialog = async (e: GoqooError | KintoneAllRecordsError | Error | string): Promise<SwalResult> => {
   // NOTE: 型を無視してError以外のオブジェクトやstring以外のプリミティブ型が渡されても
-  // ダイアログは落ちずに正しく表示されるようにしておく
+  // ダイアログは落ちずに正しく表示されるようにしておくため、unknown型から絞り込んでいく
   const error = e as unknown
 
   let text: string
-  if (error instanceof Object && 'message' in error && typeof error.message === 'string') {
+  if (error instanceof KintoneAllRecordsError) {
+    text = error.error.message
+  } else if (error instanceof Object && 'message' in error && typeof error.message === 'string') {
     text = error.message
   } else if (typeof error === 'string') {
     text = error
