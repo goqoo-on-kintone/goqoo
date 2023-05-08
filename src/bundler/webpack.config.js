@@ -72,7 +72,13 @@ module.exports = (env, argv) => {
           use: [
             { loader: require.resolve('style-loader') },
             { loader: require.resolve('css-loader') },
-            { loader: require.resolve('sass-loader') },
+            {
+              loader: require.resolve('sass-loader'),
+              options: {
+                implementation: require.resolve('sass'),
+                fiber: require.resolve('fibers'),
+              },
+            },
           ],
         },
         {
