@@ -1,4 +1,4 @@
-import { spawnSync } from 'child_process'
+import spawn from 'cross-spawn'
 import { mkdirSync } from 'fs'
 import chalk from 'chalk'
 import { paramCase as kebabCase, pascalCase } from 'change-case'
@@ -67,7 +67,7 @@ export const run: Runner = async (config) => {
       'output': `${distDir}/${kebabCase(appName)}-fields.d.ts`,
     }
 
-    const { status } = spawnSync(
+    const { status } = spawn.sync(
       'npx',
       ['kintone-dts-gen', ...Object.entries(args).map(([key, value]) => `--${key}=${value}`)],
       {
