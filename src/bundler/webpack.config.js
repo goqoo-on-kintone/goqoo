@@ -171,6 +171,14 @@ module.exports = (env, argv) => {
         s3UploadOptions: {
           Bucket,
           CacheControl: 'private',
+          // NOTE:
+          // S3Pluginのデフォルトでは、ACL:public-readになっているが、
+          // S3側でバケットのACLをオフにしているとアップロードエラーになる（デフォルトではACLオフ）
+          // ACLオフのまま使いたいGoqooユーザーは、環境変数で AWS_S3_ACL=private にすればOK
+          // その場合、アップロードしたJSにパブリックアクセスができないので、
+          // S3側のバケットポリシーでs3:GetObjectを全体に許可する必要がある
+          // https://github.com/MikaAK/s3-plugin-webpack/issues/28
+          ACL: process.env.AWS_S3_ACL,
         },
         basePath,
       }),
