@@ -140,7 +140,7 @@ module.exports = (env, argv) => {
   const suffix = process.env.AWS_RANDOM_SUFFIX
   const region = process.env.AWS_S3_REGION
   const Bucket = process.env.AWS_S3_BUCKET
-  const basePath = process.env.AWS_S3_BASEPATH || process.env.npm_package_name
+  const basePath = process.env.AWS_S3_BASEPATH ?? process.env.npm_package_name ?? ''
 
   const entryObjectS3 = Object.fromEntries(
     Object.entries(entryObject).map(([key, value]) => [`${key}-${suffix}`, value])
