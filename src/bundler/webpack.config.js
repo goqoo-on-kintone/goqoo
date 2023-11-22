@@ -135,8 +135,6 @@ module.exports = (env, argv) => {
     }
   })
 
-  const accessKeyId = process.env.AWS_ACCESS_KEY_ID
-  const secretAccessKeyId = process.env.AWS_SECRET_ACCESS_KEY
   const suffix = process.env.AWS_RANDOM_SUFFIX
   const region = process.env.AWS_S3_REGION
   const Bucket = process.env.AWS_S3_BUCKET
@@ -164,8 +162,16 @@ module.exports = (env, argv) => {
     plugins: [
       new S3Plugin({
         exclude: /.*\.html$/,
-        s3Options: { accessKeyId, secretAccessKeyId, region },
-        s3UploadOptions: { Bucket, CacheControl: 'private' },
+        s3Options: {
+          accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+          secretAccessKeyId: process.env.AWS_SECRET_ACCESS_KEY,
+          sessionToken: process.env.AWS_SESSION_TOKEN,
+          region,
+        },
+        s3UploadOptions: {
+          Bucket,
+          CacheControl: 'private',
+        },
         basePath,
       }),
     ],
