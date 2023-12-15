@@ -27,9 +27,6 @@ export const run: Runner = async (config) => {
   const auth = context.auth ?? {}
   auth.type ??= 'password'
   switch (auth.type) {
-    case 'apiToken': {
-      break
-    }
     case 'oauth': {
       connection['oauth-token'] = await getOauthToken({
         domain: context.host,
@@ -37,6 +34,11 @@ export const run: Runner = async (config) => {
         proxy: auth.proxy,
         pfx: auth.pfx,
       })
+      break
+    }
+    case 'apiToken': {
+      connection['basic-auth-username'] = process.env.GOQOO_BASICAUTH_USERNAME
+      connection['basic-auth-password'] = process.env.GOQOO_BASICAUTH_PASSWORD
       break
     }
     case 'password':
