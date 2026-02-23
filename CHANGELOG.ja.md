@@ -38,4 +38,76 @@ v1.2.0 (2023-04-03) からの変更点
 
 ## [1.2.0] - 2023-04-03
 
-（以前のリリース）
+### Features
+
+- OAuth対応
+- OAuth時のproxy認証、クライアント証明書認証に対応
+
+---
+
+## [1.1.0] - 2022-01-13
+
+- テンプレートのアップグレード
+
+---
+
+## [1.0.0] - 2021-12-23
+
+### Features
+
+#### ビルド・開発環境
+- TypeScriptのビルドに対応
+- React/Vueのビルドに対応
+- dev-server起動時にURLをコンソール表示
+- source-mapがdevtoolで使えるように
+- NODE_ENV環境変数に応じて.env.developmentなどを読み込み
+
+#### S3デプロイ
+- S3アップロードを有効化
+- S3アップロード後のURLをビルド時に表示
+
+#### dts生成
+- goqoo generate dtsが動くように
+- skip機能を追加
+
+#### ライブラリ機能
+- devinfoが出せるように
+- dev-serverとS3など複数JSを同時適用した際は2本目以降をスキップ
+- getQueryOrder関数をlibに実装
+- sweetalertのカスタマイズ追加
+
+#### Generator
+- standard, react, vueを選択可能に
+- in-appジェネレータの種別を新設
+- サブジェネレータを作る仕組みを追加
+- ジェネレータはsaoに変更
+
+---
+
+## [0.3.0] - 2019-05-23
+
+- ドキュメントの充実化
+
+---
+
+## [0.2.0] - 2018-10-15
+
+### Features
+
+- newとgenerateはyeomanを間接的に呼び出す仕様に変更
+- `goqoo new`のログを全ファイル分綺麗に出力
+- `goqoo new`のファイル上書き警告対応
+- `goqoo new`に`skip-yarn`オプションを追加
+- `goqoo new .`でカレントをGoqooプロジェクト化できるように
+
+---
+
+## [0.1.0] - 2018-06-11
+
+### Features
+
+- CLIの基本機能（goqoo new, generate）
+- webpack設定
+- ESLint, Prettier設定
+- generate scaffold実装
+- Dropbox公開リンク自動生成
