@@ -1,10 +1,14 @@
 # Goqoo on kintone
 
-[English](/README.md) | [日本語](/README.ja.md)
+[English](/README.md) | 日本語
 
 Goqooは[kintone](https://kintone.cybozu.co.jp/)の[JavaScript/CSSカスタマイズ](https://developer.cybozu.io/hc/ja/articles/210064823)を支援するフレームワークです。Node.js環境下で動作します。
 
 webpackやBabelによるTypeScriptのトランスパイルやJS/CSSファイルのバンドル、webpack-dev-serverによるカスタマイズのプレビュー、AWS S3によるカスタマイズファイルの配備、簡易的なReact/Vue.jsテンプレートなどの機能を含みます。
+
+## 動作要件
+
+- Node.js >= 14.5
 
 ## Getting Started
 
@@ -79,7 +83,7 @@ $ goqoo generate customize-view <exists-app-name> <customize-view-name>
 $ goqoo generate dts
 ```
 kintoneアプリの型定義ファイルを作成します。[@kintone/dts-gen](https://github.com/kintone/js-sdk/tree/master/packages/dts-gen)をラップして、複数アプリの型定義ファイルを一括作成します。  
-`goqoo.config.js`内にアプリIDを列挙して、`.env`にkintoneのログイン情報を設定しておく必要があります。
+`goqoo.config.js`内にアプリIDを列挙して、`.env`にkintoneの認証情報（パスワードまたはAPIトークン）を設定しておく必要があります。
 
 ## ライセンス
 

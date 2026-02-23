@@ -1,6 +1,6 @@
 import { SAO, handleError } from 'sao'
 import { resolve, join } from 'path'
-import { existsDirectory, projectPath } from '../../util'
+import { existsDirectory, projectPath } from '../../_common/util'
 import type { Config } from '../../lib'
 
 type Runner = (props: { templateDirRoot: string; goqooConfig: Config; generatorName: string; appName: string }) => void

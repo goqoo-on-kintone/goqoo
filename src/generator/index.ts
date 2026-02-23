@@ -1,5 +1,5 @@
 import { dirname, join } from 'path'
-import { loadGoqooConfig } from '../util'
+import { loadGoqooConfig } from '../_common/util'
 
 const main = async (argv: any): Promise<void> => {
   const rawArgv = process.argv.slice(3)

@@ -8,7 +8,7 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 // @ts-expect-error
 const S3Plugin = require('webpack-s3-plugin')
 const { mergeWithCustomize, customizeObject } = require('webpack-merge')
-const { projectPath } = require('../util')
+const { projectPath } = require('../_common/util')
 const { babelOptions, babelOptionsTs } = require('./babel-options')
 require('dotenv').config()
 
@@ -72,7 +72,12 @@ module.exports = (env, argv) => {
           use: [
             { loader: require.resolve('style-loader') },
             { loader: require.resolve('css-loader') },
-            { loader: require.resolve('sass-loader') },
+            {
+              loader: require.resolve('sass-loader'),
+              options: {
+                implementation: require.resolve('sass'),
+              },
+            },
           ],
         },
         {
@@ -104,7 +109,7 @@ module.exports = (env, argv) => {
       contentBase: path.resolve('dist'),
       inline: true,
       https: true,
-      port: 59000,
+      port: argv.port,
       headers: { 'Access-Control-Allow-Origin': '*' },
       disableHostCheck: true,
     },
@@ -129,12 +134,10 @@ module.exports = (env, argv) => {
     }
   })
 
-  const accessKeyId = process.env.AWS_ACCESS_KEY_ID
-  const secretAccessKeyId = process.env.AWS_SECRET_ACCESS_KEY
   const suffix = process.env.AWS_RANDOM_SUFFIX
   const region = process.env.AWS_S3_REGION
   const Bucket = process.env.AWS_S3_BUCKET
-  const basePath = process.env.AWS_S3_BASEPATH || process.env.npm_package_name
+  const basePath = process.env.AWS_S3_BASEPATH ?? process.env.npm_package_name ?? ''
 
   const entryObjectS3 = Object.fromEntries(
     Object.entries(entryObject).map(([key, value]) => [`${key}-${suffix}`, value])
@@ -158,8 +161,24 @@ module.exports = (env, argv) => {
     plugins: [
       new S3Plugin({
         exclude: /.*\.html$/,
-        s3Options: { accessKeyId, secretAccessKeyId, region },
-        s3UploadOptions: { Bucket, CacheControl: 'private' },
+        s3Options: {
+          accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+          secretAccessKeyId: process.env.AWS_SECRET_ACCESS_KEY,
+          sessionToken: process.env.AWS_SESSION_TOKEN,
+          region,
+        },
+        s3UploadOptions: {
+          Bucket,
+          CacheControl: 'private',
+          // NOTE:
+          // S3Pluginのデフォルトでは、ACL:public-readになっているが、
+          // S3側でバケットのACLをオフにしているとアップロードエラーになる（デフォルトではACLオフ）
+          // ACLオフのまま使いたいGoqooユーザーは、環境変数で AWS_S3_ACL=private にすればOK
+          // その場合、アップロードしたJSにパブリックアクセスができないので、
+          // S3側のバケットポリシーでs3:GetObjectを全体に許可する必要がある
+          // https://github.com/MikaAK/s3-plugin-webpack/issues/28
+          ACL: process.env.AWS_S3_ACL,
+        },
         basePath,
       }),
     ],

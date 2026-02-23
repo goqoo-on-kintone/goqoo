@@ -1,10 +1,11 @@
 import fs from 'fs'
 import path from 'path'
 import minimist from 'minimist'
+import buildOptions from 'minimist-options'
 import netrc from 'netrc-parser'
 import caller from 'caller'
 import { cosmiconfigSync } from 'cosmiconfig'
-import type { Config } from './lib'
+import type { Config } from '../lib'
 
 export const trim = (text: string): string => text.replace(/^\n|\n$/g, '')
 
@@ -39,13 +40,24 @@ export const loadGoqooConfig = (): Config => {
 }
 
 export const parseArgumentOptions = (): ReturnType<typeof minimist> => {
-  const argv = minimist(process.argv.slice(2), {
-    boolean: ['version', 'help'],
-    alias: {
-      v: 'version',
-      h: 'help',
-    },
-  })
+  const argv = minimist(
+    process.argv.slice(2),
+    buildOptions({
+      version: {
+        type: 'boolean',
+        alias: 'v',
+      },
+      help: {
+        type: 'boolean',
+        alias: 'h',
+      },
+      port: {
+        type: 'number',
+        alias: 'p',
+        default: 59000,
+      },
+    })
+  )
   if (argv._[0]) {
     argv._subCommand = argv._[0]
     argv._options = argv._.slice(1)

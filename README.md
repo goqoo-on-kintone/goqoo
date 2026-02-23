@@ -1,10 +1,14 @@
 # Goqoo on kintone
 
-[English](/README.md) | [日本語](/README.ja.md)
+English | [日本語](/README.ja.md)
 
 Goqoo is a framework for [kintone](https://www.kintone.com/) [JavaScript/CSS customization](https://developer.kintone.io/hc/en-us/articles/212495178). It works on Node.js.
 
 Supports TypeScript transpiling, bundling with Babel/webpack, local preview with webpack DevServer, deployment using AWS S3, simple React/Vue.js templates, etc.
+
+## Requirements
+
+- Node.js >= 14.5
 
 ## Getting Started
 
@@ -28,7 +32,7 @@ $ git commit -m 'Initial commit'
 ```
 
 ```sh
-$ goqoo generate app my-app
+$ npx goqoo generate app my-app
 ```
 Goqoo creates `my-app` entry into the `src/apps` directory in the project, installs template files.
 
@@ -79,7 +83,7 @@ Generates new customize-view TS/CSS/HTML files in exists app entry `src/apps/<ex
 $ goqoo generate dts
 ```
 Create type definition files for kintone apps. Wrap [@kintone/dts-gen](https://github.com/kintone/js-sdk/tree/master/packages/dts-gen) to create type definition files for multiple apps at once.  
-You need to enumerate app ids in `goqoo.config.js` and set the kintone login information in `.env`.
+You need to enumerate app ids in `goqoo.config.js` and set the kintone authentication information (password or API token) in `.env`.
 
 # Licence
 

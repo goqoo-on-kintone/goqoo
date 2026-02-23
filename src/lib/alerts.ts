@@ -41,16 +41,24 @@ export const successDialog = async (text: string): Promise<SwalResult> => {
 
 export const errorDialog = async (e: GoqooError | Error | string): Promise<SwalResult> => {
   // NOTE: 型を無視してError以外のオブジェクトやstring以外のプリミティブ型が渡されても
-  // ダイアログは落ちずに正しく表示されるようにしておく
+  // ダイアログは落ちずに正しく表示されるようにしておくため、unknown型から絞り込んでいく
   const error = e as unknown
 
-  let text: string
-  if (error instanceof Object && 'message' in error && typeof error.message === 'string') {
-    text = error.message
+  let text = 'エラーが発生しました。'
+  if (error instanceof Object) {
+    let obj: any
+    if ('error' in error) {
+      // KintoneAllRecordsErrorクラスを想定
+      obj = error.error
+    } else {
+      obj = error
+    }
+    if ('message' in obj && typeof obj.message === 'string') {
+      // Errorクラスを想定
+      text = obj.message
+    }
   } else if (typeof error === 'string') {
     text = error
-  } else {
-    text = 'エラーが発生しました。'
   }
 
   let errorDetail: string

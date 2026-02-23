@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { parseArgumentOptions, showVersion, usageExit } from './util'
+import { parseArgumentOptions, showVersion, usageExit } from './_common/util'
 import generator from './generator'
 import bundler from './bundler'
 import { config } from 'dotenv'
