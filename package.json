@@ -1,6 +1,6 @@
 {
   "name": "goqoo",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "Goqoo on kintone",
   "main": "./dist/lib",
   "bin": {
@@ -10,8 +10,7 @@
     "watch": "yarn build --watch",
     "build": "yarn cleanup && tsc",
     "cleanup": "rm -rf dist",
-    "test": "jest",
-    "preinstall": "typesync || true"
+    "test": "jest"
   },
   "engines": {
     "node": ">=14.5"
@@ -91,7 +90,7 @@
     "dotenv-webpack": "^7.0.3",
     "fork-ts-checker-webpack-plugin": "^6.2.10",
     "fs-extra": "^9.1.0",
-    "gyuma": "^0.6.0",
+    "gyuma": "^0.6.2",
     "html-loader": "^2.1.2",
     "js-yaml": "^4.0.0",
     "luxon": "^2.0.2",
