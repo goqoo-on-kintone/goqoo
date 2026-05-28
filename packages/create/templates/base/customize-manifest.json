@@ -1,0 +1,6 @@
+{
+  "app": "1",
+  "scope": "ALL",
+  "desktop": { "js": ["dist/sample.js"], "css": [] },
+  "mobile": { "js": ["dist/sample.js"] }
+}
