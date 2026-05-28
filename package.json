@@ -10,8 +10,7 @@
     "watch": "yarn build --watch",
     "build": "yarn cleanup && tsc",
     "cleanup": "rm -rf dist",
-    "test": "jest",
-    "preinstall": "typesync || true"
+    "test": "jest"
   },
   "engines": {
     "node": ">=14.5"
