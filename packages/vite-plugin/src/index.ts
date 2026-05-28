@@ -1,3 +1,5 @@
 export { goqoo } from './plugin'
+export { goqooS3 } from './s3'
 export type { GoqooOptions } from './options'
+export type { GoqooS3Options } from './s3'
 export type { DevInfo } from './devinfo'
