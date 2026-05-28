@@ -10,5 +10,8 @@
     "build": "pnpm -r build",
     "test": "pnpm -r test"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@changesets/cli": "^2.31.0"
+  }
 }
