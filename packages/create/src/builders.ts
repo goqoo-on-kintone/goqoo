@@ -26,8 +26,10 @@ export const buildPackageJson = (answers: Answers): PackageJson => {
 
   if (answers.gyuma) {
     devDependencies['gyuma'] = 'latest'
+    // customize-uploader は KINTONE_OAUTH_TOKEN 環境変数を読む。
+    // 注意: `VAR=$(...) cmd "$VAR"` だと "$VAR" が代入前に展開され空になるため、引数渡しはしない。
     scripts['upload:oauth'] =
-      'KINTONE_OAUTH_TOKEN=$(gyuma --domain "$KINTONE_DOMAIN" --scope k:app_settings:read k:app_settings:write k:file:write) kintone-customize-uploader --oauth-token "$KINTONE_OAUTH_TOKEN" customize-manifest.json'
+      'KINTONE_OAUTH_TOKEN=$(gyuma --domain "$KINTONE_DOMAIN" --scope k:app_settings:read k:app_settings:write k:file:write) kintone-customize-uploader customize-manifest.json'
   }
   if (answers.trunks) {
     devDependencies['trunks'] = 'latest'
