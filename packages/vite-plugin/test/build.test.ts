@@ -37,4 +37,12 @@ describe('goqoo() build orchestration', () => {
     // minify 後はキーが .foo= 形式になるため、エントリ名が存在することを確認
     expect(foo).toMatch(/window\.__devinfo__.*\.foo\s*=/)
   })
+
+  it('CSS が JS 出力にインライン注入される（別 .css を出さない）', () => {
+    const styled = readFileSync(join(dist, 'styled.js'), 'utf8')
+    // CSS の色値は minify で rebeccapurple → #639 に変換されるため、
+    // クラス名セレクタ (.goqoo-mark) で注入を確認する
+    expect(styled).toContain('goqoo-mark')
+    expect(existsSync(join(dist, 'styled.css'))).toBe(false)
+  })
 })

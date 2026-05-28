@@ -1,4 +1,5 @@
 import { build as viteBuild } from 'vite'
+import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 import type { ResolvedGoqooOptions } from './options'
 import type { DevInfo } from './devinfo'
 import { buildDevInfoBanner } from './banner'
@@ -19,10 +20,12 @@ export const orchestrateBuild = async ({ root, options, entries, mode, devInfo }
       configFile: false,
       logLevel: 'silent',
       mode,
+      plugins: options.injectCss ? [cssInjectedByJsPlugin()] : [],
       build: {
         emptyOutDir: false,
         sourcemap: true,
         minify: mode === 'production',
+        cssCodeSplit: false,
         lib: {
           entry,
           name: `__goqoo_${name}`,
