@@ -5,7 +5,7 @@ import { resolveOptions, type GoqooOptions } from './options'
 import { discoverEntries } from './entries'
 import { resolveDevInfo } from './devinfo'
 import { orchestrateBuild } from './build'
-import { applyServerDefaults } from './dev-server'
+import { applyServerDefaults, buildBootstrapScript } from './dev-server'
 
 const NOOP_ID = '\0goqoo-noop'
 
@@ -31,6 +31,27 @@ export const goqoo = (rawOptions?: GoqooOptions): Plugin => {
       root = config.root
       mode = config.mode
       command = config.command
+    },
+    configureServer(server) {
+      const appsDir = resolve(root, options.appsDir)
+      const relFor = (abs: string) => abs.slice(root.length + 1).replace(/\\/g, '/')
+      server.middlewares.use((req, res, next) => {
+        const url = (req.url ?? '').split('?')[0]
+        const match = url.match(/^\/([^/]+)\.js$/)
+        const name = match?.[1]
+        let entries: Record<string, string> = {}
+        try {
+          entries = discoverEntries(appsDir)
+        } catch {
+          // appsDir が存在しない場合などは空のエントリで継続
+        }
+        if (name && entries[name]) {
+          res.setHeader('Content-Type', 'application/javascript')
+          res.end(buildBootstrapScript(name, relFor(entries[name])))
+          return
+        }
+        next()
+      })
     },
     async buildStart() {
       if (command !== 'build') return

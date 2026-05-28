@@ -14,3 +14,21 @@ export const applyServerDefaults = (config: UserConfig): UserConfig => {
     },
   }
 }
+
+/**
+ * kintone に登録する /<name>.js が返すクラシックスクリプト。
+ * @vite/client（HMR）と実 ESM エントリを type=module で注入する。
+ */
+export const buildBootstrapScript = (_name: string, entryRelPath: string): string => {
+  const entryUrl = '/' + entryRelPath.replace(/\\/g, '/')
+  return `(() => {
+  const inject = (src) => {
+    const s = document.createElement('script')
+    s.type = 'module'
+    s.src = src
+    document.head.appendChild(s)
+  }
+  inject('/@vite/client')
+  inject(${JSON.stringify(entryUrl)})
+})();`
+}
