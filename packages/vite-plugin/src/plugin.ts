@@ -5,6 +5,7 @@ import { resolveOptions, type GoqooOptions } from './options'
 import { discoverEntries } from './entries'
 import { resolveDevInfo } from './devinfo'
 import { orchestrateBuild } from './build'
+import { applyServerDefaults } from './dev-server'
 
 const NOOP_ID = '\0goqoo-noop'
 
@@ -16,8 +17,8 @@ export const goqoo = (rawOptions?: GoqooOptions): Plugin => {
 
   return {
     name: 'goqoo',
-    config(_userConfig, env) {
-      if (env.command === 'serve') return undefined
+    config(userConfig, env) {
+      if (env.command === 'serve') return applyServerDefaults(userConfig)
       return { build: { write: false, emptyOutDir: false, rollupOptions: { input: NOOP_ID } } }
     },
     resolveId(id) {
