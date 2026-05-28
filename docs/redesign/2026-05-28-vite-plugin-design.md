@@ -134,8 +134,9 @@ lib mode が分離出力する CSS を JS 側に注入し、style-loader 相当�
   ```
 
 - **契約**: `window.__goqoo__`（lib 所有・二重実行ガード）／ `window.__devinfo__`（plugin 所有・ビルド情報）。
-  両パッケージはコード依存を持たず、この window 形状のみで疎結合。devinfo の型定義は両者が
-  共有できるよう公開する。
+  両パッケージはコード依存を持たず、この window 形状のみで疎結合。**`DevInfo` 型と `window` 拡張は
+  `@goqoo/lib` が所有**し、plugin は banner の形を合わせるため `DevInfo` を type-only 参照する
+  （詳細は [lib 設計書](./2026-05-28-lib-design.md) を参照）。
 
 ### 5. dev server + HMR ブートストラップ
 
@@ -169,9 +170,10 @@ import('https://localhost:PORT/src/apps/<name>.ts')  // 実エントリ（ESM）
 - 現行同様: ランダムサフィックス・basePath・ACL 環境変数対応・アップロード先 URL の出力。
 - core ビルドからは独立。利用者は `vite.config.ts` の plugins に任意で追加する。
 
-## @goqoo/create が生成する npm scripts（整合確認のため記載）
+## create-goqoo が生成する npm scripts（整合確認のため記載）
 
-`@goqoo/create` 側の実装範囲だが、本プラグインの前提として整合を確認しておく。
+`create-goqoo`（scaffold）側の実装範囲だが、本プラグインの前提として整合を確認しておく。
+詳細は [create 設計書](./2026-05-28-create-design.md) を参照。
 
 ```jsonc
 {
