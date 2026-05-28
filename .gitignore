@@ -1,4 +1,5 @@
 dist
+.DS_Store
 
 # yarnを使うのでpackage-lock.jsonは作られても無視
 package-lock.json
