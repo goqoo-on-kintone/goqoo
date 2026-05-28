@@ -30,4 +30,11 @@ describe('goqoo() build orchestration', () => {
     expect(foo).not.toMatch(/^\s*import\s/m)
     expect(foo).not.toMatch(/from\s+["']\.\//m)
   })
+
+  it('出力に window.__devinfo__[entryName] への代入が含まれる', () => {
+    const foo = readFileSync(join(dist, 'foo.js'), 'utf8')
+    expect(foo).toContain('window.__devinfo__')
+    // minify 後はキーが .foo= 形式になるため、エントリ名が存在することを確認
+    expect(foo).toMatch(/window\.__devinfo__.*\.foo\s*=/)
+  })
 })
