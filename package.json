@@ -13,5 +13,8 @@
   "license": "MIT",
   "devDependencies": {
     "@changesets/cli": "^2.31.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild"]
   }
 }
