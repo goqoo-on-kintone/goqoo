@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.1] - 2026-05-28
+
+### Bug Fixes
+
+- **Removed automatic typesync execution in preinstall** - Stopped running `typesync || true` during install so it installs without issues on Windows as well
+
+---
+
 ## [1.3.0] - 2025-02-24
 
 Changes since v1.2.0 (2023-04-03)
