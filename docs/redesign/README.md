@@ -16,6 +16,7 @@
 ## 実装計画
 
 - [2026-05-28: モノレポ足場 + @goqoo/vite-plugin 実装計画](./2026-05-28-monorepo-vite-plugin-plan.md)
+- [2026-05-28: @goqoo/lib 実装計画](./2026-05-28-lib-plan.md)
 
 ## バージョン方針（2026-05-28 決定）
 
