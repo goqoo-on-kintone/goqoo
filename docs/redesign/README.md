@@ -10,3 +10,4 @@
 ## 設計書
 
 - [2026-05-28: @goqoo/vite-plugin 設計書](./2026-05-28-vite-plugin-design.md)
+- [2026-05-28: @goqoo/lib 設計書](./2026-05-28-lib-design.md)
