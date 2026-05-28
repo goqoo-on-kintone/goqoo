@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { buildPackageJson } from '../src/builders'
+import { buildPackageJson, buildClaudeMd } from '../src/builders'
 
 const base = { name: 'myapp', description: 'd', ginue: false, gyuma: false, trunks: false }
 
@@ -36,5 +36,18 @@ describe('buildPackageJson', () => {
     const pkg = buildPackageJson({ ...base, ginue: true })
     expect(pkg.devDependencies).toHaveProperty('ginue')
     expect(pkg.scripts['ginue:pull']).toBeDefined()
+  })
+})
+
+describe('buildClaudeMd', () => {
+  it('主要セクションとツール記述を含む', () => {
+    const md = buildClaudeMd({ name: 'myapp', description: 'd', ginue: true, gyuma: true, trunks: false })
+    expect(md).toContain('src/apps/')
+    expect(md).toContain('goqoo(')
+    expect(md).toContain('@goqoo/lib')
+    expect(md).toContain('アップロード')
+    expect(md).toContain('gyuma')
+    expect(md).toContain('ginue')
+    expect(md).not.toContain('trunks')
   })
 })
