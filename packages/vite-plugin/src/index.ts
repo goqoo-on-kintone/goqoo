@@ -1,3 +1,3 @@
-export const goqoo = () => {
-  throw new Error('not implemented')
-}
+export { goqoo } from './plugin'
+export type { GoqooOptions } from './options'
+export type { DevInfo } from './devinfo'

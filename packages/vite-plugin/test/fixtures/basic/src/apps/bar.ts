@@ -1,0 +1,2 @@
+window.alert('bar')
+export {}
