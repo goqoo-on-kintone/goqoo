@@ -15,21 +15,24 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsup",
     "test": "vitest run",
     "test:watch": "vitest"
   },
   "peerDependencies": {
-    "vite": ">=5",
-    "@aws-sdk/client-s3": "*"
+    "@aws-sdk/client-s3": "*",
+    "vite": ">=5"
   },
   "peerDependenciesMeta": {
-    "@aws-sdk/client-s3": { "optional": true }
+    "@aws-sdk/client-s3": {
+      "optional": true
+    }
   },
   "license": "MIT",
   "devDependencies": {
     "@aws-sdk/client-s3": "^3.1055.0",
     "@types/node": "^25.9.1",
+    "tsup": "^8.5.1",
     "typescript": "^6.0.3",
     "vite": "^8.0.14",
     "vitest": "^4.1.7"
