@@ -22,7 +22,8 @@ goqoo v2 再設計の第三弾。scaffold パッケージ `create-goqoo`（現 `
 
 | 論点 | 決定 | 理由 |
 |---|---|---|
-| パッケージ名 / 起動 | **`create-goqoo`** / `npm create goqoo` | UX 良。dir は `packages/create/`、メタパッケージ `goqoo` が依存 |
+| パッケージ名 / 起動 | **`create-goqoo`** / `npm create goqoo` | UX 良。dir は `packages/create/`。`npm create goqoo` で起動する独立ツール（メタ `goqoo` の runtime 依存にはしない） |
+| バージョニング | **独立**（lib/plugin の lockstep に含めない。Vue 型 = 案A、2026-05-29 決定） | scaffolder はライフサイクルが異なる。「全部 v2」の cohesion はメタ `goqoo` が担う。詳細は [README のバージョン方針](./README.md) |
 | scaffold ツール | **@clack/prompts + 素のファイルコピー**（create-vite 風、SAO 廃止） | 軽量・制御性・UX |
 | フレームワーク | **React/Vue はテンプレに含めない**（プロンプト廃止。必要なら利用者が自己責任で追加） | plugin 設計と整合・大幅簡素化 |
 | テンプレート構成 | **単一ベース + ツールオーバーレイ合成** | 組合せ爆発を避ける |

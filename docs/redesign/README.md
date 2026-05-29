@@ -19,11 +19,17 @@
 - [2026-05-28: @goqoo/lib 実装計画](./2026-05-28-lib-plan.md)
 - [2026-05-28: create-goqoo 実装計画](./2026-05-28-create-plan.md)
 
-## バージョン方針（2026-05-28 決定）
+## バージョン方針（2026-05-28 決定 / 2026-05-29 改定）
 
-- **lockstep バージョニング**を採用。全パッケージ（メタ `goqoo` / `@goqoo/vite-plugin` /
-  `@goqoo/lib` / `create-goqoo`）を**常に同一バージョンでまとめて上げる**（Babel/Jest 方式）。
-- v2 世代として **2.0.0 から開始**。新3点も最初から 2.0.0。
-- これにより「全部 v2」が今後も維持される。
-- ⚠️ session-2026-02-24 の「各サブパッケージは Changesets で独立管理」は **lockstep に改める**
-  （Changesets の fixed/locked グループ設定で実現）。
+- **ランタイムは lockstep、scaffolder は独立**（Vue 型 = 案A）。2026-05-29 に当初の「全部 lockstep」から改定。
+  - **lockstep グループ**: `@goqoo/vite-plugin` / `@goqoo/lib` /（将来の）メタ `goqoo`。常に同一バージョンでまとめて上げる。
+  - **独立**: `create-goqoo`（scaffolder）。lib/plugin の patch/minor では追従せず、テンプレ/CLI 変更や
+    上流メジャー追従のタイミングで独立にリリース（create-vite / create-vue と同じ運用）。
+- v2 世代として **2.0.0 から開始**（create-goqoo も初回は 2.0.0 に揃え、以降は独立に推移）。
+- 「全部 v2」の見かけの統一感は**メタパッケージ `goqoo`（全部入り）**が担うため、scaffolder を lockstep に
+  縛る必要はない（Angular/Rails 型ではなく Vue 型を採用）。
+- 実装: Changesets の `fixed` グループは `[["@goqoo/*"]]`（= vite-plugin + lib）。create-goqoo は fixed に入れない。
+  メタ `goqoo` パッケージ作成時に同グループへ追加する。
+- ⚠️ session-2026-02-24 の「各サブパッケージは独立管理」は、ランタイムのみ lockstep に改める（scaffolder は独立のまま）。
+- ⚠️ 初回公開の版数: 現状 package.json は 2.0.0 かつ changeset が `major` のため、`changeset version` は 3.0.0 を算出する。
+  初回は 2.0.0 を直接公開し、以降 changeset 運用に乗せる等、publish フロー設計時に確定する。
