@@ -31,7 +31,7 @@ goqoo                # 上記を束ねるメタパッケージ
 | 論点 | 決定 | 理由 |
 |---|---|---|
 | 責務境界 | **プラグインのみ** 提供。CLI 体験は `@goqoo/create` 生成の `vite.config.ts` + npm scripts で代替 | 最もシンプル・Vite 標準寄り |
-| dev ワークフロー | **Vite dev server + HMR** を狙う | モダンな DX |
+| dev ワークフロー | **単一ファイル同期配信 + SSE live-reload**（webpack-dev-server 方式）。当初は Vite dev server + HMR を狙ったが、実機ドッグフーディングで二段ブートストラップの async/競合/クロスオリジン問題が判明し転換 | kintone は単一クラシック script を同期ロードするため。dev/prod が同一成果物になり事故が減る |
 | 設定の置き場 | ビルド設定 = `vite.config.ts`（プラグインオプション）／ kintone 接続先（`environments`）= `goqoo.config.js`（**plugin は読まない**、upload ツールが読む） | 関心事の分離 |
 | S3 ホスティング | **維持**。ただし core ビルドから分離した**別プラグイン** | core を軽く保つ |
 | env 参照 | **Vite ネイティブ（`import.meta.env`）** | v2 クリーンスタート方針と一致 |
@@ -53,7 +53,8 @@ IIFE は多入力（multi-input）と両立しない（Rollup の制約）ため
 単一の `vite build` は 1 回のビルドしか走らないため、プラグインが **`vite build` 実行時に
 内部で各エントリの sub-build を再帰ガード付きで回す**（プラグインの hook 内で Vite の
 `build()` API をエントリ数だけ呼ぶ）。これにより npm script は素の `vite build` のままで、
-プラグインだけで完結する。dev は素の `vite`（dev server）で動き、`configureServer` が残りを担う。
+プラグインだけで完結する。dev も素の `vite`（dev server）で起動するが、Vite のネイティブ ESM 配信は使わず、
+`configureServer` が各エントリを「全部入り IIFE」としてメモリにビルドして `/<name>.js` で同期配信する（後述）。
 
 ## パッケージ構成
 
@@ -138,21 +139,26 @@ lib mode が分離出力する CSS を JS 側に注入し、style-loader 相当�
   `@goqoo/lib` が所有**し、plugin は banner の形を合わせるため `DevInfo` を type-only 参照する
   （詳細は [lib 設計書](./2026-05-28-lib-design.md) を参照）。
 
-### 5. dev server + HMR ブートストラップ
+### 5. dev server（単一ファイル同期配信 + SSE live-reload）
 
-素の `vite`（dev）で起動。プラグインの `configureServer` が各エントリの安定 URL
-`https://localhost:PORT/<name>.js`（本番登録 URL と同形）に対し、**クラシックなブートストラップ JS**
-を返す。ブートストラップは以下を `type=module` script として動的注入する:
+> **設計転換の経緯**: 当初は「Vite ネイティブ dev server + `@vite/client` を注入する二段ブートストラップ」で
+> HMR を狙ったが、実機（kintone）検証で次の問題が連鎖的に判明した:
+> ①`https: {}` だと Vite 5+ は証明書を生成せず TLS 失敗、②ブートストラップが `type=module` を注入するため
+> **async** になり、同期実行のアップロード済み prod と競合して二重実行ガードに弾かれる、
+> ③相対 URL / HTTP2 でポート欠落のクロスオリジン解決ミス。さらに **vanilla(kintone) では Vite の
+> module-HMR も結局 full reload** になり、ネイティブ HMR の旨味が無いと判明。
+> → webpack-dev-server と同じ「単一クラシック JS を同期配信 + 独自 live-reload」に転換した。
 
-```js
-// /<name>.js（dev）が返す内容のイメージ
-import('https://localhost:PORT/@vite/client')   // HMR クライアント
-import('https://localhost:PORT/src/apps/<name>.ts')  // 実エントリ（ESM）
-```
+- dev も `vite`（dev server）で起動するが、Vite のモジュール配信は使わない。`@vitejs/plugin-basic-ssl` を
+  同梱して https 証明書を自動生成（`goqoo()` は `[basicSsl(), core]` を返す）。
+- `configureServer` が起動時に各エントリを **`build({ write:false })` で「全部入り IIFE 文字列」**にバンドルして
+  メモリ保持し、`/<name>.js` で**同期配信**する（本番と同一成果物 + devinfo banner + live-reload snippet、非minify）。
+- `server.watcher` が `src/` 変更を検知 → 再バンドル → **SSE（`/__goqoo_reload__`）で全クライアントに reload 通知**。
+  配信 JS に仕込んだ snippet が `document.currentScript` の origin から SSE に接続し `location.reload()` する。
+- これにより kintone に登録する URL は本番と同形（`https://localhost:PORT/<name>.js`）のまま、
+  単一ファイル・同期・クロスオリジン安全・dev でも devinfo あり・保存で全画面リロード。
 
-これにより kintone に登録する URL は本番と同形のまま HMR が効く。
-
-**実機検証チェックポイント（実装後に必須）**:
+**実機検証（実装後に実施し、成立を確認済み）**:
 - localhost の HTTPS 証明書（自己署名 or mkcert）
 - 混在コンテンツ（mixed content）回避
 - kintone の CSP
@@ -177,7 +183,7 @@ import('https://localhost:PORT/src/apps/<name>.ts')  // 実エントリ（ESM）
 
 ```jsonc
 {
-  "dev":       "vite",                          // = goqoo start 相当（HMR）
+  "dev":       "vite",                          // = goqoo start 相当（単一ファイル配信 + SSE live-reload）
   "build":     "vite build",                    // dev ビルド（mode=development）
   "release":   "vite build --mode production",
   "watch":     "vite build --watch",
@@ -195,11 +201,11 @@ import('https://localhost:PORT/src/apps/<name>.ts')  // 実エントリ（ESM）
   4. `window.__devinfo__` を設定
   5. CSS が JS に含まれる
   を満たすことを検証
-- **HMR ブートストラップ配信**: `configureServer` の単体テスト + 実機チェックリスト
+- **dev 配信**: `buildReloadSnippet` の単体テスト + 実機（curl / kintone）での単一ファイル配信・SSE reload 確認
 
 ## 主なリスク / 未確定事項
 
-- **dev HMR の実機成立性**（証明書・CSP・mixed content・CORS）→ 実装後に検証チェックポイントを設ける。
-  ここが成立しない場合は `vite build --watch` + 静的 HTTPS 配信へのフォールバックを検討する。
+- dev は webpack-dev-server 方式（単一ファイル同期配信 + SSE）に確定。実機で TLS / 同期実行 / SSE reload を確認済み。
+  自己署名証明書はブラウザで一度許可が必要（運用上の注意）。
 - `envPrefix` の最終値 → 実装時に確定。
 - CSS インラインを既存プラグイン利用とするか自前実装とするか → 実装時に小さく確定。

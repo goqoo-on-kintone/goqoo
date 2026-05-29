@@ -1,12 +1,13 @@
 import type { Plugin } from 'vite'
+import type { ServerResponse } from 'node:http'
 import { resolve } from 'node:path'
 import { rmSync, existsSync } from 'node:fs'
 import basicSsl from '@vitejs/plugin-basic-ssl'
 import { resolveOptions, type GoqooOptions } from './options'
 import { discoverEntries } from './entries'
 import { resolveDevInfo } from './devinfo'
-import { orchestrateBuild } from './build'
-import { applyServerDefaults, buildBootstrapScript } from './dev-server'
+import { orchestrateBuild, bundleEntryDev } from './build'
+import { applyServerDefaults, RELOAD_PATH } from './dev-server'
 
 const NOOP_ID = '\0goqoo-noop'
 
@@ -17,6 +18,10 @@ export const goqoo = (rawOptions?: GoqooOptions): Plugin[] => {
   let root = process.cwd()
   let mode = 'development'
   let command: 'build' | 'serve' = 'build'
+
+  // dev: 各エントリの「全部入り IIFE 文字列」をメモリに保持し、/<name>.js で同期配信する。
+  const devCache = new Map<string, string>()
+  const sseClients = new Set<ServerResponse>()
 
   const core: Plugin = {
     name: 'goqoo',
@@ -35,31 +40,67 @@ export const goqoo = (rawOptions?: GoqooOptions): Plugin[] => {
       mode = config.mode
       command = config.command
     },
-    configureServer(server) {
+    async configureServer(server) {
       const appsDir = resolve(root, options.appsDir)
-      const relFor = (abs: string) => abs.slice(root.length + 1).replace(/\\/g, '/')
-      // dev サーバ自身の origin。別オリジン(kintone)で実行される bootstrap に絶対URLで埋め込む。
-      // HTTP/2 では Host ヘッダにポートが乗らないことがあるため、実際の listen アドレスから組み立てる。
-      const resolveOrigin = (req: { headers: Record<string, string | string[] | undefined> }): string => {
-        const proto = server.config.server.https ? 'https' : 'http'
-        const host = String(req.headers.host ?? 'localhost').split(':')[0]
-        const addr = server.httpServer?.address()
-        const port = addr && typeof addr === 'object' ? addr.port : server.config.server.port
-        return port ? `${proto}://${host}:${port}` : `${proto}://${host}`
-      }
-      server.middlewares.use((req, res, next) => {
-        const url = (req.url ?? '').split('?')[0]
-        const match = url.match(/^\/([^/]+)\.js$/)
-        const name = match?.[1]
+      const srcDir = resolve(root, 'src')
+
+      // 全エントリを「全部入り IIFE」としてメモリにビルドし、変更通知を送る
+      const rebuildAll = async () => {
         let entries: Record<string, string> = {}
         try {
           entries = discoverEntries(appsDir)
         } catch {
-          // appsDir が存在しない場合などは空のエントリで継続
+          // appsDir が無い等は空で継続
         }
-        if (name && entries[name]) {
+        const devInfo = resolveDevInfo(mode)
+        devCache.clear()
+        await Promise.all(
+          Object.entries(entries).map(async ([name, entry]) => {
+            try {
+              devCache.set(name, await bundleEntryDev({ root, name, entry, options, mode, devInfo }))
+            } catch (e) {
+              server.config.logger.error(`[goqoo] bundle failed: ${name}\n${(e as Error).message}`)
+            }
+          })
+        )
+        for (const client of sseClients) client.write('data: reload\n\n')
+      }
+
+      await rebuildAll()
+
+      // src 配下の変更でリビルド＆リロード通知
+      server.watcher.add(srcDir)
+      const onChange = (file: string) => {
+        if (file.startsWith(srcDir)) void rebuildAll()
+      }
+      server.watcher.on('change', onChange)
+      server.watcher.on('add', onChange)
+      server.watcher.on('unlink', onChange)
+
+      server.middlewares.use((req, res, next) => {
+        const url = (req.url ?? '').split('?')[0]
+
+        // live-reload の SSE エンドポイント
+        if (url === RELOAD_PATH) {
+          res.writeHead(200, {
+            'Content-Type': 'text/event-stream',
+            'Cache-Control': 'no-cache',
+            Connection: 'keep-alive',
+            'Access-Control-Allow-Origin': '*',
+          })
+          res.write('retry: 1000\n\n')
+          sseClients.add(res)
+          req.on('close', () => sseClients.delete(res))
+          return
+        }
+
+        // /<name>.js を「全部入り IIFE」で同期配信
+        const match = url.match(/^\/([^/]+)\.js$/)
+        const name = match?.[1]
+        if (name && devCache.has(name)) {
           res.setHeader('Content-Type', 'application/javascript')
-          res.end(buildBootstrapScript(resolveOrigin(req), relFor(entries[name])))
+          res.setHeader('Access-Control-Allow-Origin', '*')
+          res.end(devCache.get(name))
           return
         }
         next()

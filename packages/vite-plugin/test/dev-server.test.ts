@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { applyServerDefaults, buildBootstrapScript } from '../src/dev-server'
+import { applyServerDefaults, buildReloadSnippet, RELOAD_PATH } from '../src/dev-server'
 
 describe('applyServerDefaults', () => {
   it('cors を既定で有効化し、未指定 port を補完する（https は basic-ssl が担当）', () => {
@@ -15,11 +15,12 @@ describe('applyServerDefaults', () => {
   })
 })
 
-describe('buildBootstrapScript', () => {
-  it('origin を含む絶対 URL で @vite/client と実エントリを注入する', () => {
-    const script = buildBootstrapScript('https://localhost:59000', 'src/apps/foo.ts')
-    expect(script).toContain('https://localhost:59000/@vite/client')
-    expect(script).toContain('https://localhost:59000/src/apps/foo.ts')
-    expect(script).toContain('module')
+describe('buildReloadSnippet', () => {
+  it('currentScript の origin 基準で SSE に接続し reload する', () => {
+    const snippet = buildReloadSnippet()
+    expect(snippet).toContain('EventSource')
+    expect(snippet).toContain(RELOAD_PATH)
+    expect(snippet).toContain('document.currentScript')
+    expect(snippet).toContain('location.reload()')
   })
 })

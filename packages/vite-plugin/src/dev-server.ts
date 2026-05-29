@@ -16,24 +16,20 @@ export const applyServerDefaults = (config: UserConfig): UserConfig => {
   }
 }
 
+/** dev サーバが配信する live-reload エンドポイント（SSE）のパス */
+export const RELOAD_PATH = '/__goqoo_reload__'
+
 /**
- * kintone に登録する /<name>.js が返すクラシックスクリプト。
- * @vite/client（HMR）と実 ESM エントリを type=module で注入する。
- * kintone 等の別オリジンのページで実行されるため、dev サーバの origin を含む
- * 絶対 URL で注入する（相対だとページ側オリジンに解決されて 404 になる）。
+ * dev ビルドの先頭に仕込む live-reload クライアント。
+ * 自身の <script> の origin を基準に SSE へ接続し、変更通知で画面全体を reload する。
+ * kintone 等の別オリジンのページで実行されるため、currentScript.src から origin を導出する。
  */
-export const buildBootstrapScript = (origin: string, entryRelPath: string): string => {
-  const base = origin.replace(/\/$/, '')
-  const entryUrl = base + '/' + entryRelPath.replace(/\\/g, '/')
-  const clientUrl = base + '/@vite/client'
-  return `(() => {
-  const inject = (src) => {
-    const s = document.createElement('script')
-    s.type = 'module'
-    s.src = src
-    document.head.appendChild(s)
-  }
-  inject(${JSON.stringify(clientUrl)})
-  inject(${JSON.stringify(entryUrl)})
-})();`
-}
+export const buildReloadSnippet = (): string => `;(() => {
+  try {
+    var s = document.currentScript && document.currentScript.src
+    if (!s) return
+    var es = new EventSource(new URL(s).origin + ${JSON.stringify(RELOAD_PATH)})
+    es.onmessage = function () { location.reload() }
+  } catch (e) { console.error('[goqoo] live-reload error', e) }
+})();
+`
