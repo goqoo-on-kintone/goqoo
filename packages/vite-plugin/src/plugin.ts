@@ -49,8 +49,11 @@ export const goqoo = (rawOptions?: GoqooOptions): Plugin[] => {
           // appsDir が存在しない場合などは空のエントリで継続
         }
         if (name && entries[name]) {
+          // 別オリジン(kintone)で実行されるため、dev サーバ自身の origin を Host から組み立てて絶対URLにする
+          const encrypted = (req.socket as { encrypted?: boolean }).encrypted
+          const origin = `${encrypted ? 'https' : 'http'}://${req.headers.host ?? 'localhost'}`
           res.setHeader('Content-Type', 'application/javascript')
-          res.end(buildBootstrapScript(name, relFor(entries[name])))
+          res.end(buildBootstrapScript(origin, relFor(entries[name])))
           return
         }
         next()
