@@ -38,6 +38,15 @@ export const goqoo = (rawOptions?: GoqooOptions): Plugin[] => {
     configureServer(server) {
       const appsDir = resolve(root, options.appsDir)
       const relFor = (abs: string) => abs.slice(root.length + 1).replace(/\\/g, '/')
+      // dev サーバ自身の origin。別オリジン(kintone)で実行される bootstrap に絶対URLで埋め込む。
+      // HTTP/2 では Host ヘッダにポートが乗らないことがあるため、実際の listen アドレスから組み立てる。
+      const resolveOrigin = (req: { headers: Record<string, string | string[] | undefined> }): string => {
+        const proto = server.config.server.https ? 'https' : 'http'
+        const host = String(req.headers.host ?? 'localhost').split(':')[0]
+        const addr = server.httpServer?.address()
+        const port = addr && typeof addr === 'object' ? addr.port : server.config.server.port
+        return port ? `${proto}://${host}:${port}` : `${proto}://${host}`
+      }
       server.middlewares.use((req, res, next) => {
         const url = (req.url ?? '').split('?')[0]
         const match = url.match(/^\/([^/]+)\.js$/)
@@ -49,11 +58,8 @@ export const goqoo = (rawOptions?: GoqooOptions): Plugin[] => {
           // appsDir が存在しない場合などは空のエントリで継続
         }
         if (name && entries[name]) {
-          // 別オリジン(kintone)で実行されるため、dev サーバ自身の origin を Host から組み立てて絶対URLにする
-          const encrypted = (req.socket as { encrypted?: boolean }).encrypted
-          const origin = `${encrypted ? 'https' : 'http'}://${req.headers.host ?? 'localhost'}`
           res.setHeader('Content-Type', 'application/javascript')
-          res.end(buildBootstrapScript(origin, relFor(entries[name])))
+          res.end(buildBootstrapScript(resolveOrigin(req), relFor(entries[name])))
           return
         }
         next()
