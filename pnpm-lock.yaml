@@ -55,6 +55,9 @@ importers:
 
   packages/vite-plugin:
     dependencies:
+      '@vitejs/plugin-basic-ssl':
+        specifier: ^2.3.0
+        version: 2.3.0(vite@8.0.14(@types/node@25.9.1)(esbuild@0.27.7))
       vite-plugin-css-injected-by-js:
         specifier: ^5.0.1
         version: 5.0.1(vite@8.0.14(@types/node@25.9.1)(esbuild@0.27.7))
@@ -842,6 +845,12 @@ packages:
 
   '@types/node@25.9.1':
     resolution: {integrity: sha512-xfrlY7UD5rMJk3ZVJP8BNzS28J36YJg+xp+LPXV1TdWxr8uMH5A860QNxYDGQe/ylDSgjxE52Q9VnO7p75tJxg==}
+
+  '@vitejs/plugin-basic-ssl@2.3.0':
+    resolution: {integrity: sha512-bdyo8rB3NnQbikdMpHaML9Z1OZPBu6fFOBo+OtxsBlvMJtysWskmBcnbIDhUqgC8tcxNv/a+BcV5U+2nQMm1OQ==}
+    engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
+    peerDependencies:
+      vite: ^6.0.0 || ^7.0.0 || ^8.0.0
 
   '@vitest/expect@4.1.7':
     resolution: {integrity: sha512-1R+tw0ortHEbZDGMymm+pN7/AFQ/RkFFdtd7EN+VBpynKmLbP8A3rpEXdshBJ7+8hQ9zBJh/i1s0yKNtxAnU7w==}
@@ -2536,6 +2545,10 @@ snapshots:
   '@types/node@25.9.1':
     dependencies:
       undici-types: 7.24.6
+
+  '@vitejs/plugin-basic-ssl@2.3.0(vite@8.0.14(@types/node@25.9.1)(esbuild@0.27.7))':
+    dependencies:
+      vite: 8.0.14(@types/node@25.9.1)(esbuild@0.27.7)
 
   '@vitest/expect@4.1.7':
     dependencies:

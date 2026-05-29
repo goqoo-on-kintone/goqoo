@@ -1,6 +1,7 @@
 import type { Plugin } from 'vite'
 import { resolve } from 'node:path'
 import { rmSync, existsSync } from 'node:fs'
+import basicSsl from '@vitejs/plugin-basic-ssl'
 import { resolveOptions, type GoqooOptions } from './options'
 import { discoverEntries } from './entries'
 import { resolveDevInfo } from './devinfo'
@@ -9,13 +10,15 @@ import { applyServerDefaults, buildBootstrapScript } from './dev-server'
 
 const NOOP_ID = '\0goqoo-noop'
 
-export const goqoo = (rawOptions?: GoqooOptions): Plugin => {
+// kintone は https 前提のため dev では https が必須。basic-ssl が自己署名証明書を自動生成する。
+// build では basic-ssl は no-op（apply:'serve'）。
+export const goqoo = (rawOptions?: GoqooOptions): Plugin[] => {
   const options = resolveOptions(rawOptions)
   let root = process.cwd()
   let mode = 'development'
   let command: 'build' | 'serve' = 'build'
 
-  return {
+  const core: Plugin = {
     name: 'goqoo',
     config(userConfig, env) {
       if (env.command === 'serve') return applyServerDefaults(userConfig)
@@ -63,4 +66,6 @@ export const goqoo = (rawOptions?: GoqooOptions): Plugin => {
       await orchestrateBuild({ root, options, entries, mode, devInfo })
     },
   }
+
+  return [basicSsl(), core]
 }

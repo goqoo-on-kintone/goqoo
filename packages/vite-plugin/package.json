@@ -38,6 +38,7 @@
     "vitest": "^4.1.7"
   },
   "dependencies": {
+    "@vitejs/plugin-basic-ssl": "^2.3.0",
     "vite-plugin-css-injected-by-js": "^5.0.1"
   }
 }

@@ -8,7 +8,8 @@ export const applyServerDefaults = (config: UserConfig): UserConfig => {
   return {
     server: {
       ...server,
-      https: server.https ?? {},
+      // https の証明書生成は @vitejs/plugin-basic-ssl が担う（goqoo() が同梱）。
+      // ここで https を触ると basic-ssl の証明書付き設定と競合するため設定しない。
       cors: server.cors ?? true,
       port: server.port ?? DEFAULT_PORT,
     },
