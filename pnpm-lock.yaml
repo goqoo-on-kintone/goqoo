@@ -31,6 +31,15 @@ importers:
         specifier: ^4.1.7
         version: 4.1.7(@types/node@25.9.1)(jsdom@29.1.1)(vite@8.0.14(@types/node@25.9.1)(esbuild@0.27.7))
 
+  packages/goqoo:
+    dependencies:
+      '@goqoo/lib':
+        specifier: workspace:^
+        version: link:../lib
+      '@goqoo/vite-plugin':
+        specifier: workspace:^
+        version: link:../vite-plugin
+
   packages/lib:
     dependencies:
       sweetalert2:
