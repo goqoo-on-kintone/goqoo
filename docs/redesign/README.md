@@ -19,6 +19,10 @@
 - [2026-05-28: @goqoo/lib 実装計画](./2026-05-28-lib-plan.md)
 - [2026-05-28: create-goqoo 実装計画](./2026-05-28-create-plan.md)
 
+## リリース
+
+- [2026-05-29: リリース / publish フロー（verdaccio 検証済み）](./2026-05-29-release-flow.md)
+
 ## バージョン方針（2026-05-28 決定 / 2026-05-29 改定）
 
 - **ランタイムは lockstep、scaffolder は独立**（Vue 型 = 案A）。2026-05-29 に当初の「全部 lockstep」から改定。
