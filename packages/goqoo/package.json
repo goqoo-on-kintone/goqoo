@@ -1,0 +1,17 @@
+{
+  "name": "goqoo",
+  "version": "2.0.0",
+  "description": "goqoo v2 meta package — installs @goqoo/vite-plugin and @goqoo/lib. Scaffold a project with `npm create goqoo`.",
+  "keywords": ["kintone", "vite", "goqoo"],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/goqoo-on-kintone/goqoo.git"
+  },
+  "homepage": "https://github.com/goqoo-on-kintone/goqoo#readme",
+  "dependencies": {
+    "@goqoo/lib": "workspace:^",
+    "@goqoo/vite-plugin": "workspace:^"
+  },
+  "files": ["README.md"]
+}
